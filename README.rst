@@ -40,3 +40,15 @@ Para gerar um .pdf a partir de um .tex utilizando o script, basta apenas executa
 .. [#] http://github.com/qualiagil
 
 .. [#] http://www.phys.psu.edu/~collins/software/latexmk-jcc/
+
+Latex - Abntex no Macos
+=======================
+
+Faça download da última versão estável do abntex.
+ - http://codigolivre.org.br/frs/?group_id=46
+
+Download do MacTex
+ - http://www.tug.org/mactex/2011/
+
+Instale o Mactex e depois unzip os arquivos do abntex na pasta ~/Library/texmf/tex/latex. Crie se ela na existir.
+
