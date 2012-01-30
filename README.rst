@@ -38,9 +38,9 @@ Para gerar um .pdf a partir de um .tex utilizando o script, basta apenas executa
 Latex - Abntex no Macos
 =======================
 
-Faça download da última versão estável do abntex[#]_.
+Faça download da última versão estável do abntex [#]_.
  
-Download do MacTex[#]_
+Download do MacTex [#]_
 
 Instale o Mactex e depois unzip os arquivos do abntex na pasta ~/Library/texmf/tex/latex. Crie se ela na existir.
 
