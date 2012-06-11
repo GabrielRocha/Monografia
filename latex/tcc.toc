@@ -1,0 +1,39 @@
+\select@language {brazil}
+\contentsline {chapter}{\numberline {1}INTRODU\IeC {\c C}\IeC {\~A}O}{11}{chapter.listoffigures.1}
+\contentsline {section}{\numberline {1.1}Justificativa do trabalho}{11}{section.listoffigures.1.1}
+\contentsline {section}{\numberline {1.2}Objetivo}{11}{section.listoffigures.1.2}
+\contentsline {section}{\numberline {1.3}Estrutura do trabalho}{11}{section.listoffigures.1.3}
+\contentsline {chapter}{\numberline {2}CONCEITOS E T\IeC {\'E}CNICAS NECESS\IeC {\'A}RIAS}{12}{chapter.listoffigures.2}
+\contentsline {section}{\numberline {2.1}Samba}{13}{section.listoffigures.2.1}
+\contentsline {section}{\numberline {2.2}Permiss\IeC {\~o}es no Linux}{13}{section.listoffigures.2.2}
+\contentsline {section}{\numberline {2.3}Se\IeC {\c c}\IeC {\~o}es}{13}{section.listoffigures.2.3}
+\contentsline {section}{\numberline {2.4}Par\IeC {\^a}metro}{13}{section.listoffigures.2.4}
+\contentsline {section}{\numberline {2.5}Vari\IeC {\'a}veis}{13}{section.listoffigures.2.5}
+\contentsline {section}{\numberline {2.6}Vari\IeC {\'a}veis Especiais do Samba}{13}{section.listoffigures.2.6}
+\contentsline {section}{\numberline {2.7}PDC}{13}{section.listoffigures.2.7}
+\contentsline {section}{\numberline {2.8}Comandos B\IeC {\'a}sicos do Samba3}{13}{section.listoffigures.2.8}
+\contentsline {section}{\numberline {2.9}SAMBA-TOOLS}{13}{section.listoffigures.2.9}
+\contentsline {section}{\numberline {2.10}SMBD}{13}{section.listoffigures.2.10}
+\contentsline {section}{\numberline {2.11}NMDB}{13}{section.listoffigures.2.11}
+\contentsline {section}{\numberline {2.12}NETBIOS}{13}{section.listoffigures.2.12}
+\contentsline {section}{\numberline {2.13}Domain Master}{13}{section.listoffigures.2.13}
+\contentsline {section}{\numberline {2.14}Master Browser}{14}{section.listoffigures.2.14}
+\contentsline {section}{\numberline {2.15}WINS}{14}{section.listoffigures.2.15}
+\contentsline {section}{\numberline {2.16}BIND}{14}{section.listoffigures.2.16}
+\contentsline {section}{\numberline {2.17}Ldap}{14}{section.listoffigures.2.17}
+\contentsline {section}{\numberline {2.18}Kerberos}{14}{section.listoffigures.2.18}
+\contentsline {chapter}{\numberline {3}SAMBA 3}{15}{chapter.listoffigures.3}
+\contentsline {section}{\numberline {3.1}Instala\IeC {\c c}\IeC {\~a}o do samba}{15}{section.listoffigures.3.1}
+\contentsline {section}{\numberline {3.2}Configura\IeC {\c c}\IeC {\~a}o do samba para ser um PDC}{16}{section.listoffigures.3.2}
+\contentsline {section}{\numberline {3.3}Cadastro de Usu\IeC {\'a}rio}{18}{section.listoffigures.3.3}
+\contentsline {section}{\numberline {3.4}Cadastro de Maquinas}{19}{section.listoffigures.3.4}
+\contentsline {section}{\numberline {3.5}Script de Cadastro de Usu\IeC {\'a}rio e Maquinas}{20}{section.listoffigures.3.5}
+\contentsline {section}{\numberline {3.6}Migra\IeC {\c c}\IeC {\~a}o dos Usuarios ADM e Users do Linux para o Windows}{22}{section.listoffigures.3.6}
+\contentsline {section}{\numberline {3.7}Perfis Moveis}{23}{section.listoffigures.3.7}
+\contentsline {section}{\numberline {3.8}Compartilhamento de Arquivos}{24}{section.listoffigures.3.8}
+\contentsline {section}{\numberline {3.9}Script Logon}{26}{section.listoffigures.3.9}
+\contentsline {section}{\numberline {3.10}Compartilhamento de Impressoras}{26}{section.listoffigures.3.10}
+\contentsline {chapter}{\numberline {4}SAMBA 4}{28}{chapter.listoffigures.4}
+\contentsline {chapter}{\numberline {5}CONCLUS\IeC {\~O}ES}{29}{chapter.listoffigures.5}
+\contentsline {section}{\numberline {5.1}Objetivos alcan\IeC {\c c}ados}{29}{section.listoffigures.5.1}
+\contentsline {section}{\numberline {5.2}Trabalhos futuros}{29}{section.listoffigures.5.2}
