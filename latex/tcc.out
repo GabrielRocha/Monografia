@@ -21,18 +21,35 @@
 \BOOKMARK [1][-]{section.listoffigures.2.16}{BIND}{chapter.listoffigures.2}% 21
 \BOOKMARK [1][-]{section.listoffigures.2.17}{Ldap}{chapter.listoffigures.2}% 22
 \BOOKMARK [1][-]{section.listoffigures.2.18}{Kerberos}{chapter.listoffigures.2}% 23
-\BOOKMARK [0][-]{chapter.listoffigures.3}{SAMBA 3}{}% 24
-\BOOKMARK [1][-]{section.listoffigures.3.1}{Instala\347\343o do samba}{chapter.listoffigures.3}% 25
-\BOOKMARK [1][-]{section.listoffigures.3.2}{Configura\347\343o do samba para ser um PDC}{chapter.listoffigures.3}% 26
-\BOOKMARK [1][-]{section.listoffigures.3.3}{Cadastro de Usu\341rio}{chapter.listoffigures.3}% 27
-\BOOKMARK [1][-]{section.listoffigures.3.4}{Cadastro de Maquinas}{chapter.listoffigures.3}% 28
-\BOOKMARK [1][-]{section.listoffigures.3.5}{Script de Cadastro de Usu\341rio e Maquinas}{chapter.listoffigures.3}% 29
-\BOOKMARK [1][-]{section.listoffigures.3.6}{Migra\347\343o dos Usuarios ADM e Users do Linux para o Windows}{chapter.listoffigures.3}% 30
-\BOOKMARK [1][-]{section.listoffigures.3.7}{Perfis Moveis}{chapter.listoffigures.3}% 31
-\BOOKMARK [1][-]{section.listoffigures.3.8}{Compartilhamento de Arquivos}{chapter.listoffigures.3}% 32
-\BOOKMARK [1][-]{section.listoffigures.3.9}{Script Logon}{chapter.listoffigures.3}% 33
-\BOOKMARK [1][-]{section.listoffigures.3.10}{Compartilhamento de Impressoras}{chapter.listoffigures.3}% 34
-\BOOKMARK [0][-]{chapter.listoffigures.4}{SAMBA 4}{}% 35
-\BOOKMARK [0][-]{chapter.listoffigures.5}{CONCLUS\325ES}{}% 36
-\BOOKMARK [1][-]{section.listoffigures.5.1}{Objetivos alcan\347ados}{chapter.listoffigures.5}% 37
-\BOOKMARK [1][-]{section.listoffigures.5.2}{Trabalhos futuros}{chapter.listoffigures.5}% 38
+\BOOKMARK [1][-]{section.listoffigures.2.19}{NTVFS}{chapter.listoffigures.2}% 24
+\BOOKMARK [0][-]{chapter.listoffigures.3}{SAMBA 3}{}% 25
+\BOOKMARK [1][-]{section.listoffigures.3.1}{Instala\347\343o do samba}{chapter.listoffigures.3}% 26
+\BOOKMARK [1][-]{section.listoffigures.3.2}{Configura\347\343o do samba para ser um PDC}{chapter.listoffigures.3}% 27
+\BOOKMARK [1][-]{section.listoffigures.3.3}{Cadastro de Usu\341rio}{chapter.listoffigures.3}% 28
+\BOOKMARK [1][-]{section.listoffigures.3.4}{Cadastro de Maquinas}{chapter.listoffigures.3}% 29
+\BOOKMARK [1][-]{section.listoffigures.3.5}{Script de Cadastro de Usu\341rio e Maquinas}{chapter.listoffigures.3}% 30
+\BOOKMARK [1][-]{section.listoffigures.3.6}{Migra\347\343o dos Usuarios ADM e Users do Linux para o Windows}{chapter.listoffigures.3}% 31
+\BOOKMARK [1][-]{section.listoffigures.3.7}{Perfis Moveis}{chapter.listoffigures.3}% 32
+\BOOKMARK [1][-]{section.listoffigures.3.8}{Compartilhamento de Arquivos}{chapter.listoffigures.3}% 33
+\BOOKMARK [1][-]{section.listoffigures.3.9}{Script Logon}{chapter.listoffigures.3}% 34
+\BOOKMARK [1][-]{section.listoffigures.3.10}{Compartilhamento de Impressoras}{chapter.listoffigures.3}% 35
+\BOOKMARK [1][-]{section.listoffigures.3.11}{Instala\347\343o autom\341tica dos drive da impressora}{chapter.listoffigures.3}% 36
+\BOOKMARK [1][-]{section.listoffigures.3.12}{Ingressando o Windows XP no Dom\355nio}{chapter.listoffigures.3}% 37
+\BOOKMARK [1][-]{section.listoffigures.3.13}{Ingressando o Linux no Dom\355nio}{chapter.listoffigures.3}% 38
+\BOOKMARK [0][-]{chapter.listoffigures.4}{SAMBA 4}{}% 39
+\BOOKMARK [1][-]{section.listoffigures.4.1}{Instala\347\343o do SAMBA4}{chapter.listoffigures.4}% 40
+\BOOKMARK [1][-]{section.listoffigures.4.2}{Instala\347\343o e configura\347\343o do BIND9}{chapter.listoffigures.4}% 41
+\BOOKMARK [1][-]{section.listoffigures.4.3}{Instala\347\343o do Kerberos}{chapter.listoffigures.4}% 42
+\BOOKMARK [1][-]{section.listoffigures.4.4}{Kerberos com Bind9}{chapter.listoffigures.4}% 43
+\BOOKMARK [1][-]{section.listoffigures.4.5}{AD}{chapter.listoffigures.4}% 44
+\BOOKMARK [1][-]{section.listoffigures.4.6}{GPO}{chapter.listoffigures.4}% 45
+\BOOKMARK [1][-]{section.listoffigures.4.7}{Criando GPO}{chapter.listoffigures.4}% 46
+\BOOKMARK [1][-]{section.listoffigures.4.8}{Compartilhamento de arquivos}{chapter.listoffigures.4}% 47
+\BOOKMARK [1][-]{section.listoffigures.4.9}{Perfil M\363vel}{chapter.listoffigures.4}% 48
+\BOOKMARK [1][-]{section.listoffigures.4.10}{Gerenciando o Samba4}{chapter.listoffigures.4}% 49
+\BOOKMARK [1][-]{section.listoffigures.4.11}{Samba3 no AD Samba4}{chapter.listoffigures.4}% 50
+\BOOKMARK [1][-]{section.listoffigures.4.12}{Script para adicionar maquina linux no AD}{chapter.listoffigures.4}% 51
+\BOOKMARK [1][-]{section.listoffigures.4.13}{Windows no dom\355nio Samba 4}{chapter.listoffigures.4}% 52
+\BOOKMARK [0][-]{chapter.listoffigures.5}{CONCLUS\325ES}{}% 53
+\BOOKMARK [1][-]{section.listoffigures.5.1}{Objetivos alcan\347ados}{chapter.listoffigures.5}% 54
+\BOOKMARK [1][-]{section.listoffigures.5.2}{Trabalhos futuros}{chapter.listoffigures.5}% 55

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.12.28)  10 MAY 2012 17:55
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.12.28)  4 JUN 2012 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -767,7 +767,7 @@ Package caption Info: End \AtBeginDocument code.
 
 \openout2 = `capa.aux'.
 
-(./capa.tex <figuras/logo.jpg, id=156, 1366.10374pt x 253.94875pt>
+(./capa.tex <figuras/logo.jpg, id=225, 1366.10374pt x 253.94875pt>
 File: figuras/logo.jpg Graphic file (type jpg)
 
 <use figuras/logo.jpg>
@@ -943,7 +943,7 @@ l.38 \tableofcontents
 age.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 ...e Maquinas}{20}{section.listoffigures.3.5}
+l.30 ...e Maquinas}{19}{section.listoffigures.3.4}
                                                    [9
 
 ])
@@ -980,7 +980,7 @@ Cap\'{\i }tulo 2.
 Cap\'{\i }tulo 3.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
 (Font)              Font shape `OMS/pzccm/m/n' tried instead on input line 9.
-<figuras/swat_login.png, id=258, 370.38374pt x 274.02374pt>
+<figuras/swat_login.png, id=372, 370.38374pt x 274.02374pt>
 File: figuras/swat_login.png Graphic file (type png)
 
 <use figuras/swat_login.png>
@@ -990,22 +990,194 @@ Package pdftex.def Info: figuras/swat_login.png used on input line 22.
 
 
 
-] [16] [17] [18] [19] [20] [21] [22] [23]
-[24] [25]) [26] [27 <./figuras/swat_login.png>]
+] [16] [17] [18] [19]
+Overfull \hbox (25.02539pt too wide) in paragraph at lines 210--211
+[]\OT1/ptm/m/n/12 useradd --home /dev/null --shell /bin/false $machine$\OMS/pzc
+cm/m/n/12 n$\OT1/ptm/m/n/12 $ 2$\OML/ptmcm/m/it/12 >$\OT1/ptm/m/n/12 /dev/null 
+&& pas-swd -l $machine$\OMS/pzccm/m/n/12 n$\OT1/ptm/m/n/12 $
+ []
+
+[20] [21] [22] [23] [24] [25] [26] [27] [28]
+<figuras/login_windows_local.png, id=446, 378.41376pt x 269.005pt>
+File: figuras/login_windows_local.png Graphic file (type png)
+
+<use figuras/login_windows_local.png>
+Package pdftex.def Info: figuras/login_windows_local.png used on input line 613
+.
+(pdftex.def)             Requested size: 378.41283pt x 269.00433pt.
+
+<figuras/server_ip.png, id=448, 319.1925pt x 169.63374pt>
+File: figuras/server_ip.png Graphic file (type png)
+
+<use figuras/server_ip.png>
+Package pdftex.def Info: figuras/server_ip.png used on input line 621.
+(pdftex.def)             Requested size: 319.19171pt x 169.63332pt.
+
+<figuras/root_password.png, id=450, 298.11375pt x 263.98625pt>
+File: figuras/root_password.png Graphic file (type png)
+
+<use figuras/root_password.png>
+Package pdftex.def Info: figuras/root_password.png used on input line 629.
+(pdftex.def)             Requested size: 298.11302pt x 263.9856pt.
+
+<figuras/impressora_aparelho_fax.png, id=452, 433.62pt x 333.245pt>
+File: figuras/impressora_aparelho_fax.png Graphic file (type png)
+
+<use figuras/impressora_aparelho_fax.png>
+Package pdftex.def Info: figuras/impressora_aparelho_fax.png used on input line
+ 637.
+(pdftex.def)             Requested size: 433.61894pt x 333.24417pt.
+
+<figuras/propriedade_servidor.png, id=454, 718.685pt x 548.0475pt>
+File: figuras/propriedade_servidor.png Graphic file (type png)
+
+<use figuras/propriedade_servidor.png>
+Package pdftex.def Info: figuras/propriedade_servidor.png used on input line 64
+5.
+(pdftex.def)             Requested size: 718.68324pt x 548.04616pt.
+
+Overfull \hbox (263.43913pt too wide) in paragraph at lines 645--646
+ [][] 
+ []
+
+<figuras/adicionar_driver.png, id=456, 377.41pt x 415.5525pt>
+File: figuras/adicionar_driver.png Graphic file (type png)
+
+<use figuras/adicionar_driver.png>
+Package pdftex.def Info: figuras/adicionar_driver.png used on input line 653.
+(pdftex.def)             Requested size: 377.40907pt x 415.55148pt.
+
+<figuras/selecionar_driver.png, id=458, 460.72125pt x 356.33125pt>
+File: figuras/selecionar_driver.png Graphic file (type png)
+
+<use figuras/selecionar_driver.png>
+Package pdftex.def Info: figuras/selecionar_driver.png used on input line 661.
+(pdftex.def)             Requested size: 460.72012pt x 356.33037pt.
+
+Overfull \hbox (5.47601pt too wide) in paragraph at lines 661--662
+ [][] 
+ []
+
+<figuras/selecionar_so.png, id=460, 460.72125pt x 357.335pt>
+File: figuras/selecionar_so.png Graphic file (type png)
+
+<use figuras/selecionar_so.png>
+Package pdftex.def Info: figuras/selecionar_so.png used on input line 669.
+(pdftex.def)             Requested size: 460.72012pt x 357.33412pt.
+
+Overfull \hbox (5.47601pt too wide) in paragraph at lines 669--670
+ [][] 
+ []
+
+<figuras/propriedade_impressora.png, id=462, 718.685pt x 548.0475pt>
+File: figuras/propriedade_impressora.png Graphic file (type png)
+
+<use figuras/propriedade_impressora.png>
+Package pdftex.def Info: figuras/propriedade_impressora.png used on input line 
+677.
+(pdftex.def)             Requested size: 718.68324pt x 548.04616pt.
+
+Overfull \hbox (263.43913pt too wide) in paragraph at lines 677--678
+ [][] 
+ []
+
+<figuras/opcao_nao.png, id=464, 731.73375pt x 117.43875pt>
+File: figuras/opcao_nao.png Graphic file (type png)
+
+<use figuras/opcao_nao.png>
+Package pdftex.def Info: figuras/opcao_nao.png used on input line 685.
+(pdftex.def)             Requested size: 731.73196pt x 117.43845pt.
+
+Overfull \hbox (276.48785pt too wide) in paragraph at lines 685--686
+ [][] 
+ []
+
+<figuras/aba_avancado.png, id=466, 370.38374pt x 417.56pt>
+File: figuras/aba_avancado.png Graphic file (type png)
+
+<use figuras/aba_avancado.png>
+Package pdftex.def Info: figuras/aba_avancado.png used on input line 693.
+(pdftex.def)             Requested size: 370.38283pt x 417.55896pt.
+
+<figuras/login_dominio.png, id=469, 381.425pt x 274.02374pt>
+File: figuras/login_dominio.png Graphic file (type png)
+
+<use figuras/login_dominio.png>
+Package pdftex.def Info: figuras/login_dominio.png used on input line 703.
+(pdftex.def)             Requested size: 381.42406pt x 274.02307pt.
+
+<figuras/selecionar_impressora_servidor.png, id=471, 445.665pt x 333.245pt>
+File: figuras/selecionar_impressora_servidor.png Graphic file (type png)
+
+<use figuras/selecionar_impressora_servidor.png>
+Package pdftex.def Info: figuras/selecionar_impressora_servidor.png used on inp
+ut line 711.
+(pdftex.def)             Requested size: 445.66391pt x 333.24417pt.
+
+<figuras/impressora_compartilhada.png, id=473, 558.085pt x 276.03125pt>
+File: figuras/impressora_compartilhada.png Graphic file (type png)
+
+<use figuras/impressora_compartilhada.png>
+Package pdftex.def Info: figuras/impressora_compartilhada.png used on input lin
+e 719.
+(pdftex.def)             Requested size: 558.08365pt x 276.03056pt.
+
+Overfull \hbox (102.83954pt too wide) in paragraph at lines 719--720
+ [][] 
+ []
+
+) [29] [30 <./figuras/swat_login.png> <./figuras/login_windows_local.png>]
+[31 <./figuras/server_ip.png> <./figuras/root_password.png>] [32 <./figuras/imp
+ressora_aparelho_fax.png>] [33 <./figuras/propriedade_servidor.png>] [34 <./fig
+uras/adicionar_driver.png>] [35 <./figuras/selecionar_driver.png>] [36 <./figur
+as/selecionar_so.png>] [37 <./figuras/propriedade_impressora.png>] [38 <./figur
+as/opcao_nao.png> <./figuras/aba_avancado.png>] [39 <./figuras/login_dominio.pn
+g> <./figuras/selecionar_impressora_servidor.png>] [40 <./figuras/impressora_co
+mpartilhada.png>]
 \openout2 = `cap4.aux'.
 
  (./cap4.tex
 Cap\'{\i }tulo 4.
-) [28
+
+Overfull \hbox (4.5196pt too wide) in paragraph at lines 10--11
+[]\OT1/ptm/b/n/12 # ntp-date br.pool.ntp.org \OT1/ptm/m/n/12 - Atu-a-liza a hor
+a do ser-vi-dor a par-tir do ser-vi-dor br.pool.ntp.org. 
+ []
+
+[41
 
 
 
 ]
+Overfull \hbox (9.0179pt too wide) in paragraph at lines 42--43
+[]\OT1/ptm/b/n/12 # ./con-fi-gure --prefix=/usr/local/bind9 --sysconfdir=/etc/b
+ind \OT1/ptm/m/n/12 - Con-fi-gu-rar os par[]amentros
+ []
+
+[42]
+Overfull \hbox (0.25813pt too wide) in paragraph at lines 112--113
+[]\OT1/ptm/m/n/12 Ap[]os ins-ta-lar os pa-co-tes, subs-ti-tua o /etc/krb5.conf 
+pelo ar-quivo cri-ado e pr[]e-configurado
+ []
+
+[43]
+Overfull \hbox (0.48567pt too wide) in paragraph at lines 122--123
+[]\OT1/ptm/b/n/12 # host -t SRV []kerberos.[]udp. iff.bomjesus. \OT1/ptm/m/n/12
+ - O re-sul-tado deve ser pa-re-cido : []\OT1/ptm/b/n/12 kerberos.
+ []
+
+[44]
+Overfull \hbox (9.19786pt too wide) in paragraph at lines 160--161
+[]\OT1/ptm/m/n/12 SAMBA4 ainda n[]ao con-se-gue com-par-ti-lhar im-pres-so-ras 
+e tem pro-ble-mas com a integra[][]ao
+ []
+
+) [45]
 \openout2 = `cap5.aux'.
 
  (./cap5.tex
 Cap\'{\i }tulo 5.
-) [29
+) [46
 
 
 
@@ -1023,27 +1195,27 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 47.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 47.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 47.
 Package rerunfilecheck Info: File `tcc.out' has not changed.
-(rerunfilecheck)             Checksum: AA2D15E37D57AFF3204E24173B0FC435;3400.
+(rerunfilecheck)             Checksum: 2D5D863AE199FDEA7DE2E282480412EA;5099.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 47.
  ) 
 Here is how much of TeX's memory you used:
- 8286 strings out of 493633
- 125822 string characters out of 3143376
- 224044 words of memory out of 3000000
- 11265 multiletter control sequences out of 15000+200000
- 30408 words of font info for 65 fonts, out of 3000000 for 9000
+ 8472 strings out of 493633
+ 129892 string characters out of 3143376
+ 230186 words of memory out of 3000000
+ 11363 multiletter control sequences out of 15000+200000
+ 30708 words of font info for 66 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 36i,8n,41p,581b,462s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,8n,41p,601b,482s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
 live/2011/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2011/
 texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2011/texmf-dist
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on tcc.pdf (30 pages, 141899 bytes).
+Output written on tcc.pdf (47 pages, 756141 bytes).
 PDF statistics:
- 373 PDF objects out of 1000 (max. 8388607)
- 330 compressed objects within 4 object streams
- 73 named destinations out of 1000 (max. 500000)
- 315 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 629 PDF objects out of 1000 (max. 8388607)
+ 553 compressed objects within 6 object streams
+ 146 named destinations out of 1000 (max. 500000)
+ 521 words of extra memory for PDF output out of 10000 (max. 10000000)
 

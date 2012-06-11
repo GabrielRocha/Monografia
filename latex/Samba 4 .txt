@@ -1,0 +1,153 @@
+Atualizar relogio
+ntpdate br.pool.ntp.org 
+
+Instalando o Samba4
+
+# git clone git://git.samba.org/samba.git samba-master; cd samba-master
+
+# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython
+
+#cd samba-master
+
+# ./configure.developer
+
+# make
+
+# make install
+
+# /usr/local/samba/sbin/provision --realm=iff.bomjesus --domain=iff --adminpass=Senha00 --server-role='domain controller'
+
+Para verificar se o samba 4 foi instalado 
+
+# /usr/local/samba/bin/smbclient --version
+
+Iniciar o samba 
+# /usr/local/samba/bin/samba -i -M single
+Obs iniciar no modo debug
+
+Inserir no [global]
+
+allow dns updates = True 
+nsupdate command = samba_dnsupdate 
+
+Configurar o host
+
+# vim /etc/hosts
+"ip do servidor" iff.bomjesus iff
+
+INSTALAÇÃO DO BIND9
+
+Fazer download do bind9 9.9
+# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz
+
+Descompactar o pacote do bind9
+# tar xzvf bind-9.9.0.tar.gz
+
+Instalação do bind9
+# cd bind-9.9.0/
+# ./configure --prefix=/usr/local/bind9 --sysconfdir=/etc/bind
+# ./configure --sysconfdir=/etc/bind --localstatedir=/var/state
+# make
+# make install
+# cd /etc/bind
+# vim named.conf 
+
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+
+vim named.conf.options
+
+options {
+        directory "/var/cache/bind";
+        // If there is a firewall between you and nameservers you want
+        // to talk to, you may need to fix the firewall to allow multiple
+        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        // Uncomment the following block, and insert the addresses replacing
+        // the all-0's placeholder.
+
+        // forwarders {
+        //      0.0.0.0;
+        // };
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};
+
+# touch named.conf.local
+
+# groupadd named && useradd named –g named
+
+O comando provision já gerou os arquivos de configuração necessários, agora aponte esse arquivo com a linha abaixo dentro do /etc/bind/named.conf.local
+
+# vim /etc/bind/named.conf.local
+include "/usr/local/samba/private/named.conf";
+
+Comentar
+ # For BIND 9.8.0
+    database "dlopen /usr/local/samba/lib/bind9/dlz_bind9.so"; #Comente essa linha
+
+Descomentar
+ # For BIND 9.9.0
+     -> # database "dlopen /usr/local/samba/lib/bind9/dlz_bind9_9.so";
+
+Start bind
+
+/usr/local/bind9/sbin/named -u named -g
+
+Configurar o DNS do servidor
+
+vim /etc/resolv.conf
+nameserver "ip do servidor"
+
+Configuração do Kerberos
+
+# apt-get install krb5-user krb5-kdc krb5-config kstart
+
+Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo de exemplo localizado em /usr/local/samba/private/krb5.conf
+
+# cp /usr/local/samba/private/krb5.conf /etc/
+
+
+Apos as configurações pode verificar as configurações
+
+# host -t SRV _ldap._tcp.iff.bomjesus.
+
+# host -t SRV _kerberos._udp.iff.bomjesus.
+
+# host -t A iff.bomjesus
+
+Configurar atualizações dinâmicas no DNS com o kerberos
+
+Variaveis necessarias no sistema para o acesso do kerberos com bind
+
+# KEYTAB_FILE="/usr/local/samba/private/dns.keytab"
+# KRB5_KTNAME="/usr/local/samba/private/dns.keytab"
+# export KEYTAB_FILE
+# export KRB5_KTNAME
+
+Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
+
+#chown named:named /usr/local/samba/private/dns.keytab
+
+/usr/local/samba/sbin/samba_dnsupdate --verbose
+
+Configurar o windows xp
+
+samba-tools - Gerencia o samba user, group, ....
+
+
+KEYTAB_FILE="/usr/local/samba/private/dns.keytab"
+KRB5_KTNAME="/usr/local/samba/private/dns.keytab"
+export KEYTAB_FILE
+export KRB5_KTNAME
+
+
+
+
+
+
+
+

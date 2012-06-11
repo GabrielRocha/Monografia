@@ -22,6 +22,7 @@
 \contentsline {section}{\numberline {2.16}BIND}{14}{section.listoffigures.2.16}
 \contentsline {section}{\numberline {2.17}Ldap}{14}{section.listoffigures.2.17}
 \contentsline {section}{\numberline {2.18}Kerberos}{14}{section.listoffigures.2.18}
+\contentsline {section}{\numberline {2.19}NTVFS}{14}{section.listoffigures.2.19}
 \contentsline {chapter}{\numberline {3}SAMBA 3}{15}{chapter.listoffigures.3}
 \contentsline {section}{\numberline {3.1}Instala\IeC {\c c}\IeC {\~a}o do samba}{15}{section.listoffigures.3.1}
 \contentsline {section}{\numberline {3.2}Configura\IeC {\c c}\IeC {\~a}o do samba para ser um PDC}{16}{section.listoffigures.3.2}
@@ -30,10 +31,26 @@
 \contentsline {section}{\numberline {3.5}Script de Cadastro de Usu\IeC {\'a}rio e Maquinas}{20}{section.listoffigures.3.5}
 \contentsline {section}{\numberline {3.6}Migra\IeC {\c c}\IeC {\~a}o dos Usuarios ADM e Users do Linux para o Windows}{22}{section.listoffigures.3.6}
 \contentsline {section}{\numberline {3.7}Perfis Moveis}{23}{section.listoffigures.3.7}
-\contentsline {section}{\numberline {3.8}Compartilhamento de Arquivos}{24}{section.listoffigures.3.8}
+\contentsline {section}{\numberline {3.8}Compartilhamento de Arquivos}{25}{section.listoffigures.3.8}
 \contentsline {section}{\numberline {3.9}Script Logon}{26}{section.listoffigures.3.9}
 \contentsline {section}{\numberline {3.10}Compartilhamento de Impressoras}{26}{section.listoffigures.3.10}
-\contentsline {chapter}{\numberline {4}SAMBA 4}{28}{chapter.listoffigures.4}
-\contentsline {chapter}{\numberline {5}CONCLUS\IeC {\~O}ES}{29}{chapter.listoffigures.5}
-\contentsline {section}{\numberline {5.1}Objetivos alcan\IeC {\c c}ados}{29}{section.listoffigures.5.1}
-\contentsline {section}{\numberline {5.2}Trabalhos futuros}{29}{section.listoffigures.5.2}
+\contentsline {section}{\numberline {3.11}Instala\IeC {\c c}\IeC {\~a}o autom\IeC {\'a}tica dos drive da impressora}{28}{section.listoffigures.3.11}
+\contentsline {section}{\numberline {3.12}Ingressando o Windows XP no Dom\IeC {\'\i }nio}{29}{section.listoffigures.3.12}
+\contentsline {section}{\numberline {3.13}Ingressando o Linux no Dom\IeC {\'\i }nio}{29}{section.listoffigures.3.13}
+\contentsline {chapter}{\numberline {4}SAMBA 4}{41}{chapter.listoffigures.4}
+\contentsline {section}{\numberline {4.1}Instala\IeC {\c c}\IeC {\~a}o do SAMBA4}{41}{section.listoffigures.4.1}
+\contentsline {section}{\numberline {4.2}Instala\IeC {\c c}\IeC {\~a}o e configura\IeC {\c c}\IeC {\~a}o do BIND9}{42}{section.listoffigures.4.2}
+\contentsline {section}{\numberline {4.3}Instala\IeC {\c c}\IeC {\~a}o do Kerberos}{43}{section.listoffigures.4.3}
+\contentsline {section}{\numberline {4.4}Kerberos com Bind9}{44}{section.listoffigures.4.4}
+\contentsline {section}{\numberline {4.5}AD}{44}{section.listoffigures.4.5}
+\contentsline {section}{\numberline {4.6}GPO}{45}{section.listoffigures.4.6}
+\contentsline {section}{\numberline {4.7}Criando GPO}{45}{section.listoffigures.4.7}
+\contentsline {section}{\numberline {4.8}Compartilhamento de arquivos}{45}{section.listoffigures.4.8}
+\contentsline {section}{\numberline {4.9}Perfil M\IeC {\'o}vel}{45}{section.listoffigures.4.9}
+\contentsline {section}{\numberline {4.10}Gerenciando o Samba4}{45}{section.listoffigures.4.10}
+\contentsline {section}{\numberline {4.11}Samba3 no AD Samba4}{45}{section.listoffigures.4.11}
+\contentsline {section}{\numberline {4.12}Script para adicionar maquina linux no AD}{45}{section.listoffigures.4.12}
+\contentsline {section}{\numberline {4.13}Windows no dom\IeC {\'\i }nio Samba 4}{45}{section.listoffigures.4.13}
+\contentsline {chapter}{\numberline {5}CONCLUS\IeC {\~O}ES}{46}{chapter.listoffigures.5}
+\contentsline {section}{\numberline {5.1}Objetivos alcan\IeC {\c c}ados}{46}{section.listoffigures.5.1}
+\contentsline {section}{\numberline {5.2}Trabalhos futuros}{46}{section.listoffigures.5.2}

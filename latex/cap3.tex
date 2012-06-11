@@ -1,19 +1,19 @@
 \chapter{SAMBA 3}
-Este Capitulo vai descrever como é feita a instalação e configuração de um servidor samba como controlador de domínio, servidor de impressão e dados. Respeitando dos as regras de usuários e permissões
+Este Capítulo vai descrever como é feita a instalação e configuração de um servidor samba como controlador de domínio, servidor de impressão e servidor de dados, respeitando as regras de usuários e permissões
 
 \section{Instalação do samba}
 
-O pacote samba pode ser instalado através do repositório de sistemas da distribuição que esta sendo usada (no caso Ubuntu 11.04). Primeiro temos que atualizar a base de dados do repositório para que possamos instalar a versão mais atual do samba.
+O pacote samba pode ser instalado através do repositório de sistemas da distribuição que está sendo usado (no caso Ubuntu 11.04). Primeiro temos que atualizar a base de dados do repositório para que possamos instalar a versão mais atual do samba.
 
 \begin{itemize}
     \item \textbf{\# apt-get update} - Atualiza da base de dados do repositório no Ubuntu.
     \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote samba.
-    \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor samba e permite acesso de compartilhamentos no windows ou linux a partir de uma maquina linux.
+    \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor samba e permite acesso de compartilhamentos no windows ou linux a partir de uma máquina linux.
     \item \textbf{\# apt-get install swat} - Instalação da ferramenta gráfica para o gerenciamento do samba que é o swat.
     \item \textbf{\$ firefox localhost:901} - Para endereço de acesso no browser para acessar o swat.
 \end{itemize}
 
-Com ele se pode compartilhar impressoras, arquivos, criar usuários, dar acesso ou restringir. Tudo em um ambiente gráfico.
+Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir acesso ou restringir, tudo em um ambiente gráfico.
 
 Informe o usuário root e sua senha. Como se pode ser na Figura \ref{swat_login}
 
@@ -34,9 +34,9 @@ Na barra de ferramentas pode se observar as opções de configuração do swat. 
     \item \textbf{Shares} - Ativar compartilhamentos de diretórios e arquivos
     \item \textbf{Printers} - Compartilhamento de impressoras
     \item \textbf{Wizard} - Escreve as modificações no arquivo smb.conf do samba
-    \item \textbf{Status} - Status do servidor com usuário, compartilhamento ativos e arquivos abertos
+    \item \textbf{Status} - Status do servidor com usuário, compartilhamento dos ativos e arquivos abertos
     \item \textbf{View} - Mostra o arquivo smb.conf
-    \item \textbf{Password} - Cadastrar usuário, maquinas e mudar senha dos usuários no servidor
+    \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
 Com todos os componentes instalados o servidor samba pode ser iniciado.
@@ -74,7 +74,7 @@ Agora é necessários inserir, modificar e remover alguns parâmetros na seção
 
 	security = user
 
-	netbios name = battousai
+	netbios name = battousai-share
 
 	encrypt passwords = yes
 
@@ -103,13 +103,13 @@ Explicação das variáveis utilizadas:
 
 \begin{itemize}
 	\item \textbf{workgroup} - Nome do servidor de domínio.
-	\item \textbf{server string} - Descrição do servidor que aparece na barra de titulo das janelas do compartilhamento.
+	\item \textbf{server string} - Descrição do servidor que aparece na barra de título das janelas do compartilhamento.
 	\item \textbf{security} - Tipo de segurança do compartilhamento. Existem vários tipo domain, user e share.
 		\begin{enumerate}
-			\item {share}  - é utilizado quando o compartilhamento será aberto, onde todas as usuários conectados serão guest.
+			\item {share}  - é utilizado quando o compartilhamento será aberto, onde todos os usuários conectados serão guest.
 			\item {user} - todos os usuários que tentarem se conectar terão que se identificar por meio de um login e uma senha.
 			\item {domain} - quando um servidor de domínio será responsável pela identificação e segurança do usuário e dos dados.
-		\end{enumerate}
+		\end{enumerate} 
 	\item \textbf{netbios name} - Nome da netbios do servidor.
 	\item \textbf{encrypt password} - Quando informado a variável "yes" as senhas informadas para o servidor serão criptografadas.
 	\item \textbf{domain master} - Informa que o servidor samba será o domínio principal da rede.
@@ -121,15 +121,15 @@ Explicação das variáveis utilizadas:
 			\item {SeMachineAccountPrivilege} - Adicionar maquinas no domínio 
 			\item {SePrintOperatorPrivilege} - Gerência as impressoras
 		\end{enumerate}
-	\item \textbf{passdb backend} - Aceita valores como  osmbpasswd, tdbsam ou LDAP. Define qual vai ser a forma de armazenagem dos registros dos usuários.
+	\item \textbf{passdb backend} - Aceita valores como osmbpasswd, tdbsam ou LDAP. Define qual será a forma de armazenagem dos registros dos usuários.
 	\item \textbf{local master} - Define se o servidor será o Master Browser.
-	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100 assim vencendo os valores padrões de "os level" o servidores windows.
+	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de "os level" o servidores windows.
 	\item \textbf{win support} - Se nmbd será um servidor WINS.
 	\item \textbf{map to guest} - Tornar usuário guest todos que não conseguirem se identificar com um login e senha valido.
 	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd pararem de funcionar.
 \end{itemize}
 
-Com todas as variáveis devidamente adicionadas o servidor samba tem que ser reiniciado para que todas as modificações entrem em vigor.
+Com todas as variáveis devidamente adicionadas o servidor samba precisa ser reiniciado para que todas as modificações entrem em vigor.
 
 \begin{itemize}
 	\item \textbf{\# testparm} - Verifica se existe algum erro de sintaxe no arquivos de configuração no smb.conf
@@ -141,27 +141,27 @@ Com todas as variáveis devidamente adicionadas o servidor samba tem que ser rei
 
 \section{Cadastro de Usuário}
 
-Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux onde se encontra o samba. Antes da criação dos usuários normais o usuário root tem que ser cadastro no samba.
+Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o samba. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no samba.
 
 \begin{itemize}
-	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e ser a mesma do usuário no sistema.
+	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
 \end{itemize}
 
-Cada usuário no sistema deverá conter uma pasta com o nome de "profile.pds", essa pasta conterá informações das sessões de logon que o usuário fez no servidor de domínio.
+Cada usuário no sistema deverá conter uma pasta com o nome de "profile.pds", essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio.
 
 Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
 
 \begin{itemize}
-	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados junto com o usuário no sistema.
+	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
 \end{itemize}
 
-Antes de cadastra-los no samba ele tem que ser criado no sistema.
+Antes de cadastrá-los no samba ele precisa ser criado no sistema.
 
 \begin{itemize}
 	\item \textbf{\# adduser usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , entre outros dados.
 \end{itemize}
 
-Após o usuário criado no sistema agora ele tem que ser cadastrado no samba.
+Após o usuário drt criado no sistema, ele necessita ser cadastrado no samba.
 
 \begin{itemize}
 	\item \textbf{\# smbpasswd -a usuario} - Informe a mesma senha cadastrada no linux.
@@ -169,26 +169,26 @@ Após o usuário criado no sistema agora ele tem que ser cadastrado no samba.
 
 \section{Cadastro de Maquinas}
 
-Da mesma forma que os usuário tem que ser cadastrados no sistema as maquinas que poderão entrar no domínio também devem ser cadastradas.
+Da mesma forma que os usuário tem que ser cadastrado no sistema as máquinas que poderão entrar no domínio também devem ser cadastradas.
 
-As maquinas são cadastradas como usuários normais no linux antes de serem cadastradas no samba, mas sem pasta home e sem bash para login.
+As máquinas são cadastradas como usuários normais no linux antes de serem cadastradas no samba, porém sem pasta home e sem bash para login.
 
 \begin{itemize}
-	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as maquinas cadastradas.
-	\item \textbf{\# useradd --home /dev/null --shell /bin/false --group machine computador1\$} - 	Comando para a criação do maquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba ira identificar que o usuário na verdade é uma maquina. 
+	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas.
+	\item \textbf{\# useradd --home /dev/null --shell /bin/false --group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba irá identificar que o usuário na verdade é uma maquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/maquina.
 \end{itemize}
 
-Após a criação do usuário/maquina no sistema agora ele tem que ser cadastrado no samba.
+Após a criação do usuário/máquina no sistema agora ele tem que ser cadastrado no samba.
 
 \begin{itemize}	
-	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra o usuário como uma maquina no samba.
+	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra o usuário como uma máquina no samba.
 \end{itemize}
 
 
 \section{Script de Cadastro de Usuário e Maquinas}
 
-Para facilitar a criação e exclusão dos usuários no sistema e no samba, foi feito um script. Com ele é possível criar usuários e maquinas, adicionar usuários em grupos e também exclui-los do sistema.
+Para facilitar a criação e exclusão dos usuários no sistema e no samba, foi feito um script. Com ele é possível criar usuários e máquinas, adicionar usuários em grupos e também excluí-los do sistema.
 
 \textbf{Script smbmanager.sh}
 
@@ -199,8 +199,7 @@ Para facilitar a criação e exclusão dos usuários no sistema e no samba, foi 
 end=0
 
 help="É NECESSÁRIO TER PERMISSÃO DE ROOT $\backslash$nUSO: smbmanager [OPCAO] [VALOR] $\backslash$n 
-$\backslash$nOpções gerais:$\backslash$n -g [VALOR]   Grupo no qual será adicionado a máquina ou 
-usuário  $\backslash$n -m [VALOR]   Nome da máquina a ser cadastrada $\backslash$n -u [VALOR]   Usuário a ser cadastrado no sistema e no samba $\backslash$n -d [VALOR]   Usuário a ser deletado do sistema $\backslash$n -x [VALOR]   Máquina a ser deletada do samba e do sistema"
+$\backslash$nOpções gerais:$\backslash$n -g [VALOR]   Grupo no qual será adicionado a máquina ou usuário  $\backslash$n -m [VALOR]   Nome da máquina a ser cadastrada $\backslash$n -u [VALOR]   Usuário a ser cadastrado no sistema e no samba $\backslash$n -d [VALOR]   Usuário a ser deletado do sistema $\backslash$n -x [VALOR]   Máquina a ser deletada do samba e do sistema"
 
 AddMachine(){
 
@@ -208,14 +207,20 @@ if [ -n "\$machine" ] ; then
 
     if [ -z "\$group" ] ; then
 
-        useradd --home /dev/null --shell /bin/false \$machine$\backslash$\$ \&\& passwd -l 
-\$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
+        useradd --home /dev/null --shell /bin/false \$machine$\backslash$\$ 2$ >$/dev/null \&\& passwd -l \$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
 
     fi
 
     if [ -n "\$group" ]; then
+	
+        useradd --home /dev/null --shell /bin/false --group \$group \$machine$\backslash$\$ 
 
-        useradd --home /dev/null --shell /bin/false --group \$group \$machine$\backslash$\$ \&\& passwd -l \$machine$\backslash$\$ 2>/dev/null \&\& smbpasswd -a -m \$machine        
+	check=\$(echo \$$?$)
+
+		if [ \$check -eq 0 ]; then
+	
+ 			passwd -l \$machine$\backslash$\$ 2>/dev/null \&\& smbpasswd -a -m \$machine 
+       fi
 
     fi        
 
@@ -229,7 +234,7 @@ if [ -n "\$user" ] ; then
 
     if [ -z "\$group" ] ; then
 
-        adduser \$user
+        adduser \$user 2$>$/dev/null 
 
         smbpasswd -a \$user
 
@@ -237,19 +242,23 @@ if [ -n "\$user" ] ; then
 
     if [ -n "\$group" ] ; then
 
-        adduser \$user
+        adduser \$user 2$>$/dev/null
 
         usermod -g \$user \$group
 
-        smbpasswd -a \$user
+		check=\$(echo \$$?$)
 
+		if [ \$check -eq 0 ]; then
+
+        	smbpasswd -a \$user
+
+		fi
+		
     fi
 
 fi
 
 }
-
-
 
 DelMachine(){
 
@@ -321,7 +330,7 @@ fi
 
 **FIGURA DO SCRIPT RODANDO
 
-O script tem que ter a permissão de execução para que possa ser iniciado.
+O script tem que ter a permissão de root para que possa ser iniciado.
 
 \begin{itemize}
 	\item \textbf{\# chmod +x smbmanger.sh} - Adiciona a permissão de execução ao script.
@@ -347,7 +356,7 @@ RID (Relative Identifier)
 	\item \textbf{\# net groupmap add ntgroup="Domain Admins" rid=512 unixgroup=root} - Irá mapear o grupo root para o grupo Domain Admins do windows.
 	\item \textbf{\# net groupmap add ntgroup="Domain Users" rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
 	\item \textbf{\# net groupmap delete ntgroup="Domain Admins"} - Remove o mapeamento dos grupos.
-	\item \textbf{\# net groupmap modify ntgroup="Domain Admins" rid=512 unixgroup=root} - Caso haja a necessidade de modificar um mapeamento.
+	\item \textbf{\# net groupmap modify ntgroup="Domain Admins" rid=512 unixgroup=root} - Caso tenha necessidade de modificar um mapeamento.
 \end{itemize}
 
 Dessa forma se o usuário logar como root em algum terminal windows no domínio ele terá permissões de administrador.
@@ -355,7 +364,7 @@ Dessa forma se o usuário logar como root em algum terminal windows no domínio 
 \section{Perfis Moveis}
 
 Para que as configurações e personalizações do perfil do usuário no windows sejam salvas é necessário a criação de um perfil móvel no servidor samba. 
-A vantagem de se utilizar um perfil móvel é que não ha a obrigatoriedade de se realizar backup da maquina do usuário, pois os arquivos são salvos no servidor, sendo assim é só o usuário fizer login em outra maquina windows que seu perfil e dados serão migrados para o novo computador. Porem o perfil móvel tem um problema que é a quantidade de dados armazenados, se o numero de usuário e dados de cada um for muito grande criasse a necessidade de ter um servidor com muito espaço e uma rede muito bem estruturado. 
+A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade de se realizar backup na máquina do usuário, pois os arquivos são salvos no servidor, sendo assim é só o usuário fazer o login em outra máquina windows que o seu perfil e os seus dados serão migrados para o novo computador. Porém o perfil móvel tem um problema que é a quantidade de dados armazenados, se o numero de usuários e dados de cada um for muito grande cria-se a necessidade de ter um servidor com muito espaço e uma rede muito bem estruturada. 
 
 Para ativar a configuração de perfil móvel no samba deve-se adicionar no [global] 
 
@@ -371,16 +380,16 @@ Para ativar a configuração de perfil móvel no samba deve-se adicionar no [glo
 	\item \textbf{logon drive} - Unidade que será mapeada com o caminho $\backslash$$\backslash$servidor$\backslash$profiles$\backslash$"nome do usuário" no Windows.
 \end{itemize}
 
-Como a estrutura da rede do IFF Bom Jesus é composta por Windows XP/7 e Ubuntu 11.04 ou superior se cria a opção de não adicionar a variável "logon home" 
+Como a estrutura da rede do IFF Bom Jesus é composta por Windows XP/7 e Ubuntu 11.04 ou superior temos a opção de não adicionar a variável "logon home" 
 
-Agora tem que deletar todas as pastas do diretório home e trocar a sua permissão 
+Agora precisamos deletar todas as pastas do diretório home e trocar a sua permissão 
 
 \begin{itemize}
 	\item \textbf{\# rm -r /home/*}
 	\item \textbf{\# chmod 1777 /home}
 \end{itemize}
 
-Todo usuário que fizer login no servidor ira criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de dar somente acesso ao usuário logado.
+Todo usuário que fizer login no servidor irá criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de permitir somente acesso ao usuário logado.
 
 Os diretórios criados podem ficar em compartilhamento para o usuário que será mapeado na unidade H no windows.
 
@@ -400,9 +409,9 @@ Os diretórios criados podem ficar em compartilhamento para o usuário que será
 
 \begin{itemize}
 	\item \textbf {path} - Caminho da pasta que vai ser compartilhada.
-	\item \textbf {writeable} - Da a permissão de escrita no diretório e nos arquivos.
+	\item \textbf {writeable} - Permite a escrita no diretório e nos arquivos.
 	\item \textbf {browseable} - Define se o compartilhamento poderá ser visto na pasta principal do compartilhamento ou somente pelo endereço completo.
-	\item \textbf {create mask} - Força a criação dos arquivos com a permissão 0600, assim só os donos do arquivo vão poder alterar os arquivos.
+	\item \textbf {create mask} - Força a criação dos arquivos com a permissão 0600, assim somente os donos do arquivo poderão alterar os arquivos.
 	\item \textbf {directory mask} - Criação dos diretórios com permissão 0700.
 \end{itemize}
 
@@ -410,7 +419,7 @@ Os diretórios criados podem ficar em compartilhamento para o usuário que será
 
 \section{Compartilhamento de Arquivos}
 
-O compartilhamento de arquivos se da pela adição de seções no arquivo smb.conf.
+O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf.
 
 [Diretoria]
 
@@ -455,10 +464,10 @@ Existem outras variáveis que poder ser adicionadas em um compartilhamento de ar
 
 \section{Script Logon}
 
-Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automáticas nos usuários logados o samba fornece a opção na seção [global]. 
+Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o samba fornece a opção na seção [global]. 
 
 \begin{itemize}
-	\item {logon script = \%G.bat } - com essa variável adicionada o sistema ira buscar o script com o nome do grupo primário do usuário. 
+	\item {logon script = \%G.bat } - com essa variável adicionada, o sistema irá buscar o script com o nome do grupo primário do usuário. 
 \end{itemize}
 
 Exemplo: 
@@ -469,7 +478,7 @@ Exemplo:
 
 \textbf{Script a ser procurado : dtic.bat}
 
-Esse script tem que esta compartilhado no smb.conf para que possa ser executado. 
+Esse script precisa estar compartilhado no smb.conf para que possa ser executado. 
 
 	[netlogon] 
 
@@ -501,3 +510,219 @@ diretoria.bat
 **FIGURA DO MAPEAMENTO AUTOMÁTICO 
 
 \section{Compartilhamento de Impressoras}
+
+O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem a precisar da conexão local na impressora.
+
+Para compartilhar as impressoras com o samba deve-se adicionar na seção [global] 
+
+[global]
+
+printing = cups
+
+load printers = yes
+
+\begin{itemize}
+	\item \textbf{printing} - Define qual o programa será utilizado para gerenciar as impressões 
+	\item \textbf{load printers} - Carrega as impressoras
+\end{itemize}
+
+O samba utiliza o cups que é o gerenciador de impressoras mais comum para o linux.
+
+\begin{itemize}
+	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote samba instalado é compatível com o CUPS. A saída deve ser algo como "HAVE CUPS"
+\end{itemize}
+
+Caso o cups não esteja instalado.
+
+\begin{itemize}
+	\item \textbf{\#apt-get install cups} - Instala todos os pacotes necessários para o funcionamento do cups.
+	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras.
+	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
+\end{itemize}
+
+***FIGURA DO CUPS PELO BROWSER***
+
+Habilitando o compartilhamento de impressora
+
+[printers]
+
+print ok = yes
+
+guest ok = yes
+
+path = /var/spool/samba
+
+browseable = yes
+
+\begin{itemize}
+	\item \textbf{path} - Esse caminho é onde ficará os spools de impressão, esse diretório é criado automaticamente pelo samba e deve ter a permissão 777.
+	\begin{enumerate}
+		\item \textbf{chmod 777 -R /var/spool/samba}
+	\end{enumerate}
+\end{itemize}
+
+Dessa forma ao acessar o servidor irá aparecer todas as impressoras instaladas no servidor.
+
+\section{Instalação automática dos drive da impressora}
+
+Para conectar a uma impressora compartilhada é necessário a instalação dos drivers da mesma. 
+
+Um problema é como esses drivers são armazenados e instalados, já que uma das formas de instalar esses drivers é ir até o computador com o instalador em cd ou pen-drive e realizar a instalação manualmente, porém em uma grande rede se perde muito tempo com a locomoção e instalação. A solução desse problema é a instalação automática dos drivers, e com a utilização do samba os drivers serão instalados assim que o usuário tentar conectar a impressora.
+
+Adiciona no [global]
+
+\begin{itemize}
+	\item \textbf{enable privileges = yes} - Permite privilégios a usuários
+\end{itemize}
+
+Criar um compartilhamento não visível onde ficará os drivers das impressoras.
+
+[print\$]
+
+path = /var/lib/samba/printers
+
+read only = yes
+
+write list = root
+
+inherit permissions = yes
+
+\begin{itemize}
+	\item \textbf{path} - Local onde os drivers serão instalados
+	\item \textbf{write list} - Usuários ou grupos que terão permissão de escrita
+	\item \textbf{inherit permissions} - Se os arquivos irão herdar as permissões da pasta.
+\end{itemize}
+
+Se o caminho apontado pelo path não existir ele terá que ser criado com as permissões necessárias.
+
+\begin{itemize}
+	\item \textbf{\# mkdir -p /var/lib/samba/printers}
+	
+	\item \textbf{\# cd /var/lib/samba/printers}
+	\item \textbf{\# mkdir WIN40 W32X86} - Essas pastas são onde ficarão os drivers das impressoras, o WIN40 para sistemas Windows 95/98/ME e o W32X86 Windows NT/2000/XP.
+	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
+	\item \textbf{\# net -S localhost -U root -W BATTOUSAI-SHARE rpc rights grant 'BATTOUSAI-SHARE$\backslash$root' SePrintOperatorPrivilege} - Irá definir que o usuário root terá todas os privilégios necessários para gerenciar as impressoras.
+\end{itemize}
+
+Com as permissões, usuários e impressoras configuradas, os drivers têm que ser passados para o servidor.
+
+\begin{enumerate}
+	\item \textbf{Acessar a maquina com um usuário local} - 	\ref{login_windows_local}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
+	   	\caption{Tela do Login no Windows localmente}
+	    \label{login_windows_local}
+	\end{figure}	
+	
+	\item \textbf{Informar o endereço do servidor} - \ref{server_ip}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/server_ip}}
+	   	\caption{IP do servidor de compartilhamento}
+	    \label{server_ip}
+	\end{figure}
+	
+	\item \textbf{Informar o usuario root e sua senha} - \ref{root_password}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/root_password}}
+	   	\caption{IP ou Netbios do servidor de compartilhamento}
+	    \label{root_password}
+	\end{figure}
+	
+	\item \textbf{Acessar a pasta 'Impressoras e aparelhos de fax'} -\ref{impressora_aparelho_fax}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/impressora_aparelho_fax}}
+	   	\caption{Impressoras e aparelhos de fax compartilhados}
+	    \label{impressora_aparelho_fax}
+	\end{figure}
+	
+	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor} - \ref{propriedade_servidor}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/propriedade_servidor}}
+	   	\caption{Propriedades do servidor de impressão}
+	    \label{propriedade_servidor}
+	\end{figure}
+	
+	\item \textbf{Aba Driver -$>$ Adicionar} - \ref{adicionar_driver}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/adicionar_driver}}
+	   	\caption{Adicionar driver ao servidor de impressão}
+	    \label{adicionar_driver}
+	\end{figure}
+	
+	\item \textbf{Selecionar o driver da impressora que deve ser copiado para o servidor} - \ref{selecionar_driver}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/selecionar_driver}}
+	   	\caption{Selecionar o driver que será copiado para o servidor de impressão}
+	    \label{selecionar_driver}
+	\end{figure}
+	
+	\item \textbf{Selecionar os SO dos drivers} - \ref{selecionar_so}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/selecionar_so}}
+	   	\caption{Selecionar os Sistemas Operacional que o driver será compatível}
+	    \label{selecionar_so}
+	\end{figure}
+	
+	\item \textbf{Botão direito na impressora Propriedades} - \ref{propriedade_impressora}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/propriedade_impressora}}
+	   	\caption{Propriedade da impressora do compartilhamento}
+	    \label{propriedade_impressora}
+	\end{figure}
+	
+	\item \textbf{Selecione a opção 'Não', se selecionar o SIM o driver será instalado somente na maquina local} - \ref{opcao_nao}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/opcao_nao}}
+	   	\caption{Opção para não instalar o driver naquele momento}
+	    \label{opcao_nao}
+	\end{figure}
+	
+	\item \textbf{Aba Avançado} - \ref{aba_avancado}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/aba_avancado}}
+	   	\caption{Aba onde será feito o link da impressora com o driver}
+	    \label{aba_avancado}
+	\end{figure}
+	
+	\item \textbf{Selecione o drive que será vinculado a impressora} - \ref{aba_avancado}
+	
+	\item \textbf{Logar com o usuário do domínio no qual será mapeada a impressora} - \ref{login_dominio}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/login_dominio}}
+	   	\caption{Logar no domínio}
+	    \label{login_dominio}
+	\end{figure}
+	
+	\item \textbf{Selecione a impressora no servidor} - \ref{selecionar_impressora_servidor}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/selecionar_impressora_servidor}}
+	   	\caption{Selecionar a impressora que será mapeado no usuário logado}
+	    \label{selecionar_impressora_servidor}
+	\end{figure}
+	
+	\item \textbf{Impressora instalada no usuário} - \ref{impressora_compartilhada}
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/impressora_compartilhada}}
+	   	\caption{Impressora instalada no usuário}
+	    \label{impressora_compartilhada}
+	\end{figure}
+	
+\end{enumerate}
+
+\section{Ingressando o Windows XP no Domínio}
+
+\section{Ingressando o Linux no Domínio}

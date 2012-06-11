@@ -1,1 +1,180 @@
 \chapter{SAMBA 4}
+
+O samba 4 vem com a proposta de criar um Active Directory livre, utilizando o LDAP, Bind e Kerberos.
+
+\section{Instalação do SAMBA4}
+
+Antes de começar a instalação o relógio do servidor tem que estar atualizado.
+
+\begin{itemize}
+	\item \textbf{\# ntpdate br.pool.ntp.org} - Atualiza a hora do servidor a partir do servidor br.pool.ntp.org.
+\end{itemize}
+
+Por se tratar de um sistema ainda em fase de produção alguns erros podem aparecer ou alguns parâmetros devem ser modificados.
+
+\begin{itemize}
+	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core} - Pacotes necessários para a compilação do samba 4 e download;
+	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master} - Faz um clone do samba 4 que esta no repositório para o servidor;
+	\item \textbf{\# ./configure.developer} - Configurar as bibliotecas com parâmetros de desenvolvedor. Habilitando alguns modos de debug;
+	\item \textbf{\# make} - Faz uma leitura do comando Makefile;
+	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
+	\item \textbf{\# /usr/local/samba/sbin/provision - -use-ntvfs - -realm=iff.bomjesus - -domain=iff  - -adminpass= Senha00 - -server-role='domain controller'} - Cria o domínio samba com AD;
+		\begin{enumerate}
+			\item \textbf{use-ntvfs} - Habilita o NTVFS;
+			\item \textbf{realm} - Domínio do servidor Kerberos;
+			\item \textbf{domain} - Domínio do samba;
+			\item \textbf{adminpass} - Senha do Administrator;
+			\item \textbf{server-role} - Regra do servidor.
+		\end{enumerate}
+	\item \textbf{\# /usr/local/samba/bin/smbclient --version} - Mostra a versão do samba;
+	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single} - Inicia o samba 4 com o modo debug;
+	\item \textbf{\#  echo 'ip do servidor iff.bomjesus iff' $>$$>$ /etc/hosts} - Define um nome para o ip do servidor.
+\end{itemize}
+
+\section{Instalação e configuração do BIND9}
+
+O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS.
+
+\begin{itemize}
+	\item \textbf{\# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz} - Download da versão 9.9 do bind9;
+	\item \textbf{\# tar xzvf bind-9.9.0.tar.gz} - Descompactar o pacote do bind9;
+	\item \textbf{\# cd bind-9.9.0} - Acessar o diretório do bind9 descompactado;
+	\item \textbf{\# ./configure --prefix=/usr/local/bind9 --sysconfdir=/etc/bind} - Configurar os parâmentros para a instalação do bind, tais como o local onde vai ser instalado e onde ficarão os arquivos de configuração;
+	\item \textbf{\# make} - Leitura do comando Makefile;
+	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
+	\item \textbf{\# cd /etc/bind} - Acessar o diretório onde se encontram os arquivos do bind;
+	\item \textbf{\# vim named.conf} - Cria e edita o arquivo. Adicione as linhas abaixo no arquivo;
+		\begin{enumerate}
+			\item \textbf{include "/etc/bind/named.conf.options";}
+			\item \textbf{include "/etc/bind/named.conf.local";}
+		\end{enumerate}
+ 		\item \textbf{\# vim named.conf.options}
+			\begin{enumerate}
+				\item \textbf{Adicionar no arquivo} - options \{
+        			
+					directory "/var/cache/bind";
+
+					auth-nxdomain no;
+
+					listen-on-v6 \{ any; \};
+					
+					\};
+			\end{enumerate}
+\end{itemize}
+
+O comando provision gera os arquivos de configuração necessários para o funcionamento do samba com o servidor dns.
+
+\begin{itemize}
+	\item \textbf{\# vim named.conf.local} -  Adicione a linha abaixo no arquivo;
+		\begin{enumerate}
+			\item \textbf{include "/usr/local/samba/private/named.conf";}
+		\end{enumerate}
+\end{itemize}
+
+Comentar as linhas conforme a versão do bind9 
+
+\begin{itemize}
+	\item \textbf{\# vim /usr/local/samba/private/named.conf}
+\end{itemize}
+
+\# For BIND 9.8.0
+
+    \# database "dlopen /usr/local/samba/lib/bind9/dlz\_bind9.so"; 
+
+Descomentar
+
+ \# For BIND 9.9.0
+
+    database "dlopen /usr/local/samba/lib/bind9/dlz\_bind9\_9.so";
+
+\begin{itemize}
+	\item \textbf{\# groupadd named \&\& useradd named -g named} - Cria o usuário responsável pelo bind e o insere no grupo named;
+	\item \textbf{\# mkdir /var/cache/bind} - Cria a pasta onde ficarão os caches do bind;
+	\item \textbf{\# /usr/local/bind9/sbin/named -u named -g} - Inicia o bind com o usuário named;
+\end{itemize}
+
+O servidor samba tem que ter seu endereço DNS configurado para apontar para seu servidor DNS.
+
+\begin{itemize}
+	\item \textbf{\# echo 'nameserver "ip do servidor"' $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
+\end{itemize}
+
+A partir de agora para acessar a internet através do servidor samba o bind deverá estar sendo executado.
+
+\section{Instalação do Kerberos}
+
+O kerberos a ser instalado é o Heimdal
+
+\begin{itemize}
+	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
+\end{itemize}
+
+Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo samba que esta localizado em /usr/local/samba/private/krb5.conf
+
+\begin{itemize}
+	\item \textbf{\# cp /usr/local/samba/private/krb5.conf  /etc/}
+\end{itemize}
+
+Teste para verificar se todos as configurações foram realizadas corretamente
+
+\begin{itemize}
+	\item \textbf{\# host -t SRV \_ldap.\_tcp.iff.bomjesus.} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.iff. bomjesus has SRV record 0 100 389 server.iff.bomjesus.}
+	\item \textbf{\# host -t SRV \_kerberos.\_udp. iff.bomjesus.} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.iff.bomjesus has SRV record 0 100 88 server.iff.bomjesus.}
+	\item \textbf{\# host -t A iff.bomjesus} - O resultado deve ser parecido : \textbf{iff.bomjesus has address 172.16.214.167}
+\end{itemize}
+
+\section{Kerberos com Bind9}
+
+Configurar atualizações dinâmicas no DNS com o kerberos
+
+Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind
+
+\begin{itemize}
+	\item \textbf{\# KEYTAB\_FILE="/usr/local/samba/private/dns.keytab"}
+	\item \textbf{\# KRB5\_KTNAME="/usr/local/samba/private/dns.keytab"}
+	\item \textbf{\# export KEYTAB\_FILE}
+	\item \textbf{\# export KRB5\_KTNAME}
+\end{itemize}
+
+Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
+
+\begin{itemize}
+	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab}
+	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate --verbose}
+\end{itemize}
+
+\section{AD}
+
+Pacotes necessários para gerenciar o AD no linux XP ou windows server.
+
+\section{GPO}
+
+Pacotes necessários para gerenciar as GPO's no linux XP ou windows server.
+
+\section{Criando GPO}
+
+Como criar uma GPO
+
+\section{Compartilhamento de arquivos}
+
+SAMBA4 ainda não consegue compartilhar impressoras e tem problemas com a integração dos usuários e grupos do Active Directory com os locais, sendo assim difícil definir permissões a arquivos e diretórios.
+
+Uma solução para tal problema é identificar o código do usuário no Active Directory e dar as devidas permissões a pasta desejada.
+
+\section{Perfil Móvel}
+
+Muito parecido com o samba3 criar um compartilhamento no samba e dar as devidas permissões a pasta. A diferença se da na hora de definir que será perfil movel.
+
+***FIGURA DO AD DEFININDO PERFIL MOVEL***
+
+\section{Gerenciando o Samba4}
+
+O samba-tools - Gerência o samba. Com ele se poder criar usuários, grupos, gpo's e outras funções do Active Directory, porém um forma de texto.
+
+***FIGURA DO SAMBA-TOOLS***
+
+\section{Samba3 no AD Samba4}
+
+\section{Script para adicionar maquina linux no AD}
+
+\section{Windows no domínio Samba 4}
