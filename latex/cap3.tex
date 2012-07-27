@@ -207,13 +207,13 @@ if [ -n "\$machine" ] ; then
 
     if [ -z "\$group" ] ; then
 
-        useradd --home /dev/null --shell /bin/false \$machine$\backslash$\$ 2$ >$/dev/null \&\& passwd -l \$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
+        useradd - -disabled-login - -home /dev/null - -shell /bin/false \$machine$\backslash$\$ 2$ >$/dev/null \&\& passwd -l \$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
 
     fi
 
     if [ -n "\$group" ]; then
 	
-        useradd --home /dev/null --shell /bin/false --group \$group \$machine$\backslash$\$ 
+        useradd - -disabled-login - -home /dev/null - -shell /bin/false - -group \$group \$machine$\backslash$\$ 
 
 	check=\$(echo \$$?$)
 
