@@ -26,7 +26,7 @@ Por se tratar de um sistema ainda em fase de produção alguns erros podem apare
 			\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
 			\item \textbf{server-role} - Regra do servidor.
 		\end{enumerate}
-	\item \textbf{\# /usr/local/samba/bin/smbclient --version} - Mostra a versão do samba;
+	\item \textbf{\# /usr/local/samba/bin/smbclient - -version} - Mostra a versão do samba;
 	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single} - Inicia o samba 4 com o modo debug;
 	\item \textbf{\#  echo 'ip do servidor iff.bomjesus iff' $>$$>$ /etc/hosts} - Define um nome para o ip do servidor.
 \end{itemize}
@@ -39,7 +39,7 @@ O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor 
 	\item \textbf{\# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz} - Download da versão 9.9 do bind9;
 	\item \textbf{\# tar xzvf bind-9.9.0.tar.gz} - Descompactar o pacote do bind9;
 	\item \textbf{\# cd bind-9.9.0} - Acessar o diretório do bind9 descompactado;
-	\item \textbf{\# ./configure --prefix=/usr/local/bind9 --sysconfdir=/etc/bind} - Configurar os parâmentros para a instalação do bind, tais como o local onde vai ser instalado e onde ficarão os arquivos de configuração;
+	\item \textbf{\# ./configure - -prefix=/usr/local/bind9 - -sysconfdir=/etc/bind} - Configurar os parâmentros para a instalação do bind, tais como o local onde vai ser instalado e onde ficarão os arquivos de configuração;
 	\item \textbf{\# make} - Leitura do comando Makefile;
 	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
 	\item \textbf{\# cd /etc/bind} - Acessar o diretório onde se encontram os arquivos do bind;
@@ -118,9 +118,9 @@ Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré
 Teste para verificar se todos as configurações foram realizadas corretamente
 
 \begin{itemize}
-	\item \textbf{\# host -t SRV \_ldap.\_tcp.iff.bomjesus.} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.iff. bomjesus has SRV record 0 100 389 server.iff.bomjesus.}
-	\item \textbf{\# host -t SRV \_kerberos.\_udp. iff.bomjesus.} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.iff.bomjesus has SRV record 0 100 88 server.iff.bomjesus.}
-	\item \textbf{\# host -t A iff.bomjesus} - O resultado deve ser parecido : \textbf{iff.bomjesus has address 172.16.214.167}
+	\item \textbf{\# host -t SRV \_ldap.\_tcp."nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp."nome do realm sem aspas" has SRV record 0 100 389 server."nome do realm sem aspas".}
+	\item \textbf{\# host -t SRV \_kerberos.\_udp."nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp."nome do realm sem aspas" has SRV record 0 100 88 server."nome do realm sem aspas".}
+	\item \textbf{\# host -t A "nome do realm sem aspas"} - O resultado deve ser parecido : \textbf{"nome do realm sem aspas" has address "ip do servidor}
 \end{itemize}
 
 \section{Kerberos com Bind9}
@@ -140,7 +140,7 @@ Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
 
 \begin{itemize}
 	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab}
-	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate --verbose}
+	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate - -verbose} - Atualização automática do dns do samba.
 \end{itemize}
 
 \section{AD}
@@ -158,9 +158,9 @@ SAMBA4 ainda não consegue compartilhar arquivos e impressoras, e tem problemas 
 Uma solução para tal problema é identificar o código do usuário no Active Directory e dar as devidas permissões a pasta desejada.
 
 \begin{itemize}
-	\item \textbf{/usr/local/samba/bin/wbinfo --name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. ex: S-1-5-21-4036476082-4153129556-3089177936-1005 SID_USER (1)
-	\item \textbf{bin/wbinfo --sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
-	\item \textbf{chown 3000011 /home/usuario/} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
+	\item \textbf{\# /usr/local/samba/bin/wbinfo - -name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1)
+	\item \textbf{\# /usr/local/samba/bin/wbinfo - -sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
+	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
 
 \section{Perfil Móvel}
@@ -179,89 +179,74 @@ O samba-tools - Gerência o samba. Com ele se poder criar usuários, grupos, gpo
 
 \section{Script para adicionar maquina linux no Active Directory}
 
-#!/bin/sh
-
+\#!/bin/sh
  
-###############################################################################
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 
-# Copyright (C) 2011 - Fabio Antonio Ferreira                                 #
+\# Copyright (C) 2011 - Fabio Antonio Ferreira \hspace{160pt} \#
 
-# http://fantonio.wordpress.com | fantonios@gmail.com                         #
+\# http://fantonio.wordpress.com | fantonios@gmail.com \hspace{106pt} \#
 
-#                                                                             #
+\# Este trabalho está licenciado sob uma Licença Creative Commons \hspace{59pt} \#
 
-# Este trabalho está licenciado sob uma Licença Creative Commons              #
+\# Atribuição-Compartilhamento pela mesma Licença 2.5 Brasil. Para ver a copia \#
 
-# Atribuição-Compartilhamento pela mesma Licença 2.5 Brasil. Para ver a copia #
+\# desta licença, acesse: http://creativecommons.org/licenses/by-sa/2.5/br/ \hspace{34pt} \#
 
-# desta licença, acesse: http://creativecommons.org/licenses/by-sa/2.5/br/    #
+\# ou envie uma carta para Creative Commons, 171 Second Street, Suite 300, \hspace{19pt} \#
 
-# ou envie uma carta para Creative Commons, 171 Second Street, Suite 300,     #
+\# San Francisco, California 94105, USA. \hspace{188pt} \#
 
-# San Francisco, California 94105, USA.                                       #
+\# Modificações em 27 de Julho de 2012 por Gabriel Rocha (GBR) \hspace{67pt}             \#
 
-#                                                                             #
+\# email: gabriel.rocha.gbr@gmail.com \hspace{198pt} \#
 
-# Modificações em 27 de Julho de 2012 por Gabriel Rocha (GBR)                 #
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 
-# email: gabriel.rocha.gbr@gmail.com                                          #
-
-#                                                                             #
-
-###############################################################################
-
-#
-
-# Versão 1.0
-
-# - Versão original
-
-#
- 
-# == FUNCOES ==================================================================
+\# == FUNCOES ===============================================
 
 USUARIO=`whoami`
 
-if [ "$USUARIO" != "root" ]; then
+if [ "\$USUARIO" != "root" ]; then
 
-  echo
+ 	echo
 
-  echo "=============================================================================="
+  echo "======================================================"
 
-  echo " ESTE PROGRAMA PRECISA SER EXECUTADO COM PERMISSOES DE SUPERUSUARIO!          "  
+  echo " ESTE PROGRAMA PRECISA SER EXECUTADO COM PERMISSOES DE SUPERUSUARIO!"  
 
-  echo " Abortando...                              "
+  echo " Abortando..."
 
-  echo "=============================================================================="
+  echo "======================================================"
 
   echo
 
   exit 1
 
 fi
- 
-_HEAD () {
+
+\_HEAD () \{
 
 `which clear`
 
-echo "=============================================================================="
+echo "========================================================="
 
-echo "          SISTEMA PARA ADICIONAR MAQUINA LINUX AO DOMÍNIO WINDOWS OU LINUX"
+echo "SISTEMA PARA ADICIONAR MAQUINA LINUX AO DOMÍNIO WINDOWS OU LINUX"
 
-echo "=============================================================================="
+echo "========================================================="
 
-}
- 
-_PACOTES () {
+\}
+
+\_PACOTES () \{
 
         echo "Instalando os pacotes necessários";       
 
 
-  apt-get install krb5-user libpam-krb5 winbind samba smbfs smbclient krb5-config libkrb53 libkdb5-4 libgssrpc4 -y > /dev/null;
+  apt-get install krb5-user libpam-krb5 winbind samba smbfs smbclient krb5-config libkrb53 libkdb5-4 libgssrpc4 -y $>$ /dev/null;
   
-      check=$?
+      check=\$(echo \$?)
 
-        if [ $check -eq 0 ]; then
+        if [ \$check -eq 0 ]; then
 
            echo "Pacotes instalados com sucesso"
 
@@ -271,80 +256,75 @@ _PACOTES () {
 
         fi
 
-}
+\}
 
- 
-_HORA () {
+\_HORA () \{
 
         echo "Atualizando data e hora";
 
-        ntpdate br.pool.ntp.org > /dev/null;
+        ntpdate br.pool.ntp.org $>$ /dev/null;
 
         echo "Horario atual:" `date`
 
         echo "Hora alterada com sucesso"
 
-}
+\}
 
- 
+\_BACKUP\_ORIG () \{
 
-_BACKUP_ORIG () {
+  \# Rotina de Backup dos arquivos de configurações.
 
-        # Rotina de Backup dos arquivos de configurações.
+	if [ ! -e /etc/krb5.conf\_backup ]; then
 
-	if [ ! -e /etc/krb5.conf_backup ]; then
-
-		cp /etc/krb5.conf /etc/krb5.conf_backup > /dev/null;
+		cp /etc/krb5.conf /etc/krb5.conf\_backup $>$ /dev/null;
 
 	fi
 
-	if [ ! -e /etc/resolv.conf_backup ]; then
+	if [ ! -e /etc/resolv.conf\_backup ]; then
 
-		cp /etc/resolv.conf /etc/resolv.conf_backup > /dev/null
-
-	fi
-
-	if [ ! -e /etc/samba/smb.conf_backup ]; then
-
-        	cp /etc/samba/smb.conf /etc/samba/smb.conf_backup > /dev/null
+		cp /etc/resolv.conf /etc/resolv.conf\_backup $>$ /dev/null
 
 	fi
 
-	if [ ! -e /etc/nsswitch.conf_backup ]; then
+	if [ ! -e /etc/samba/smb.conf\_backup ]; then
 
-        	cp /etc/nsswitch.conf /etc/nsswitch.conf_backup > /dev/null
-
-	fi
-
-	if [ ! -e /etc/pam.d/common-account_backup ]; then
-
-	        cp /etc/pam.d/common-account /etc/pam.d/common-account_backup > /dev/null
+        	cp /etc/samba/smb.conf /etc/samba/smb.conf\_backup $>$ /dev/null
 
 	fi
 
-	if [ ! -e /etc/pam.d/common-auth_backup ]; then
+	if [ ! -e /etc/nsswitch.conf\_backup ]; then
 
-	        cp /etc/pam.d/common-auth /etc/pam.d/common-auth_backup > /dev/null
-
-	fi
-
-	if [ ! -e /etc/pam.d/common-session_backup ]; then
-
-	        cp /etc/pam.d/common-session /etc/pam.d/common-session_backup > /dev/null
+        	cp /etc/nsswitch.conf /etc/nsswitch.conf\_backup $>$ /dev/null
 
 	fi
 
-	if [ ! -e /etc/pam.d/sudo_backup ]; then
+	if [ ! -e /etc/pam.d/common-account\_backup ]; then
 
-	        cp /etc/pam.d/sudo /etc/pam.d/sudo_backup > /dev/null
+	        cp /etc/pam.d/common-account /etc/pam.d/common-account\_backup $>$ /dev/null
 
 	fi
 
+	if [ ! -e /etc/pam.d/common-auth\_backup ]; then
+
+	        cp /etc/pam.d/common-auth /etc/pam.d/common-auth\_backup $>$ /dev/null
+
+	fi
+
+	if [ ! -e /etc/pam.d/common-session\_backup ]; then
+
+	        cp /etc/pam.d/common-session /etc/pam.d/common-session\_backup $>$ /dev/null
+
+	fi
+
+	if [ ! -e /etc/pam.d/sudo\_backup ]; then
+
+	        cp /etc/pam.d/sudo /etc/pam.d/sudo\_backup $>$ /dev/null
+
+	fi
          
+        check=\$(echo \$?)
 
-        check=$(echo $?)
-
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Rotina de Backup executada com sucesso!"
 
@@ -353,37 +333,33 @@ _BACKUP_ORIG () {
       echo "Falha ao fazer o Backup."
 
    fi
-
          
+\}
 
-}
+\_RETURN\_BACKUP () \{
 
+        \# Rotina de Recuperação do Backup de configurações.
 
+        mv /etc/krb5.conf\_backup /etc/krb5.conf $>$ /dev/null
 
-_RETURN_BACKUP () {
+        mv /etc/resolv.conf\_backup /etc/resolv.conf $>$ /dev/null
 
-        # Rotina de Backup dos arquivos de configurações.
+        mv /etc/samba/smb.conf\_backup /etc/samba/smb.conf $>$ /dev/null
 
-        mv /etc/krb5.conf_backup /etc/krb5.conf > /dev/null
+        mv /etc/nsswitch.conf\_backup /etc/nsswitch.conf $>$ /dev/null
 
-        mv /etc/resolv.conf_backup /etc/resolv.conf > /dev/null
+        mv /etc/pam.d/common-account\_backup /etc/pam.d/common-account $>$ /dev/null
 
-        mv /etc/samba/smb.conf_backup /etc/samba/smb.conf > /dev/null
-
-        mv /etc/nsswitch.conf_backup /etc/nsswitch.conf > /dev/null
-
-        mv /etc/pam.d/common-account_backup /etc/pam.d/common-account > /dev/null
-
-        mv /etc/pam.d/common-auth_backup /etc/pam.d/common-auth > /dev/null
+        mv /etc/pam.d/common-auth\_backup /etc/pam.d/common-auth $>$ /dev/null
         
-        mv /etc/pam.d/common-session_backup /etc/pam.d/common-session > /dev/null
+        mv /etc/pam.d/common-session\_backup /etc/pam.d/common-session $>$ /dev/null
 
-        mv /etc/pam.d/sudo_backup /etc/pam.d/sudo > /dev/null
+        mv /etc/pam.d/sudo\_backup /etc/pam.d/sudo $>$ /dev/null
          
         
-check=$(echo $?)
+				check=\$(echo \$?)
 
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Recuperação do Backup executada com sucesso!"
 
@@ -392,165 +368,140 @@ check=$(echo $?)
       echo "Falha na recuperação do Backup."
 
    fi
-
          
-}
- 
-_NOME_DOMINIO () {
- 
-   #Entrada do nome do dominio ao qual deseja engreçar.
+\}
 
-	#No caso do linux temos dois servidores um do KDC e outro do dominio
+\_NOME\_DOMINIO () \{
+ 
+   \#Entrada do nome do dominio ao qual deseja engreçar.
 
-	#No windows informamos o servidor kdc
+	 \#No caso do linux temos dois servidores um do KDC e outro do dominio
+
+	 \#No windows informamos o servidor kdc
 
     read -p "Entre com o nome do Domínio:" var1
 
-    dominio=$(echo $var1 | tr a-z A-Z)
+    dominio=\$(echo \$var1 | tr a-z A-Z)
 
     read -p "Entre com o seu KDC (key Distribution Center):" var2
 
-    kdc=$(echo $var2 | tr A-Z a-z)         
+    kdc=\$(echo \$var2 | tr A-Z a-z)         
 
-}
+\}
 
+\_IP\_DNS (){
 
-
-_IP_DNS (){
-
-	#IP do servidor de domínio
+	\#IP do servidor de dns
 
 	read -p "Entre com o IP do servidor de DNS:" ip
 
-	echo "nameserver $ip" > /etc/resolv.conf
+	echo "nameserver \$ip" $>$ /etc/resolv.conf
 
-}
+\}
 
+\_SO\_SERVIDOR () \{
 
-
-_SO_SERVIDOR () {
-
-	#SO do AD	
+	\#Sistema Operacional do AD	
 
 	read -p "Entre com o S.O. do servidor (Linux ou Windows): " so
 
-	so=$(echo $so | tr a-z A-Z)
+	so=\$(echo \$so | tr a-z A-Z)
 
 	workgroup=""
 
-	if [ $so = "LINUX" ] ; then
+	if [ \$so = "LINUX" ] ; then
 
 		read -p "Informe o Domain do Samba4: " workgroup
 
-		workgroup=$(echo $workgroup | tr a-z A-Z)
+		workgroup=\$(echo \$workgroup | tr a-z A-Z)
 
 	else
 
-		workgroup=$(echo $var1)
+		workgroup=\$(echo \$var1)
 
 	fi
 
-}
+\}
 
- 
-
-_KRB5 () {
+\_KRB5 () \{
 
    echo "[libdefaults]
 
-         default_realm = $dominio
+   default\_realm = \$dominio
 
- 
+	 \# The following krb5.conf variables are only for MIT Kerberos.
 
-# The following krb5.conf variables are only for MIT Kerberos.
+      krb4\_config = /etc/krb.conf
 
-      krb4_config = /etc/krb.conf
+      krb4\_realms = /etc/krb.realms
 
-      krb4_realms = /etc/krb.realms
+      kdc\_timesync = 1
 
-      kdc_timesync = 1
+      ccache\_type = 4
 
-      ccache_type = 4
+      forwardable = true
 
-           forwardable = true
+      proxiable = true
 
-           proxiable = true
+		\# The following libdefaults parameters are only for Heimdal Kerberos.
 
- 
+      v4\_instance\_resolve = false
 
-# The following libdefaults parameters are only for Heimdal Kerberos.
+      v4\_name\_convert = \{
 
-           v4_instance_resolve = false
+           host = \{
 
-           v4_name_convert = {
+               rcmd = host
 
-                   host = {
+               ftp = ftp
 
-                           rcmd = host
+           \}  
 
-                           ftp = ftp
+           plain = \{
 
-                   }  
+               something = something-else
 
-                   plain = {
+           \}  
 
-                           something = something-else
+      \}  
 
-                   }  
-
-           }  
-
-           fcc-mit-ticketflags = true
-
- 
+      fcc-mit-ticketflags = true
 
    [realms]
 
-           $dominio = {
+   		\$dominio = \{
 
-                   kdc = $kdc
+        	kdc = \$kdc
+           
+            admin\_server = \$kdc
 
-                   #kdc = $kdc2
-
-                   #kdc = $kdc3
-
-                   admin_server = $kdc
-
-           }  
-
+           \}  
              
+   [domain\_realm]
 
-   [domain_realm]
-
-           .$var1 = $kdc
-
- 
+   		.\$var1 = \$kdc
 
    [login]
 
-           krb4_convert = true
+   		krb4\_convert = true
 
-           krb4_get_tickets = false" > /etc/krb5.conf
-
+   		krb4\_get\_tickets = false" $>$ /etc/krb5.conf
  
-
    echo "Configuração alterada com sucesso!"
 
-}
+\}
 
- 
-
-_TESTEAD () {
+\_TESTEAD () \{
 
    read -p "Entre com um usuário para testar sua conexão com o Active Directory:" user
 
-   kinit $user@$dominio
+   kinit \$user$@$\$dominio
 
     
 
-   check=$(echo $?)
+   check=\$(echo \$?)
 
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Sua máquina conectou com sucesso!"
 
@@ -560,45 +511,41 @@ _TESTEAD () {
 
    fi
 
-    
+\}
 
-}
-
- 
-
-_SMB () {
+\_SMB () \{
 
     
 
-   maquina=$(hostname)
+   maquina=\$(hostname)
 
-   echo "# Sample configuration file for the Samba suite for Debian GNU/Linux.
+   echo "\# Sample configuration file for the Samba suite for Debian GNU/Linux.
 
-   #======================= Global Settings =======================
+   \#======================= Global Settings =======================
 
    [global]
 
-      workgroup = $workgroup
+      workgroup = \$workgroup
 
-      netbios name = $maquina
+      netbios name = \$maquina
 
-      realm = $var1
+      realm = \$var1
 
-      server string = %h Server
+      server string = \% h Server
 
       dns proxy = no
 
-  	  log file = /var/log/samba/log.%m  
+  	  log file = /var/log/samba/log.\%m  
 
 	  max log size = 1000
 
 	  syslog = 0  
 
-      panic action = /usr/share/samba/panic-action %d
+      panic action = /usr/share/samba/panic-action \%d
 
       security = ADS
 
-      password server = $kdc
+      password server = \$kdc
 
       encrypt passwords = true
 
@@ -608,10 +555,8 @@ _SMB () {
 
       unix password sync = yes
 
-      passwd program = /usr/bin/passwd %u
-
-      passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
-
+      passwd program = /usr/bin/passwd \%u
+      
       pam password change = yes
 
       idmap uid = 10000-20000
@@ -624,11 +569,9 @@ _SMB () {
 
       winbind use default domain = yes
 
-      template homedir = /home/%D/%U
+      template homedir = /home/\%D/\%U
 
       template shell = /bin/bash
-
- 
 
    [homes]
 
@@ -642,57 +585,21 @@ _SMB () {
 
       directory mask = 0700
 
-      valid users = %S
-
-       
-
-   [printers]
-
-      comment = All Printers
-
-      browseable = no
-
-      path = /var/spool/samba
-
-      printable = yes
-
-      guest ok = no
-
-      read only = yes
-
-      create mask = 0700
-
-
-
-   [print$]
-
-      comment = Printer Drivers
-
-      path = /var/lib/samba/printers
-
-      browseable = yes
-
-      read only = yes
-
-      guest ok = no " > /etc/samba/smb.conf
-
-      
+      valid users = \%S " $>$ /etc/samba/smb.conf
 
    echo "Configuração alterada com sucesso!"
 
-}
+\}
 
- 
+\_FUNC\_RESTART() \{
 
-_FUNC_RESTART() {
+        \# Stop Winbind
 
-        # Stop Winbind
+        /etc/init.d/winbind stop $>$ /dev/null
 
-        /etc/init.d/winbind stop > /dev/null
+        check=\$(echo \$?)
 
-        check=$(echo $?)
-
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Winbind Stop!"
 
@@ -702,13 +609,13 @@ _FUNC_RESTART() {
 
    fi
 
-        # Restart Samba
+     \# Restart Samba
 
-        /etc/init.d/smbd restart > /dev/null
+     /etc/init.d/smbd restart $>$ /dev/null
 
-        check=$(echo $?)
+     check=\$(echo \$?)
 
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Samba restart com sucesso!"
 
@@ -718,13 +625,13 @@ _FUNC_RESTART() {
 
    fi
 
-        # Start Winbind
+    \# Start Winbind
 
-        /etc/init.d/winbind start > /dev/null
+    /etc/init.d/winbind start $>$ /dev/null
 
-        check=$(echo $?)
+    check=\$(echo \$?)
 
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Winbind start!"
 
@@ -734,10 +641,9 @@ _FUNC_RESTART() {
 
    fi
 
-}
+\}
 
- 
-_ADDDOMINIO () {
+\_ADDDOMINIO () \{
     
  
   echo "++++++++++++++++++++++++++++++++++++++++++++"
@@ -746,19 +652,19 @@ _ADDDOMINIO () {
 
    echo "++++++++++++++++++++++++++++++++++++++++++++"
 
-        # Adicionando a máquina ao domínio
+   \# Adicionando a máquina ao domínio
 
         read -p "Entre com um usuário administrador de Domínio:" user   
 
-   net ads join -U $user;
+   net ads join -U \$user;
 
-        check=$(echo $?)
+        check=\$(echo \$?)
 
         clear
 
-        # Validação da conexão com o domínio
+        \# Validação da conexão com o domínio
 
-        if [ $check -eq 0 ]; then
+        if [ \$check -eq 0 ]; then
 
       echo "Sua máquina foi adicionada no Domínio!"
 
@@ -768,21 +674,17 @@ _ADDDOMINIO () {
 
    fi
 
-    
+\}
 
-}
+\_TESTDOMINIO () \{
 
- 
+        \# Teste de requisição ao dominio
 
-_TESTDOMINIO () {
+        wbinfo -t $>$ /dev/null
 
-        # Teste de requisição ao dominio
+        check=\$(echo \$?)
 
-        wbinfo -t > /dev/null
-
-        check=$(echo $?)
-
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "Teste de Domínio!"
 
@@ -792,26 +694,23 @@ _TESTDOMINIO () {
 
    fi
 
-}
+\}
 
- 
+\_FUNCAUTENTICACAO () \{
 
-_FUNCAUTENTICACAO () {
-
-        # Configurando o arquivo nsswitch.conf
+        \# Configurando o arquivo nsswitch.conf
 
         echo "passwd:         compat winbind
 
               group:          compat winbind
 
-              shadow:         compat" > /etc/nsswitch.conf
+              shadow:         compat" $>$ /etc/nsswitch.conf
 
- 
+        \# Teste de configuração do Winbind        
 
-        # Teste de configuração do Winbind        
-
-        check=$(echo $?)
-   if [ $check -eq 0 ]; then
+        check=\$(echo \$?)
+   		
+		if [ \$check -eq 0 ]; then
 
       echo "Winbind testado com sucesso!"
 
@@ -821,40 +720,40 @@ _FUNCAUTENTICACAO () {
 
    fi
 
-        # PAM - common-account
+        \# PAM - common-account
 
-        echo "account sufficient       pam_winbind.so
-              account required         pam_unix.so" > /etc/pam.d/common-account
+        echo "account sufficient       pam\_winbind.so
+              account required         pam\_unix.so" $>$ /etc/pam.d/common-account
 
-        # PAM - common-auth
+        \# PAM - common-auth
 
-        echo "auth sufficient pam_winbind.so
+        echo "auth sufficient pam\_winbind.so
 
-              auth sufficient pam_unix.so nullok_secure use_first_pass
+              auth sufficient pam\_unix.so nullok\_secure use\_first\_pass
 
-              auth required   pam_deny.so" > /etc/pam.d/common-auth
+              auth required   pam\_deny.so" $>$ /etc/pam.d/common-auth
 
-        # PAM - common-session      
+        \# PAM - common-session      
 
-        echo "session required pam_unix.so
+        echo "session required pam\_unix.so
 
-              session required pam_mkhomedir.so umask=0022 skel=/etc/skel" > /etc/pam.d/common-session
+              session required pam\_mkhomedir.so umask=0022 skel=/etc/skel" $>$ /etc/pam.d/common-session
 
-        # PAM - sudo
+        \# PAM - sudo
 
-        echo "auth sufficient pam_winbind.so
+        echo "auth sufficient pam\_winbind.so
 
-              auth sufficient pam_unix.so use_first_pass
+              auth sufficient pam\_unix.so use\_first\_pass
 
-              auth required   pam_deny.so
+              auth required   pam\_deny.so
 
-              @include common-account" > /etc/pam.d/sudo
+              $@$include common-account" $>$ /etc/pam.d/sudo
 
-        # Teste de configuração do PAM
+        \# Teste de configuração do PAM
 
-        check=$(echo $?)
+        check=\$(echo \$?)
 
-   if [ $check -eq 0 ]; then
+   if [ \$check -eq 0 ]; then
 
       echo "PAM configurado com sucesso!"
 
@@ -864,17 +763,13 @@ _FUNCAUTENTICACAO () {
 
    fi
 
- 
+\}
 
-}
+\_FUNC\_HOMEDIR () \{
 
- 
+        HOME\_DIR=\$var1
 
-_FUNC_HOMEDIR () {
-
-        HOME_DIR=$var1
-
-        if [ -d /home/$HOME_DIR ]; then
+        if [ -d /home/\$HOME\_DIR ]; then
 
                 echo "Já existe este diretório !"                
 
@@ -882,65 +777,57 @@ _FUNC_HOMEDIR () {
 
                 echo "Este diretório não existe !"
 
-                echo "Criando o diretório $HOME_DIR"
+                echo "Criando o diretório \$HOME\_DIR"
 
-      mkdir /home/$var1
+      mkdir /home/\$var1
 
                 sleep 2
 
         fi
 
-}
+\}
 
- 
-
-_FUNC_DEL_MAQ_DOMINIO () {
+\_FUNC\_DEL\_MAQ\_DOMINIO () \{
 
     
 
-   maquina=$(hostname)
-
-        azul="{FONTE}33[0;34m"
+   maquina=\$(hostname)
 
         echo "++++++++++++++++++++++++++++++++++++++++++++"
 
-        echo "++  {FONTE}33[0;34m Removendo a Máquina no Domínio  ++"
+        echo "++  Removendo a Máquina no Domínio  ++"
 
         echo "++++++++++++++++++++++++++++++++++++++++++++"
-
        
-
-        # Remover a máquina ao domínio
+        \# Remover a máquina ao domínio
 
         read -p "Entre com um usuário administrador de Domínio:" user
 
-   net ads status -U $user
+   net ads status -U \$user
 
-   check1=$(echo $?)   
+   check1=\$(echo \$?)   
 
    clear
 
-   # Validação se a máquina está no domínio
+   \# Validação se a máquina está no domínio
 
-   if [ $check1 -eq 255 ]; then
+   if [ \$check1 -eq 255 ]; then
 
-      echo "A máquina $maquina não está no dominio"
+      echo "A máquina \$maquina não está no dominio"
 
    else
 
-      # Validação de remoção de máquina do domínio
+      \# Validação de remoção de máquina do domínio
 
-      net ads leave -U $user;
+      net ads leave -U \$user;
 
-      check=$(echo $?)
+      check=\$(echo \$?)
 
       clear
 
-      if [ $check -eq 0 ]; then
+      if [ \$check -eq 0 ]; then
 
          echo "Sua máquina foi removida do Domínio!"
-
-	 _RETURN_BACKUP
 
       else
 
@@ -950,17 +837,11 @@ _FUNC_DEL_MAQ_DOMINIO () {
 
    fi
 
- 
+\}
 
-}
+\# =========================================================
 
- 
-
- 
-
-# =============================================================================
-
-# Menu de seleção
+\# Menu de seleção
 
 echo "Linux Active Directory:"
 
@@ -972,51 +853,47 @@ echo "(3) Verificar conexão com o Domínio"
 
 echo "(0) Sair"
 
- 
-
 echo "Digite a opção desejada:"
 
 read resposta
 
- 
-
-case "$resposta" in
+case "\$resposta" in
 
         1)  
 
-      _HEAD
+      \_HEAD
 
-      _PACOTES
+      \_PACOTES
 
-      _HORA
+      \_HORA
 
-      _BACKUP_ORIG
+      \_BACKUP\_ORIG
 
-      _NOME_DOMINIO
+      \_NOME\_DOMINIO
 
-      _IP_DNS
+      \_IP\_DNS
 
-      _SO_SERVIDOR
+      \_SO\_SERVIDOR
 
-      _KRB5
+      \_KRB5
 
-      _TESTEAD
+      \_TESTEAD
 
-      _SMB
+      \_SMB
 
-      _FUNC_RESTART
+      \_FUNC\_RESTART
 
-      _ADDDOMINIO
+      \_ADDDOMINIO
 
-      _TESTDOMINIO
+      \_TESTDOMINIO
 
-      _FUNCAUTENTICACAO
+      \_FUNCAUTENTICACAO
 
-      _FUNC_RESTART
+      \_FUNC\_RESTART
 
       echo "++++++++++++++++++++++++++++++++++++++++++++"
 
-      echo "++ Bem vindo ao dominio $dominio ++"
+      echo "++ Bem vindo ao dominio \$dominio ++"
 
       echo "++++++++++++++++++++++++++++++++++++++++++++"
 
@@ -1024,13 +901,15 @@ case "$resposta" in
 
         2)  
 
-                _FUNC_DEL_MAQ_DOMINIO
+       \_FUNC\_DEL\_MAQ\_DOMINIO
+
+		\_RETURN\_BACKUP
 
                 ;;  
 
         3)  
 
-                _TESTDOMINIO
+       \_TESTDOMINIO
 
                 ;;  
 
@@ -1040,7 +919,7 @@ case "$resposta" in
 
                 ;;  
 
-        *)  
+        \*)  
 
                 echo 'Opção Inválida!'
 
