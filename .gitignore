@@ -28,3 +28,5 @@ latex/tcc.synctex.gz
 latex/tcc.toc
 
 .DS_Store
+
+*.aux

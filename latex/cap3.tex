@@ -219,7 +219,7 @@ if [ -n "\$machine" ] ; then
 
 		if [ \$check -eq 0 ]; then
 	
- 			passwd -l \$machine$\backslash$\$ 2>/dev/null \&\& smbpasswd -a -m \$machine 
+ 			passwd -l \$machine$\backslash$\$ 2$>$/dev/null \&\& smbpasswd -a -m \$machine 
        fi
 
     fi        
