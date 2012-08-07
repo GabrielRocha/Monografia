@@ -177,6 +177,270 @@ O samba-tools - Gerência o samba. Com ele se poder criar usuários, grupos, gpo
 
 \section{Maquinas linux e samba3 interagindo com o Active Directory do  Samba4}
 
+Segundo \cite{UBUNTU-WIKI} \ref{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no Active Directory é modificar alguns arquivos de configuração.
+Segue abaixo os arquivos e os procedimentos.
+
+\textbf{Informações}
+
+\begin{itemize}
+	\item \textbf{fja.br} -  Domínio do Active Directory
+	\item \textbf{fjadc01.fja.br} - Controlador de domínio
+	\item \textbf{10.1.0.1} - IP do controlador de domínio
+	\item \textbf{FJA.BR} - Kerberos Realm
+	\item \textbf{gert} - Estação de Trabalho Ubuntu
+	\item \textbf{gert.fja.br} - FQDN da estação de trabalho
+	\item \textbf{fjadc01} - Servidor NTP
+\end{itemize}
+
+\textbf{Instalando os pacotes necessários}
+
+\begin{itemize}
+	\item {\# aptitude install krb5-user libpam-krb5 winbind samba smbfs smbclient krb5-config libkrb53 libkadm55 vim}
+\end{itemize}
+
+\textbf{Sincronizando a hora}
+
+\begin{itemize}
+	\item {\# ntpdate 10.2.0.1}
+\end{itemize}
+
+\textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede}
+
+\begin{itemize}
+	\item {\# vim /etc/hosts}
+\end{itemize}
+
+127.0.0.1       gert.fja.br localhost gert
+
+127.0.1.1       gert
+
+\# The following lines are desirable for IPv6 capable hosts
+
+::1     ip6-localhost ip6-loopback
+
+fe00::0 ip6-localnet
+
+ff00::0 ip6-mcastprefix
+
+ff02::1 ip6-allnodes
+
+ff02::2 ip6-allrouters
+
+ff02::3 ip6-allhosts
+
+10.2.0.1   fjadc01
+
+10.2.0.2   fjadc02
+
+\textbf{Configurando o Kerberos}
+
+\begin{itemize}
+	\item {\# vim /etc/krb5.conf}
+\end{itemize}
+
+[libdefaults]
+
+	default\_realm = FJA.BR
+
+[realms]
+
+    FJA.BR = \{
+
+      kdc = fjadc01.fja.br
+
+      default\_domain = FJA.BR
+
+      kpasswd\_server = fjadc01.fja.br
+
+      admin\_server = fjadc01.fja.br
+
+     \}
+
+[domain\_realm]
+
+.fja.br = FJA.BR
+
+\textbf {Testando a conexão com o Active Directory}
+
+\begin{itemize}
+	\item {kinit $<$ENTER$>$}
+	\item {Password for alex$@$FJA.BR: ****}
+	\item {klist $<$ENTER$>$}
+	\item {Ticket cache: FILE:/tmp/krb5cc\_1000}
+	\item {Default principal: alex$@$FJA.BR}
+\end{itemize}
+
+\textbf {Se o resultado for este o Kerberos está funcionando corretamente}
+
+	Valid starting Expires Service principal 07/16/07 15:48:35  07/17/07 01:49:08  
+
+	krbtgt/FJA.BR@FJA.BR renew until 07/17/07 15:48:35
+	
+	Kerberos 4 ticket cache: /tmp/tkt1000
+	
+	klist: You have no tickets cached
+
+\textbf{Acessando o Domínio}
+
+\begin{itemize}
+	\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas
+\end{itemize}
+
+[global]
+
+        security = ads
+
+        realm = FJA.BR
+
+        password server = 10.2.0.1
+
+        workgroup = ADMINISTRATIVO
+
+\#       winbind separator = +
+
+        idmap uid = 10000-20000
+
+        idmap gid = 10000-20000
+
+        winbind enum users = yes
+
+        winbind enum groups = yes
+
+        template homedir = /home/\%D/\%U
+
+        template shell = /bin/bash
+
+        client use spnego = yes
+
+        client ntlmv2 auth = yes
+
+        encrypt passwords = yes
+
+        winbind use default domain = yes
+
+        restrict anonymous = 2
+
+\# to avoid the workstation from
+
+\# trying to become a master browser
+
+\# on your windows network add the
+
+\# following lines
+
+        domain master = no
+
+        local master = no
+
+        preferred master = no
+
+        os level = 0
+
+\textbf{Reinicie os serviços}
+
+\begin{itemize}
+	\item \textbf{\# /etc/init.d/winbind stop}
+	\item \textbf{\# /etc/init.d/samba restart}
+	\item \textbf{\# /etc/init.d/winbind start}
+\end{itemize}
+
+\textbf{Adicione a conta ao domínio}
+
+\begin{itemize}
+	\item \textbf{\# net ads join}
+	\item \textbf{Resultado} - Using short domain name – GERT Joined 'GERT' to realm 'FJA.BR'
+\end{itemize}
+
+\textbf{Configure a Autenticação}
+
+\begin{itemize}
+	\item \textbf{\# vim /etc/nsswitch.conf}
+\end{itemize}
+
+	passwd:         compat winbind
+
+	group:          compat winbind
+
+	shadow:         compat
+
+\textbf{Teste o winbind}
+
+\begin{itemize}
+	\item {getent passwd}
+\end{itemize}
+
+quiosque:*:10018:10000:Quiosque:/home/ADMINISTRATIVO/quiosque:/bin/bash
+
+\begin{itemize}
+	\item {getent group}
+\end{itemize}
+
+\_\_coordenação de enfermagem:x:10046:coordenf
+
+\_\_coordenação de design:x:10047:smarino,coorddes
+
+%*%*%*%*%*\textbf{Configure o PAM}
+
+Edite o arquivo /etc/pam.d/common-account adicionando as seguintes linhas
+
+sudo vi /etc/pam.d/common-account
+
+account sufficient       pam\_winbind.so
+
+account required         pam\_unix.so
+
+Edite o arquivo /etc/pam.d/common-auth adicionando as seguintes linhas
+
+sudo vi /etc/pam.d/common-auth
+
+auth sufficient pam\_winbind.so
+
+auth sufficient pam\_unix.so nullok\_secure use\_first\_pass
+
+auth required   pam\_deny.so
+
+Edite o arquivo /etc/pam.d/common-session adicionando as seguintes linhas
+
+sudo vi /etc/pam.d/common-session
+
+session required pam\_unix.so
+
+session required pam\_mkhomedir.so umask=0022 skel=/etc/skel
+
+Edite o arquivo /etc/pam.d/sudo adicionando as seguintes linhas
+
+sudo vi /etc/pam.d/sudo
+
+auth sufficient pam\_winbind.so
+
+auth sufficient pam\_unix.so use\_first\_pass
+
+auth required   pam\_deny.so
+
+$@$include common-account
+
+Criando o HOMEDIR do dominio
+
+sudo mkdir /home/ADMINISTRATIVO
+
+Reinicie os serviços
+
+sudo /etc/init.d/winbind stop
+
+sudo /etc/init.d/samba restart
+
+sudo /etc/init.d/winbind start
+
+Logando no dominio
+
+Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do dominio
+
+login: alex
+
+Password: *****
+
+alex$@$gert:~\$
+
 \section{Script para adicionar maquina linux no Active Directory}
 
 \#!/bin/sh
