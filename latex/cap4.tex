@@ -379,19 +379,19 @@ quiosque:*:10018:10000:Quiosque:/home/ADMINISTRATIVO/quiosque:/bin/bash
 
 \_\_coordenação de design:x:10047:smarino,coorddes
 
-%*%*%*%*%*\textbf{Configure o PAM}
+\textbf{Configure o PAM}
 
-Edite o arquivo /etc/pam.d/common-account adicionando as seguintes linhas
-
-sudo vi /etc/pam.d/common-account
+\begin{itemize}
+	\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas
+\end{itemize}
 
 account sufficient       pam\_winbind.so
 
 account required         pam\_unix.so
 
-Edite o arquivo /etc/pam.d/common-auth adicionando as seguintes linhas
-
-sudo vi /etc/pam.d/common-auth
+\begin{itemize}
+	\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas
+\end{itemize}
 
 auth sufficient pam\_winbind.so
 
@@ -399,17 +399,17 @@ auth sufficient pam\_unix.so nullok\_secure use\_first\_pass
 
 auth required   pam\_deny.so
 
-Edite o arquivo /etc/pam.d/common-session adicionando as seguintes linhas
-
-sudo vi /etc/pam.d/common-session
+\begin{itemize}
+	\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas
+\end{itemize}
 
 session required pam\_unix.so
 
 session required pam\_mkhomedir.so umask=0022 skel=/etc/skel
 
-Edite o arquivo /etc/pam.d/sudo adicionando as seguintes linhas
-
-sudo vi /etc/pam.d/sudo
+\begin{itemize}
+	\item {/etc/pam.d/sudo} - Adicione as seguintes linhas
+\end{itemize}
 
 auth sufficient pam\_winbind.so
 
@@ -419,27 +419,27 @@ auth required   pam\_deny.so
 
 $@$include common-account
 
-Criando o HOMEDIR do dominio
+%Criando o HOMEDIR do dominio
 
-sudo mkdir /home/ADMINISTRATIVO
+%sudo mkdir /home/ADMINISTRATIVO
 
-Reinicie os serviços
+\textbf{Reinicie os serviços}
 
-sudo /etc/init.d/winbind stop
+\begin{itemize}
+	\item \textbf{\# /etc/init.d/winbind stop}
+	\item \textbf{\# /etc/init.d/samba restart}
+	\item \textbf{\# /etc/init.d/winbind start}
+\end{itemize}
 
-sudo /etc/init.d/samba restart
-
-sudo /etc/init.d/winbind start
-
-Logando no dominio
+\textbf{Logando no domínio}
 
 Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do dominio
 
-login: alex
-
-Password: *****
-
-alex$@$gert:~\$
+\begin{itemize}
+	\item {login: nome\_do\_usuário}
+	\item {Password: *****}
+	\item {nome\_do\_usuário$@$gert:~\$}
+\end{itemize}
 
 \section{Script para adicionar maquina linux no Active Directory}
 

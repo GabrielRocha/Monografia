@@ -9,11 +9,16 @@ O pacote samba pode ser instalado através do repositório de sistemas da distri
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
     \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote samba.
     \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor samba e permite acesso de compartilhamentos no windows ou linux a partir de uma máquina linux.
-    \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do samba.
-    \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
 \end{itemize}
 
+\section{SWAT - Gerenciando o samba pelo browser}
+
 Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir ou restringir acessos, tudo em um ambiente gráfico.
+
+\begin{itemize}
+ \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do samba.
+    \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
+\end{itemize}
 
 Informe o usuário root e sua senha. Como se pode ser na Figura \ref{swat_login}
 
@@ -39,6 +44,8 @@ Na barra de ferramentas pode se observar as opções de configuração do swat. 
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
+\section{Iniciando Samba}
+
 Com todos os componentes instalados o servidor samba pode ser iniciado.
 
 \begin{itemize}
@@ -47,6 +54,8 @@ Com todos os componentes instalados o servidor samba pode ser iniciado.
 			\item \textbf{\# service smbd start} - Inicia o samba.
 			\item \textbf{\# service smbd stop} - Para o processo do samba.
 			\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o samba.
+			\item \textbf{\# /etc/init.d/samba start} - Para iniciar o samba em computadores com Debian 6.
+			\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
 		\end{enumerate}
 \end{itemize}
 
@@ -56,27 +65,22 @@ O arquivo de configuração se encontra no diretório /etc, onde está a maioria
 
 \begin{itemize}
 	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis deve-se abrir o arquivo smb.conf.
-	\item \textbf{\# cat /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo.
-	\item \textbf{\# testparm -s $>$ /etc/samba/smb.conf} - Muitas das linhas desse arquivo são comentários e podem ser removidos.
+	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo.
+	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
 \end{itemize}
 
-
-**Exemplo do smb.conf
-
-Agora é necessários inserir, modificar e remover alguns parâmetros na seção [global] para que o samba se comporte como um PDC.
+Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o samba se comporte como um PDC.
 {\raggedright
 
 [global] 
 
-	workgroup = IFFBOMJESUS 
+	workgroup = "nome do servidor de domínio" 
 
-	server string = IFFBJ        
+	server string = "Título"       
 
 	security = user
 
-	netbios name = battousai-share
-
-	encrypt passwords = yes
+	netbios name = "nome que será da netbios do servidor"
 
 	domain master = yes
 
@@ -106,7 +110,7 @@ Explicação das variáveis utilizadas:
 	\item \textbf{server string} - Descrição do servidor que aparece na barra de título das janelas do compartilhamento.
 	\item \textbf{security} - Tipo de segurança do compartilhamento. Existem os tipos domain, user e share.
 		\begin{enumerate}
-			\item {share}  - É utilizado quando o compartilhamento será aberto, onde todos os usuários conectados serão guest.
+			\item {share}  - É utilizado quando o compartilhamento será aberto, onde todos os usuários conectados serão guest e sem a necessidade de realizar login.
 			\item {user} - Todos os usuários que tentarem se conectar terão que se identificar por meio de um login e uma senha.
 			\item {domain} - Quando um servidor de domínio será responsável pela identificação e segurança do usuário e dos dados.
 		\end{enumerate} 
@@ -158,10 +162,10 @@ Para automatizar a criação dessa pasta no diretório home dos usuários, cria-
 Antes de cadastrá-los no samba eles precisam ser criados no sistema.
 
 \begin{itemize}
-	\item \textbf{\# adduser usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , entre outros dados.
+	\item \textbf{\# adduser - -disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
 \end{itemize}
 
-Após o usuário drt criado no sistema, ele necessita ser cadastrado no samba.
+Após o usuário ser criado no sistema, ele necessita ser cadastrado no samba.
 
 \begin{itemize}
 	\item \textbf{\# smbpasswd -a usuario} - Informe a mesma senha cadastrada no linux.
@@ -174,8 +178,8 @@ Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas
 As máquinas são cadastradas como usuários normais no linux antes de serem cadastradas no samba, porém sem pasta home e sem bash para login.
 
 \begin{itemize}
-	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas.
-	\item \textbf{\# useradd --home /dev/null --shell /bin/false --group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba irá identificar que o usuário na verdade é uma maquina. 
+	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas para melhor organização dos usuários no linux.
+	\item \textbf{\# useradd - -home /dev/null - -shell /bin/false - -group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba irá identificar que o usuário na verdade é uma maquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/máquina.
 \end{itemize}
 
@@ -337,11 +341,15 @@ O script tem que ter a permissão de root para que possa ser iniciado.
 	\item \textbf{\# cp smbmanager.sh /usr/sbin/} - Transferindo o script para a pasta /usr/sbin/ o script poderá ser iniciado em qualquer caminho que o usuário esteja.
 \end{itemize}
 
-\section{Migração dos Usuarios ADM e Users do Linux para o Windows}
+\section{Migração dos Usuários Administradores e Users do Linux para o Windows}
 
-Para que o Windows possa reconhecer os usuários administradores do linux (grupo root) e definir quais grupos serão os Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos.
+Para que o Windows possa reconhecer um grupo de usuários administradores do linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos.
 
 Primeiro é necessário saber qual o ID dos principais grupos do Windows.
+
+*****TABELA RID WIKI SAMBA*******
+
+RID (Relative Identifier) 
 
 Domain Admins RID=512 
 
@@ -349,17 +357,18 @@ Domain Users RID=513
 
 Domain Guests RID=514
 
-RID (Relative Identifier) 
+\begin{enumerate}
+	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga o passo 2.		
+	\item \textbf{\# net groupmap add ntgroup="Domain Admins" rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
+	\item \textbf{\# net groupmap add ntgroup="Domain Users" rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
+\end{enumerate}
 
 \begin{itemize}
-	\item \textbf{\# net groupmap list} - Lista todos os grupos mapeados no linux.
-	\item \textbf{\# net groupmap add ntgroup="Domain Admins" rid=512 unixgroup=root} - Irá mapear o grupo root para o grupo Domain Admins do windows.
-	\item \textbf{\# net groupmap add ntgroup="Domain Users" rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
-	\item \textbf{\# net groupmap delete ntgroup="Domain Admins"} - Remove o mapeamento dos grupos.
-	\item \textbf{\# net groupmap modify ntgroup="Domain Admins" rid=512 unixgroup=root} - Caso tenha necessidade de modificar um mapeamento.
+	\item \textbf{\# net groupmap delete ntgroup="Domain Admins"} - Caso queira remover um mapeamento de grupo.
+	\item \textbf{\# net groupmap modify ntgroup="Domain Admins" rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
 \end{itemize}
 
-Dessa forma, se o usuário logar como root em algum terminal windows no domínio, ele terá permissões de administrador.
+Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em algum terminal windows no domínio, ele terá permissões de administrador.
 
 \section{Perfis Moveis}
 
@@ -385,11 +394,10 @@ Como a estrutura da rede do IFF Bom Jesus é composta por Windows XP/7 e Ubuntu 
 Agora precisamos deletar todas as pastas do diretório home e trocar a sua permissão 
 
 \begin{itemize}
-	\item \textbf{\# rm -r /home/*}
-	\item \textbf{\# chmod 1777 /home}
+	\item \textbf{\# chmod 1777 -R /home}
 \end{itemize}
 
-Todo usuário que fizer login no servidor irá criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de permitir somente acesso ao usuário logado.
+Todo usuário que fizer login no servidor irá criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de permitir somente acesso ao usuário logado, onde o 1 é uma permissão especial 
 
 Os diretórios criados podem ficar em compartilhamento para o usuário que será mapeado na unidade H no windows.
 
@@ -413,6 +421,7 @@ Os diretórios criados podem ficar em compartilhamento para o usuário que será
 	\item \textbf {browseable} - Define se o compartilhamento poderá ser visto na pasta principal do compartilhamento ou somente pelo endereço completo.
 	\item \textbf {create mask} - Força a criação dos arquivos com a permissão 0600, assim somente os donos do arquivo poderão alterar os arquivos.
 	\item \textbf {directory mask} - Criação dos diretórios com permissão 0700.
+	\item \textbf{avaliable} - (Yes/No) Se o compartilhamento estará acessível ou não no servidor.
 \end{itemize}
 
 **FIGURA DO PERFIL MOVEL NO LINUX
@@ -440,12 +449,17 @@ browseable = no
 \begin{itemize}
 	\item \textbf{[Diretoria]} - Nome do compartilhamento que será mostrado no servidor.
 	\item \textbf{path} - Caminho onde se encontra o diretório no servidor.
-%	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou nao.
+		\begin{enumerate}
+			\item {\$ mkdir} - Cria uma pasta no servidor.
+			\item {\# chmod} - Define as permissões do arquivo. Exemplo: \# chmod 774 /pasta_criada - Essas permissão definem que o usuário proprietário do diretório e todos os usuário do seu grupo terão acesso total ao mesmo e seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
+			\item {\# chown} - Define qual será o usuário e grupo proprietário do diretório ou arquivo. Exemplo: \# chown usuario.grupo /diretorio .
+			\end{enumerate} 
+	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou nao.
 	\item \textbf{Valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuarios.
-	\item \textbf{force group} - Força o grupo dos arquivos criados no compartilhamento.
+	\item \textbf{force group} - Força qual será o grupo proprietário dos arquivos criados no compartilhamento.
 	\item \textbf{create mask} - Permissão dos arquivos que forem criados ou inseridos no compartilhamento
 	\item \textbf{directory mask} - Permissão dos diretórios do compartilhamento
-	%\item \textbf{browseable} - Define se o compartilhamento poderá ser visualizado na janela do compartilhamento do servidor.
+	\item \textbf{browseable} - Define se o compartilhamento poderá ser visualizado na janela do compartilhamento do servidor.
 \end{itemize}
 
 Existem outras variáveis que podem ser adicionadas em um compartilhamento de arquivos dependendo da necessidade.
@@ -453,12 +467,23 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 \begin{itemize}
 	\item \textbf{invalid users} - Lista de usuários e grupos que não terão acesso.
 	\item \textbf{guest ok} - Permite que qualquer usuário acesse a pasta.
-%	\item \textbf{avaliable} - (Yes/No) Se o compartilhamento estará acessível ou não no servidor.
 	\item \textbf{veto files} - Impede que certos arquivos sejam transferidos para o servidor.
 	\item \textbf{write list} - Lista de usuário que podem escrever na pasta.
 	\item \textbf{host deny} - Ip`s ou faixa de ips que não podem conectar ao servidor.
 	\item \textbf{hosts allow} - Ip`s ou faixas de ips que podem conectar ao compartilhamento.
 \end{itemize}
+
+\textbf{Exemplo da aplicação de algumas delas}
+
+[Backup]
+
+write list = 
+
+read list = 
+
+host allow = 
+
+veto files = 
 
 **FIGURA DO COMPARTILHAMENTO NO SERVIDOR
 
@@ -467,16 +492,16 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o samba fornece a opção na seção [global]. 
 
 \begin{itemize}
-	\item {logon script = \%G.bat } - Com essa variável adicionada, o sistema irá buscar o script com o nome do grupo primário do usuário. 
+	\item {logon script = \%G.bat } - Com essa variável adicionada, o sistema irá buscar o script com o nome do grupo primário do usuário. Trabalhar com o grupo é mais fácil de se gerenciar pois o mesmo script serve para mais de um usuário. O uso do \%U é um complicador, já que cada seria necessário criar um script para cada usuário do sistema.
 \end{itemize}
 
 Exemplo: 
 
-\textbf{Usuário logado : gabriel}
+\textbf{Usuário logado : usuário}
 
-\textbf{Grupo primário : dtic}
+\textbf{Grupo primário : grupo}
 
-\textbf{Script a ser procurado : dtic.bat}
+\textbf{Script a ser procurado : grupo.bat}
 
 Esse script precisa estar compartilhado no smb.conf para que possa ser executado. 
 
