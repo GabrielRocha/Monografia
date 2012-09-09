@@ -153,7 +153,7 @@ Pacotes necessários para gerenciar as GPO's no windows XP ou windows server.
 
 \section{Compartilhamento de arquivos e impressoras}
 
-SAMBA4 ainda não consegue compartilhar arquivos e impressoras, e tem problemas com a integração dos usuários e grupos do Active Directory com os locais, dificultando a definição das permissões a arquivos e diretórios.
+SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e simplificada como o samba 3, e tem problemas com a integração dos usuários e grupos do Active Directory com os locais, dificultando a definição das permissões a arquivos e diretórios.
 
 Uma solução para tal problema é identificar o código do usuário no Active Directory e dar as devidas permissões a pasta desejada.
 
@@ -163,11 +163,11 @@ Uma solução para tal problema é identificar o código do usuário no Active D
 	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
 
-\section{Perfil Móvel}
+%\section{Perfil Móvel}
 
-Muito parecido com o samba3 criar um compartilhamento no samba e dar as devidas permissões a pasta. A diferença se da na hora de definir que será perfil movel.
+%Muito parecido com o samba3 criar um compartilhamento no samba e dar as devidas permissões a pasta. A diferença se da na hora de definir que será perfil movel.
 
-***FIGURA DO AD DEFININDO PERFIL MOVEL***
+%***FIGURA DO AD DEFININDO PERFIL MOVEL***
 
 \section{Gerenciando o Samba4}
 

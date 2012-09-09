@@ -450,12 +450,12 @@ browseable = no
 	\item \textbf{[Diretoria]} - Nome do compartilhamento que será mostrado no servidor.
 	\item \textbf{path} - Caminho onde se encontra o diretório no servidor.
 		\begin{enumerate}
-			\item {\$ mkdir} - Cria uma pasta no servidor.
+			\item {\$ mkdir} - Cria uma pasta no servidor. Exemplo: mkdir pasta .
 			\item {\# chmod} - Define as permissões do arquivo. Exemplo: \# chmod 774 /pasta\_criada - Essas permissão definem que o usuário proprietário do diretório e todos os usuário do seu grupo terão acesso total ao mesmo e seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
 			\item {\# chown} - Define qual será o usuário e grupo proprietário do diretório ou arquivo. Exemplo: \# chown usuario.grupo /diretorio .
-			\end{enumerate} 
-	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou nao.
-	\item \textbf{Valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuarios.
+		\end{enumerate} 
+	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou não.
+	\item \textbf{Valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuários.
 	\item \textbf{force group} - Força qual será o grupo proprietário dos arquivos criados no compartilhamento.
 	\item \textbf{create mask} - Permissão dos arquivos que forem criados ou inseridos no compartilhamento
 	\item \textbf{directory mask} - Permissão dos diretórios do compartilhamento
