@@ -4,63 +4,158 @@ O samba 4 vem com a proposta de criar um Active Directory livre, utilizando o LD
 
 \section{Instalação do SAMBA4}
 
-Antes de começar a instalação o relógio do servidor tem que estar atualizado.
+Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate deve ser usado para esse fim, onde um dos principais servidores é o br.pool.ntp.org.
 
-\begin{itemize}
-	\item \textbf{\# ntpdate br.pool.ntp.org} - Atualiza a hora do servidor a partir do servidor br.pool.ntp.org.
-\end{itemize}
+\# ntpdate br.pool.ntp.org
+
+Em algumas distribuições o ntpdate não vem instalado por padrão.
+
+\# apt-get build-essential 
+
+%\begin{itemize}
+	%\item \textbf{\# ntpdate br.pool.ntp.org} - Atualiza a hora do servidor a partir do servidor br.pool.ntp.org.
+%\end{itemize}
 
 Por se tratar de um sistema ainda em fase de produção alguns erros podem aparecer ou alguns parâmetros devem ser modificados.
+A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
 
-\begin{itemize}
-	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core} - Pacotes necessários para a compilação do samba 4 e download;
-	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master} - Faz um clone do samba 4 que esta no repositório para o servidor;
-	\item \textbf{\# ./configure.developer} - Configurar as bibliotecas com parâmetros de desenvolvedor. Habilitando alguns modos de debug;
-	\item \textbf{\# make} - Faz uma leitura do comando Makefile;
-	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
-	\item \textbf{\# /usr/local/samba/sbin/provision - -use-ntvfs - -realm=iff.bomjesus - -domain=iff  - -adminpass= Senha00 - -server-role='domain controller'} - Cria o domínio samba com AD;
-		\begin{enumerate}
-			\item \textbf{use-ntvfs} - Habilita o NTVFS;
-			\item \textbf{realm} - Domínio do servidor Kerberos;
-			\item \textbf{domain} - Domínio do samba;
-			\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
-			\item \textbf{server-role} - Regra do servidor.
-		\end{enumerate}
-	\item \textbf{\# /usr/local/samba/bin/smbclient - -version} - Mostra a versão do samba;
-	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single} - Inicia o samba 4 com o modo debug;
-	\item \textbf{\#  echo 'ip do servidor iff.bomjesus iff' $>$$>$ /etc/hosts} - Define um nome para o ip do servidor.
-\end{itemize}
+\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core
+
+O código fonte esta hospedado no servidor git dos desenvolvedores do samba, e o mesmo deve ser clonado para a maquina de destino.
+
+\# git clone git://git.samba.org/samba.git samba-master; cd samba-master
+
+O samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo (???) se segue com o ./configure, make e o make install.
+Explicação dos procedimentos.
+Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
+
+Para verificar a versão instalada é só executar o seguinte comando:
+
+\# /usr/local/samba/bin/smbclient "--version 
+
+\section{Criação de Domínio com o Samba 4}
+
+Por padrão o samba 4 é instalado no /usr/local/.
+
+\# cd /usr/local/samba
+
+A instalação é a partir da execução do comando provision que fica localizado no /sbin do samba e a inserção de alguns parâmetros.
+
+\# sbin/provision "--use-ntvfs "--realm=iff.bomjesus "--domain=iff  "--adminpass= Senha00 "--server-role='domain controller'
+
+\begin{enumerate}
+	\item \textbf{use-ntvfs} - Habilita o NTVFS;
+	\item \textbf{realm} - Domínio do servidor Kerberos;
+	\item \textbf{domain} - Domínio do samba;
+	\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
+	\item \textbf{server-role} - Regra do servidor.
+\end{enumerate}
+
+Depois de instalado e configurado o servidor de Active Directory pode ser iniciado. Uma das forma é inicia-lo em modo debug para poder acompanhar melhor os processos realizados.
+
+\# /usr/local/samba/sbin/samba -i -M single
+
+%\begin{itemize}
+%	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core} - Pacotes necessários para a compilação do samba 4 e download;
+%	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master} - Faz um clone do samba 4 que esta no repositório para o servidor;
+%	\item \textbf{\# ./configure.developer} - Configurar as bibliotecas com parâmetros de desenvolvedor. Habilitando alguns modos de debug;
+%	\item \textbf{\# make} - Faz uma leitura do comando Makefile;
+%	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
+%	\item \textbf{\# /usr/local/samba/sbin/provision "--use-ntvfs "--realm=iff.bomjesus "--domain=iff  "--adminpass= Senha00 "--server-role='domain controller'} - Cria o domínio samba com AD;
+%		\begin{enumerate}
+%			\item \textbf{use-ntvfs} - Habilita o NTVFS;
+%			\item \textbf{realm} - Domínio do servidor Kerberos;
+%			\item \textbf{domain} - Domínio do samba;
+%			\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
+%			\item \textbf{server-role} - Regra do servidor.
+%		\end{enumerate}
+%	\item \textbf{\# /usr/local/samba/bin/smbclient "--version} - Mostra a versão do samba;
+%	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single} - Inicia o samba 4 com o modo debug;
+%	\item \textbf{\#  echo 'ip do servidor iff.bomjesus iff' $>$$>$ /etc/hosts} - Define um nome para o ip do servidor.
+%\end{itemize}
 
 \section{Instalação e configuração do BIND9}
 
-O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS.
+BIND (Berkeley Internet Name Domain ou, como chamado previamente, Berkeley Internet Name Daemon[1]) é o servidor para o protocolo DNS mais utilizado na Internet,[2] especialmente em sistemas do tipo Unix, onde ele pode ser considerado um padrão de facto. Foi criado por quatro estudantes de graduação, membros de um grupo de pesquisas em ciência da computação da Universidade de Berkeley, e foi distribuído pela primeira vez com o sistema operacional 4.3BSD. O programador Paul Vixie, enquanto trabalhava para a empresa DEC, foi o primeiro mantenedor do BIND. Atualmente o BIND é suportado e mantido pelo Internet Systems Consortium.
+Para a versão 9, o BIND foi praticamente reescrito. Ele passou a suportar, dentre outras funcionalidades, a extensão DNSSEC e os protocolos TSIG e IPv6.(http://pt.wikipedia.org/wiki/BIND)
+
+O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS nas versões 9.8 e 9.9.
+Atualmente a versão do Bind9 no repositório é a 9.7 e com isso é gerada algumas incompatibilidades e para resolver esses problemas é feita o download e a  instalação manual da versão 9.9.
+
+\# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz
+
+Descompactazação do pacote baixado.
+ 
+\# tar -xzvf bind-9.9.0.tar.gz
+
+Entrar no diretório do bind9
+
+\# cd bind-9.9.0
+
+Configuração para a instalação, informando qual o local de instalação e onde ficarão os arquivos de configuração.
+
+\# ./configure "--prefix=/usr/local/bind9 "--sysconfdir=/etc/bind
+
+*****EXPLICAR O MAKE*****
+
+*****EXPLICAR MAKE INSTALL*****
+
+Entrar no diretório onde se encontra os arquivos de configuração do bind
+
+\# cd /etc/bind
+
+Com esse procedimento de instalação os arquivos de configuração não são gerados automaticamente, com isso gerando a necessidade de cria-los manualmente.
+
+\# vim named.conf.options
+
+As seguintes configurações devem ser adicionadas.
+
+options \{
+	
+directory "/usr/local/bind/var/run/named";
+
+tkey-gssapi-keytab "/usr/local/samba/private/dns.keytab" ;
+
+tkey-domain "nome\_do\_realm\_samba";
+	
+\};
+
+As variáveis adicionadas no arquivos são para:
 
 \begin{itemize}
-	\item \textbf{\# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz} - Download da versão 9.9 do bind9;
-	\item \textbf{\# tar xzvf bind-9.9.0.tar.gz} - Descompactar o pacote do bind9;
-	\item \textbf{\# cd bind-9.9.0} - Acessar o diretório do bind9 descompactado;
-	\item \textbf{\# ./configure - -prefix=/usr/local/bind9 - -sysconfdir=/etc/bind} - Configurar os parâmentros para a instalação do bind, tais como o local onde vai ser instalado e onde ficarão os arquivos de configuração;
-	\item \textbf{\# make} - Leitura do comando Makefile;
-	\item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
-	\item \textbf{\# cd /etc/bind} - Acessar o diretório onde se encontram os arquivos do bind;
-	\item \textbf{\# vim named.conf} - Cria e edita o arquivo. Adicione as linhas abaixo no arquivo;
-		\begin{enumerate}
-			\item \textbf{include "/etc/bind/named.conf.options";}
-			\item \textbf{include "/etc/bind/named.conf.local";}
-		\end{enumerate}
- 		\item \textbf{\# vim named.conf.options}
-			\begin{enumerate}
-				\item \textbf{Adicionar no arquivo} - options \{
-        			
-					directory "/var/cache/bind";
-
-					auth-nxdomain no;
-
-					listen-on-v6 \{ any; \};
-					
-					\};
-			\end{enumerate}
+	\item{directory} -  É o caminho absoluto do seu servidor dns;
+	\item{tkey-gssapi-keytab} - Local da chave do dns para conexão com o kerberos;
+	\item{tkey-domain} - Nome do Domínio.
+%	\item{auth-nxdomain} - ...
+%	\item{listen-on-v6} - ...
 \end{itemize}
+
+%\begin{itemize}
+%	\item \textbf{\# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz} - Download da versão 9.9 do bind9;
+%	\item \textbf{\# tar xzvf bind-9.9.0.tar.gz} - Descompactar o pacote do bind9;
+%	\item \textbf{\# cd bind-9.9.0} - Acessar o diretório do bind9 descompactado;
+%	\item \textbf{\# ./configure "--prefix=/usr/local/bind9 "--sysconfdir=/etc/bind} - Configurar os parâmentros para a instalação do bind, tais como o local onde vai ser instalado e onde ficarão os arquivos de configuração;
+	% \item \textbf{\# make} - Leitura do comando Makefile;
+	% \item \textbf{\# make install} - Executa os comandos configurados para o parâmetro install do arquivo Makefile;
+	% \item \textbf{\# cd /etc/bind} - Acessar o diretório onde se encontram os arquivos do bind;
+	% \item \textbf{\# vim named.conf} - Cria e edita o arquivo. Adicione as linhas abaixo no arquivo;
+	% 	\begin{enumerate}
+	% 		\item \textbf{include "/etc/bind/named.conf.options";}
+	% 		\item \textbf{include "/etc/bind/named.conf.local";}
+	% 	\end{enumerate}
+	%  		\item \textbf{\# vim named.conf.options}
+	% 		\begin{enumerate}
+				% \item \textbf{Adicionar no arquivo} - options \{
+%       			
+%					directory "/var/cache/bind";
+%
+%					auth-nxdomain no;
+%
+%					listen-on-v6 \{ any; \};
+%					
+%					\};
+%			\end{enumerate}
+%\end{itemize}
 
 O comando provision gera os arquivos de configuração necessários para o funcionamento do samba com o servidor dns.
 
@@ -71,11 +166,21 @@ O comando provision gera os arquivos de configuração necessários para o funci
 		\end{enumerate}
 \end{itemize}
 
-Comentar as linhas conforme a versão do bind9 
+Com os arquivos named.conf.local e named.conf.options devidamente criados e configurados, deve-se inclui-los no arquivos named.conf
+
+\# vim named.conf
+
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.options";
+
+
+Como o samba 4 já vem com configurações prontas do bind9 é necessário escolher qual a versão do dns que esta sendo utilizada.
 
 \begin{itemize}
 	\item \textbf{\# vim /usr/local/samba/private/named.conf}
 \end{itemize}
+
+*****FIGURA DO ARQUIVO******
 
 \# For BIND 9.8.0
 
@@ -89,21 +194,22 @@ Descomentar
 
 \begin{itemize}
 	\item \textbf{\# groupadd named \&\& useradd named -g named} - Cria o usuário responsável pelo bind e o insere no grupo named;
-	\item \textbf{\# mkdir /var/cache/bind} - Cria a pasta onde ficarão os caches do bind;
+	\item{\# chown named:named /usr/local/samba/private/dns.keytab}
 	\item \textbf{\# /usr/local/bind9/sbin/named -u named -g} - Inicia o bind com o usuário named;
 \end{itemize}
 
 O servidor samba tem que ter seu endereço DNS configurado para apontar para seu servidor DNS.
 
 \begin{itemize}
-	\item \textbf{\# echo 'nameserver "ip do servidor"' $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
+	\item \textbf{\# echo 'nameserver ip\_do\_servidor' $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
 \end{itemize}
 
 A partir de agora para acessar a internet através do servidor samba o bind deverá estar sendo executado.
 
 \section{Instalação do Kerberos}
 
-O kerberos a ser instalado é o Heimdal
+Segundo(http://samba4.wordpress.com/2009/09/25/instalacao-samba4) Autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.
+Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, necessário para interagir BIND com Samba4, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
 
 \begin{itemize}
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
@@ -140,7 +246,7 @@ Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
 
 \begin{itemize}
 	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab}
-	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate - -verbose} - Atualização automática do dns do samba.
+	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate "--verbose} - Atualização automática do dns do samba.
 \end{itemize}
 
 \section{AD}
@@ -158,16 +264,10 @@ SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e
 Uma solução para tal problema é identificar o código do usuário no Active Directory e dar as devidas permissões a pasta desejada.
 
 \begin{itemize}
-	\item \textbf{\# /usr/local/samba/bin/wbinfo - -name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1)
-	\item \textbf{\# /usr/local/samba/bin/wbinfo - -sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
+	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1)
+	\item \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
 	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
-
-%\section{Perfil Móvel}
-
-%Muito parecido com o samba3 criar um compartilhamento no samba e dar as devidas permissões a pasta. A diferença se da na hora de definir que será perfil movel.
-
-%***FIGURA DO AD DEFININDO PERFIL MOVEL***
 
 \section{Gerenciando o Samba4}
 
