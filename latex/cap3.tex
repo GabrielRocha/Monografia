@@ -162,7 +162,7 @@ Para automatizar a criação dessa pasta no diretório home dos usuários, cria-
 Antes de cadastrá-los no samba eles precisam ser criados no sistema.
 
 \begin{itemize}
-	\item \textbf{\# adduser - -disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
+	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
 \end{itemize}
 
 Após o usuário ser criado no sistema, ele necessita ser cadastrado no samba.
@@ -179,7 +179,7 @@ As máquinas são cadastradas como usuários normais no linux antes de serem cad
 
 \begin{itemize}
 	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas para melhor organização dos usuários no linux.
-	\item \textbf{\# useradd - -home /dev/null - -shell /bin/false - -group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba irá identificar que o usuário na verdade é uma maquina. 
+	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba irá identificar que o usuário na verdade é uma maquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/máquina.
 \end{itemize}
 
@@ -211,13 +211,13 @@ if [ -n "\$machine" ] ; then
 
     if [ -z "\$group" ] ; then
 
-        useradd - -disabled-login - -home /dev/null - -shell /bin/false \$machine$\backslash$\$ 2$ >$/dev/null \&\& passwd -l \$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
+        useradd "--disabled-login "--home /dev/null "--shell /bin/false \$machine$\backslash$\$ 2$ >$/dev/null \&\& passwd -l \$machine$\backslash$\$ \&\& smbpasswd -a -m \$machine
 
     fi
 
     if [ -n "\$group" ]; then
 	
-        useradd - -disabled-login - -home /dev/null - -shell /bin/false - -group \$group \$machine$\backslash$\$ 
+        useradd "--disabled-login "--home /dev/null "--shell /bin/false "--group \$group \$machine$\backslash$\$ 
 
 	check=\$(echo \$$?$)
 
@@ -468,7 +468,8 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 	\item \textbf{invalid users} - Lista de usuários e grupos que não terão acesso.
 	\item \textbf{guest ok} - Permite que qualquer usuário acesse a pasta.
 	\item \textbf{veto files} - Impede que certos arquivos sejam transferidos para o servidor.
-	\item \textbf{write list} - Lista de usuário que podem escrever na pasta.
+	\item \textbf{write list} - Lista dos usuários que poderão gravar e fazer alterações nos arquivos e diretórios compartilhados.
+	\item \textbf{read list} - Lista dos usuários que só poderão ler e listar os arquivos e diretórios compartilhados.
 	\item \textbf{host deny} - Ip`s ou faixa de ips que não podem conectar ao servidor.
 	\item \textbf{hosts allow} - Ip`s ou faixas de ips que podem conectar ao compartilhamento.
 \end{itemize}
@@ -477,13 +478,13 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 
 [Backup]
 
-write list = 
+write list = usuario1 \# Somente o usuario1 terá permissão de escrita no compartilhamento.
 
-read list = 
+read list = usuario2 \# O usuario2 só poderá ler e listas os arquivos e diretórios desse compartilhamento.
 
-host allow = 
+host allow = 192.168.1.2-192.168.1.20 \# Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderão acessar esse compartilhamento.
 
-veto files = 
+veto files = *.tmp, *.doc 
 
 **FIGURA DO COMPARTILHAMENTO NO SERVIDOR
 
