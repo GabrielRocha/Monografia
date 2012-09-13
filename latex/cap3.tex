@@ -64,8 +64,8 @@ Com todos os componentes instalados o servidor samba pode ser iniciado.
 O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no linux.
 
 \begin{itemize}
-	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis deve-se abrir o arquivo smb.conf.
 	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo.
+	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis deve-se abrir o arquivo smb.conf.
 	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
 \end{itemize}
 
