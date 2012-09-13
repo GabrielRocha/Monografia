@@ -112,7 +112,7 @@ Explicação das variáveis utilizadas:
 		\begin{enumerate}
 			\item {share}  - É utilizado quando o compartilhamento será aberto, onde todos os usuários conectados serão guest e sem a necessidade de realizar login.
 			\item {user} - Todos os usuários que tentarem se conectar terão que se identificar por meio de um login e uma senha.
-			\item {domain} - Quando um servidor de domínio será responsável pela identificação e segurança do usuário e dos dados.
+			\item {domain} - Quando um servidor de domínio será responsável pela identificação e segurança dos usuários.
 		\end{enumerate} 
 	\item \textbf{netbios name} - Nome da netbios do servidor.
 	\item \textbf{encrypt password} - Quando informado a variável "yes" as senhas informadas para o servidor serão criptografadas.
@@ -125,7 +125,12 @@ Explicação das variáveis utilizadas:
 			\item {SeMachineAccountPrivilege} - Adicionar maquinas no domínio 
 			\item {SePrintOperatorPrivilege} - Gerencia as impressoras
 		\end{enumerate}
-	\item \textbf{passdb backend} - Aceita valores como osmbpasswd, tdbsam ou LDAP. Define qual será a forma de armazenagem dos registros dos usuários.
+	\item \textbf{passdb backend} - Aceita valores smbpasswd ou tdbsam . Define qual será a forma de armazenagem dos registros dos usuários.
+		\begin{enumerate}
+			\item{smbpasswd} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo "/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.
+			\item{tdbsam} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo "/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote "samba" no Debian pergunta se deve ser criado).
+			\item{Diferença entre smbpasswd e tdbsam} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede (veja mais detalhes a seguir). Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. 
+		\end{enumerate}
 	\item \textbf{local master} - Define se o servidor será o Master Browser.
 	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de "os level" o servidores windows.
 	\item \textbf{win support} - Se nmbd será um servidor WINS.
@@ -394,16 +399,17 @@ Como a estrutura da rede do IFF Bom Jesus é composta por Windows XP/7 e Ubuntu 
 Agora precisamos deletar todas as pastas do diretório home e trocar a sua permissão 
 
 \begin{itemize}
-	\item \textbf{\# chmod 1777 -R /home}
+	\item \textbf{\# mkdir /var/samba/usuario}
+	\item \textbf{\# chmod 1777 -R /var/samba/usuario}
 \end{itemize}
 
-Todo usuário que fizer login no servidor irá criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de permitir somente acesso ao usuário logado, onde o 1 é uma permissão especial 
+Todo usuário que fizer login no servidor irá criar automaticamente uma pasta com o seu nome e com toda a estrutura do perfil como Desktop, Meus documentos. Com a permissão 1777 o samba se encarrega de permitir somente acesso ao usuário logado, onde o 1 é uma permissão especial. 
 
 Os diretórios criados podem ficar em compartilhamento para o usuário que será mapeado na unidade H no windows.
 
 [profiles] 
 
-	path = /home 
+	path = /var/samba/usuario 
 	
 	writeable = yes 
 	
