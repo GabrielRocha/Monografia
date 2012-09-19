@@ -89,6 +89,8 @@ Agora é necessário inserir, modificar e remover alguns parâmetros na seção 
 	enable privileges = yes
 
 	passdb backend = tdbsam
+	
+	encrypt passwords = true
 
 	preferred master = yes
 
@@ -115,7 +117,7 @@ Explicação das variáveis utilizadas:
 			\item {domain} - Quando um servidor de domínio será responsável pela identificação e segurança dos usuários.
 		\end{enumerate} 
 	\item \textbf{netbios name} - Nome da netbios do servidor.
-	\item \textbf{encrypt password} - Quando informado a variável "yes" as senhas informadas para o servidor serão criptografadas.
+	\item \textbf{encrypt passwords} - Quando informado a variável "true" as senhas informadas para o servidor serão criptografadas.
 	\item \textbf{domain master} - Informa que o servidor samba será o domínio principal da rede.
 	\item \textbf{domain logons} - O servidor samba passa a ser um controlador de domínio.
 	\item \textbf{enable privileges} - Habilita alguns privilégios no samba. Alguns deles:
@@ -427,7 +429,7 @@ Os diretórios criados podem ficar em compartilhamento para o usuário que será
 	\item \textbf {browseable} - Define se o compartilhamento poderá ser visto na pasta principal do compartilhamento ou somente pelo endereço completo.
 	\item \textbf {create mask} - Força a criação dos arquivos com a permissão 0600, assim somente os donos do arquivo poderão alterar os arquivos.
 	\item \textbf {directory mask} - Criação dos diretórios com permissão 0700.
-	\item \textbf{avaliable} - (Yes/No) Se o compartilhamento estará acessível ou não no servidor.
+	\item \textbf{available} - (Yes/No) Se o compartilhamento estará acessível ou não no servidor.
 \end{itemize}
 
 **FIGURA DO PERFIL MOVEL NO LINUX
