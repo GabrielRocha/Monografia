@@ -16,9 +16,12 @@ plataforma Windows.
 O samba permite que um servidor linux seja apto a fornecer serviços como:
   \begin{itemize}
     \item \textbf{\#Servidor de arquivos e impressão} Utilizando o protocolo Server Message Block para possibilitar o compartilhamento de arquivos, pastas volumes e impressoras na rede.
-    \item \textbf{\#Autenticação e autorização}Identifica um computador ou um usuário da rede e determina os direitos de acesso a arquivos que cada usuário possui, através de tecnologias como permissões de arquivos, diretivas de grupo e o serviço de autenticação Kerberos.
-    \item \textbf{\#Resolução e busca de nomes e diretórios}Compartilha as principais informações sobre computadores e usuários da rede através do Light Directory Access Protocol (LDAP) e o Microsoft Active Directory.
-    \item \textbf{\#Servidor de domínio como PDC}Funcionando como controlador de domínio ativo dentro de um domínio Windows.
+
+    \item \textbf{\#Autenticação e autorização} Identifica um computador ou um usuário da rede e determina os direitos de acesso a arquivos que cada usuário possui, através de tecnologias como permissões de arquivos, diretivas de grupo e o serviço de autenticação Kerberos.
+
+    \item \textbf{\#Resolução e busca de nomes e diretórios} Compartilha as principais informações sobre computadores e usuários da rede através do Light Directory Access Protocol (LDAP) e o Microsoft Active Directory.
+
+    \item \textbf{\#Servidor de domínio como PDC} Funcionando como controlador de domínio ativo dentro de um domínio Windows.
   \end{itemize}
 
 \section{Permissões no Linux}
@@ -26,6 +29,8 @@ O samba permite que um servidor linux seja apto a fornecer serviços como:
 \section{Permissões especiais no Linux}
 
 \section{Seções}
+
+No Samba, as configurações de compartilhamentos, configurações de impressoras e todas as configurações gerais, são realizadas através de um unico arquivo de configuraçõa, o "/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividio em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome "arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
 
 \section{Parâmetro}
 
@@ -45,6 +50,8 @@ O samba permite que um servidor linux seja apto a fornecer serviços como:
 
 \section{NETBIOS}
 
+NETBIOS, Networking Basic Input/Outbut System, é uma API desenvolvida em 1984 pela IBM, que fornece serviços relacionados na camada de sessão do modelo OSI, permitindo a comunicação entre computadores na rede através de um nome NETBIOS correspondente a um hostname.
+
 \section{Domain Master}
 
 DOMAIN MASTER BROWSER Uma vez que o Local Master Browser é eleito no segmento de rede, uma consulta é feita ao servidor WINS para saber quem é o Domain Master Browser da rede para enviar a lista de compartilhamentos. A máquina escolhida como Local Master Browser envia pacotes para a porta UDP 138 do Domain Master e este responde pedindo a lista de todos os nomes de máquinas que o Local Master conhece e também o registra como Local Master para aquele segmento de rede.
@@ -62,6 +69,11 @@ DOMAIN MASTER BROWSER Uma vez que o Local Master Browser é eleito no segmento d
 \section{NTVFS}
 
 Sistema de arquivos que armazena os atributos do NTFS
+
+\section{GSSAPI}
+
+A GSSAPI é uma interface que permite desenvolvedores escreverem aplicações que aproveitam mecanismos de segurança tais como Kerberos, sem ter de programar explicitamente para qualquer mecanismo, ou seja, aplicações genéricas do ponto de vista de segurança. Programas que usam GSSAPI são, deste modo, altamente portáteis, não somente de uma plataforma para outra, mas de uma configuração de segurança a outra e de um protocolo de transporte a outro. A GSSAPI fornece vários níveis de proteção de dados, consistentes com os mecanismos de segurança subjacentes.
+
 
 \section{Referencias - Temporário}
 SAMBA:
@@ -81,6 +93,11 @@ http://www.samba.org/cifs/
 
 Using Samba (OREILLY)
 
-\section{GSSAPI}
+NETBIOS:
 
-A GSSAPI é uma interface que permite desenvolvedores escreverem aplicações que aproveitam mecanismos de segurança tais como Kerberos, sem ter de programar explicitamente para qualquer mecanismo, ou seja, aplicações genéricas do ponto de vista de segurança. Programas que usam GSSAPI são, deste modo, altamente portáteis, não somente de uma plataforma para outra, mas de uma configuração de segurança a outra e de um protocolo de transporte a outro. A GSSAPI fornece vários níveis de proteção de dados, consistentes com os mecanismos de segurança subjacentes. (http://www.gta.ufrj.br/grad/10\_1/kerberos/gssapi.html)
+http://pt.wikipedia.org/wiki/Netbios
+
+Using Samba (OREILLY)
+
+GSSAPI:
+http://www.gta.ufrj.br/grad/10\_1/kerberos/gssapi.html
