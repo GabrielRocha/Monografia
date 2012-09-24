@@ -4,22 +4,19 @@ O samba 4 vem com a proposta de criar um Active Directory livre, utilizando o LD
 
 \section{Instalação do SAMBA4}
 
+Por se tratar de um sistema ainda em fase de produção alguns erros podem aparecer ou alguns parâmetros deverão ser modificados.
+A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
+
+\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core
+
 Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate deve ser usado para esse fim, onde um dos principais servidores é o br.pool.ntp.org.
 
 \# ntpdate br.pool.ntp.org
 
-Em algumas distribuições o ntpdate não vem instalado por padrão.
-
-\# apt-get build-essential 
 
 %\begin{itemize}
 	%\item \textbf{\# ntpdate br.pool.ntp.org} - Atualiza a hora do servidor a partir do servidor br.pool.ntp.org.
 %\end{itemize}
-
-Por se tratar de um sistema ainda em fase de produção alguns erros podem aparecer ou alguns parâmetros devem ser modificados.
-A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
-
-\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core
 
 O código fonte esta hospedado no servidor git dos desenvolvedores do samba, e o mesmo deve ser clonado para a maquina de destino.
 
