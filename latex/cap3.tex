@@ -20,18 +20,16 @@ Com ele é possível compartilhar impressoras, arquivos, criar usuários, permit
     \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
 \end{itemize}
 
-Informe o usuário root e sua senha. Como se pode ser na Figura \ref{swat_login}
+Informe o usuário root e sua senha. Como se pode ser na Figura 
 
-\begin{figure}[hp]
+Na barra de ferramentas pode se observar as opções de configuração do swat. Da esquerda para direita vemos:\ref{swat}
+
+\begin{figure}[ht]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/swat_login}}
-   	\caption{Tela do Login no Swat}
-    \label{swat_login}
+    \scalebox{1}{\includegraphics{figuras/swat}}
+   	\caption{Tela do Swat}
+    \label{swat}
 \end{figure}
-
-Na barra de ferramentas pode se observar as opções de configuração do swat. Da esquerda para direita vemos:
-
-**FIGURA DO SWAT
 
 \begin{itemize}
     \item \textbf{Home} - Documentação do samba
@@ -148,7 +146,12 @@ Com todas as variáveis devidamente adicionadas o servidor samba precisa ser rei
 	\item \textbf{\# /etc/init.d/nmbd restart} - Reinicia o servidor de nomes do samba.
 \end{itemize}
 
-**FIGURA DA SAIDA DO TESTPARM
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/testparm}}
+   	\caption{Saída do testparm}
+    \label{testparm}
+\end{figure}
 
 \section{Cadastro de Usuário}
 
@@ -339,14 +342,19 @@ else
 
 fi
 
-**FIGURA DO SCRIPT RODANDO
-
 O script tem que ter a permissão de root para que possa ser iniciado.
 
 \begin{itemize}
 	\item \textbf{\# chmod +x smbmanger.sh} - Adiciona a permissão de execução ao script.
 	\item \textbf{\# cp smbmanager.sh /usr/sbin/} - Transferindo o script para a pasta /usr/sbin/ o script poderá ser iniciado em qualquer caminho que o usuário esteja.
 \end{itemize}
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/smbmanager}}
+   	\caption{Saída do smbmanager}
+    \label{smbmanager}
+\end{figure}
 
 \section{Migração dos Usuários Administradores e Users do Linux para o Windows}
 
@@ -432,8 +440,6 @@ Os diretórios criados podem ficar em compartilhamento para o usuário que será
 	\item \textbf{available} - (Yes/No) Se o compartilhamento estará acessível ou não no servidor.
 \end{itemize}
 
-**FIGURA DO PERFIL MOVEL NO LINUX
-
 \section{Compartilhamento de Arquivos}
 
 O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf.
@@ -494,8 +500,6 @@ host allow = 192.168.1.2-192.168.1.20 \# Somente os ip's que estiverem entre 192
 
 veto files = *.tmp/*.doc \# Não será permitido inserir esses tipos de arquivos no compartilhamento. Essa variável aceita expressões regulares
 
-**FIGURA DO COMPARTILHAMENTO NO SERVIDOR
-
 \section{Script Logon}
 
 Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o samba fornece a opção na seção [global]. 
@@ -535,13 +539,16 @@ O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/s
 	\item \textbf{\# chmod 1775 /var/samba/scripts} - Permissão de execução dos scripts.
 \end{itemize}
 
-Exemplo de um dos scripts 
-
-diretoria.bat 
+Exemplo de um script diretoria.bat 
 
 \textbf{net use x: $\backslash$$\backslash$servidor$\backslash$diretoria}
 
-**FIGURA DO MAPEAMENTO AUTOMÁTICO 
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/mapeamento}}
+   	\caption{Tela de um mapeamento}
+    \label{mapeamento}
+\end{figure} 
 
 \section{Compartilhamento de Impressoras}
 
@@ -574,8 +581,6 @@ Caso o cups não esteja instalado.
 	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
 \end{itemize}
 
-***FIGURA DO CUPS PELO BROWSER***
-
 Habilitando o compartilhamento de impressora
 
 [printers]
@@ -596,6 +601,13 @@ browseable = yes
 \end{itemize}
 
 Dessa forma ao acessar o servidor irão aparecer todas as impressoras instaladas.
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/cups}}
+   	\caption{Tela do CUPS pelo Browser}
+    \label{cups}
+\end{figure}
 
 \section{Instalação automática dos drive da impressora}
 
@@ -641,23 +653,23 @@ Se o caminho apontado pelo path não existir ele terá que ser criado com as per
 Com as permissões, usuários e impressoras configuradas, os drivers têm que ser passados para o servidor.
 
 \begin{enumerate}
-	\item \textbf{Acessar a maquina com um usuário local} - 	\ref{login_windows_local}
-	\begin{figure}[ht]
-	   	\centering
-	    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
-	   	\caption{Tela do Login no Windows localmente}
-	    \label{login_windows_local}
-	\end{figure}	
-	
-	\item \textbf{Informar o endereço do servidor} - \ref{server_ip}
+	\item \textbf{Acessar a maquina com um usuário local} - \ref{login_windows_local}
+		\begin{figure}[ht]
+		   	\centering
+		    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
+		   	\caption{Tela do Login no Windows localmente}
+		    \label{login_windows_local}
+		\end{figure}
+		
+	\item \textbf{Informar o endereço do servidor} - \ref{server_ip}	
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/server_ip}}
 	   	\caption{IP do servidor de compartilhamento}
 	    \label{server_ip}
 	\end{figure}
-	
-	\item \textbf{Informar o usuario root e sua senha} - \ref{root_password}
+		
+	\item \textbf{Informar o usuario root e sua senha} - \ref{root_password}	
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/root_password}}
@@ -672,7 +684,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers têm que se
 	   	\caption{Impressoras e aparelhos de fax compartilhados}
 	    \label{impressora_aparelho_fax}
 	\end{figure}
-	
+
 	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor} - \ref{propriedade_servidor}
 	\begin{figure}[ht]
 	   	\centering
@@ -681,7 +693,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers têm que se
 	    \label{propriedade_servidor}
 	\end{figure}
 	
-	\item \textbf{Aba Driver -$>$ Adicionar} - \ref{adicionar_driver}
+ 	\item \textbf{Aba Driver -$>$ Adicionar} - \ref{adicionar_driver}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/adicionar_driver}}
@@ -721,15 +733,13 @@ Com as permissões, usuários e impressoras configuradas, os drivers têm que se
 	    \label{opcao_nao}
 	\end{figure}
 	
-	\item \textbf{Aba Avançado} - \ref{aba_avancado}
+	\item \textbf{Selecione o drive que será vinculado a impressora} - \ref{aba_avancado}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/aba_avancado}}
 	   	\caption{Aba onde será feito o link da impressora com o driver}
 	    \label{aba_avancado}
 	\end{figure}
-	
-	\item \textbf{Selecione o drive que será vinculado a impressora} - \ref{aba_avancado}
 	
 	\item \textbf{Logar com o usuário do domínio no qual será mapeada a impressora} - \ref{login_dominio}
 	\begin{figure}[ht]
