@@ -54,6 +54,17 @@ Depois de instalado e configurado o servidor de Active Directory pode ser inicia
 
 \# /usr/local/samba/sbin/samba -i -M single
 
+Para facilitar a forma de ativar o samba 4 podem ser feito dois procedimentos.
+
+Criar um link do executável do samba no /etc/init.d/
+
+\# ln /usr/local/samba/sbin/samba /etc/init.d/samba
+
+Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
+
+\# echo "export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH" >> /root/.bashrc
+
+
 %\begin{itemize}
 %	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core} - Pacotes necessários para a compilação do samba 4 e download;
 %	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master} - Faz um clone do samba 4 que esta no repositório para o servidor;
@@ -235,10 +246,8 @@ Configurar atualizações dinâmicas no DNS com o kerberos
 Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind
 
 \begin{itemize}
-	\item \textbf{\# KEYTAB\_FILE="/usr/local/samba/private/dns.keytab"}
-	\item \textbf{\# KRB5\_KTNAME="/usr/local/samba/private/dns.keytab"}
-	\item \textbf{\# export KEYTAB\_FILE}
-	\item \textbf{\# export KRB5\_KTNAME}
+	\item \textbf{\# echo "export KEYTAB\_FILE=/usr/local/samba/private/dns.keytab" >> /root/.bashrc}
+	\item \textbf{\# echo "export KRB5\_KTNAME=/usr/local/samba/private/dns.keytab" >> /root/.bashrc}
 \end{itemize}
 
 Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
@@ -248,13 +257,28 @@ Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
 	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate "--verbose} - Atualização automática do dns do samba.
 \end{itemize}
 
-\section{AD}
+\section{Gerenciando o samba 4 no Windows XP}
 
-Pacotes necessários para gerenciar o AD no windows XP ou windows server.
+É possível gerenciar o servidor samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack presente no Windows Server.
 
-\section{GPO}
+http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en 
 
-Pacotes necessários para gerenciar as GPO's no windows XP ou windows server.
+Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e maquinas presentes no Active Directory.\ref{tela_dsa}
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/dsamsc}}
+   	\caption{Tela para executar o DSA}
+    \label{dsa}
+\end{figure}
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/addsa}}
+   	\caption{Tela do DSA}
+    \label{tela_dsa}
+\end{figure}
+
 
 \section{Compartilhamento de arquivos e impressoras}
 
@@ -268,11 +292,16 @@ Uma solução para tal problema é identificar o código do usuário no Active D
 	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
 
-\section{Gerenciando o Samba4}
+\section{Gerenciando o Samba4 no Linux}
 
-O samba-tools - Gerência o samba. Com ele se poder criar usuários, grupos, gpo's e outras funções do Active Directory, porém um forma de texto.
+O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no Active Directory. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém um forma de texto.
 
-***FIGURA DO SAMBA-TOOLS***
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/samba-tool}}
+   	\caption{samba-tool no terminal}
+    \label{Samba-tool}
+\end{figure}
 
 \section{Maquinas linux e samba3 interagindo com o Active Directory do  Samba4}
 
