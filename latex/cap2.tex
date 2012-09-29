@@ -44,7 +44,11 @@ No Samba, as configurações de compartilhamentos, configurações de impressora
 
 \section{SMBD}
 
-\section{NMDB}
+É um daemon que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O SMBD é um dos componentes principais do Samba, e 
+
+\section{NMBD}
+
+É um daemon que cuida do Windows Internet Name Service (WINS) e auxilia com a navegação e resolução de nomes.
 
 \section{NETBIOS}
 
@@ -60,11 +64,17 @@ DOMAIN MASTER BROWSER Uma vez que o Local Master Browser é eleito no segmento d
 
 \section{WINS}
 
+Windows Internet Name Service (WINS) ou NetBIOS Name Service (NBNS) é um serviço do protocolo TCP/IP. Este serviço faz a resolução nomes e números IP e os armazena, disponibilizando esta informação para quem necessite usar. Cada cliente envia seu nome NetBIOS e número IP para o servidor WINS, que armazena estas informações em um banco de dados. Quando um cliente desejar se comunicar com um outro, ele envia o nome desejado ao servidor WINS. Se o nome constar na base de dados, o servidor WINS retorna ao solicitante o número IP.
+
 \section{BIND}
 
 \section{Ldap}
 
+O LDAP é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao Active Directory da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos.
+
 \section{Kerberos}
+
+Kerberos é um protocolo de segurança de rede e fornece autenticação entre conputadores e usuários através de um servidor centralizado que concede autenticações criptograficas a qualquer computador utilizando o Kerberos. Esse sistema de segurança e autenticação agraga diversos benefícios como autentificação mútua, autentificação delegada, interoperabilidade e gerência simplificada e confiável. O samba pode usar o Kerberos como um mecanismo autenticação de computadores e usuários.
 
 \section{NTVFS}
 
@@ -98,6 +108,16 @@ NETBIOS:
 http://pt.wikipedia.org/wiki/Netbios
 
 Using Samba (OREILLY)
+
+SMBD: 
+
+Using Samba (OREILLY)
+http://www.samba.org/samba/docs/
+
+NMBD:
+
+Using Samba (OREILLY)
+http://www.samba.org/samba/docs/
 
 GSSAPI:
 http://www.gta.ufrj.br/grad/10\_1/kerberos/gssapi.html
