@@ -24,6 +24,8 @@ O samba permite que um servidor linux seja apto a fornecer serviços como:
     \item \textbf{\#Servidor de domínio como PDC} Funcionando como controlador de domínio ativo dentro de um domínio Windows.
   \end{itemize}
 
+Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite ocompartilhamento de arquivos e impressoras sistemas Windows e Linux. Usando o Samba emum servidor Linux, ele se comporta exatamente como um servidor Windows, podendoinclusive autenticar usuários e compartilhar impressoras. Outra característica do Samba é que ele pode atuar como um Controlador Primário de Domínio (PDC), armazenando perfis deusuários, realizar controle de acesso, sendo suas as configurações tão efetivas quanto às de umservidor Windows (FOCA, 2007).
+
 \section{Permissões no Linux}
 
 \section{Permissões especiais no Linux}
@@ -50,6 +52,11 @@ No Samba, as configurações de compartilhamentos, configurações de impressora
 
 \section{PDC}
 
+Além da função de servidor de arquivos, o Samba pode ser usando também comoControlador de Domínio ou DC (Domain Controller 
+), também conhecido como Controladorde Domínio Primário ou PDC (Primary Domain Controller) (MORIMOTO, 2005).
+
+O Controlador de Domínio é responsável por fornecer autenticação para os clientes,sejam sistemas Linux ou Windows. Ou seja, apenas centraliza contas de usuários e fornecerecursos voltados para a administração de usuários, como a gestão de perfis móveis, que sãoas configurações de usuários que são lidas, independente de qual máquina o usuário utilize.Em uma rede de com pouco mais de 10 clientes a necessidade de ter um PDC é mais aparente,pois fica cada vez mais difícil de gerenciar as contas de clientes e máquinas conforme ocrescimento da rede. Com o Controlador de Domínio também é possível fornecer acesso porperfis móveis onde o usuário pode ter acesso à sua área de trabalho independente da máquina (da mesma rede) onde faz o login. Em contrapartida, bloqueando uma conta de usuário,automaticamente este estará bloqueado em todas as máquinas gerenciadas pelo Controladorde Domínio (MORIMOTO, 2005)
+
 \section{Comandos Básicos do Samba3}
 
 \section{SMBD}
@@ -70,11 +77,22 @@ NETBIOS, Networking Basic Input/Outbut System, é uma API desenvolvida em 1984 p
 
 DOMAIN MASTER BROWSER Uma vez que o Local Master Browser é eleito no segmento de rede, uma consulta é feita ao servidor WINS para saber quem é o Domain Master Browser da rede para enviar a lista de compartilhamentos. A máquina escolhida como Local Master Browser envia pacotes para a porta UDP 138 do Domain Master e este responde pedindo a lista de todos os nomes de máquinas que o Local Master conhece e também o registra como Local Master para aquele segmento de rede.
 
-\section{Master Browser}
-
 \section{WINS}
 
 Windows Internet Name Service (WINS) ou NetBIOS Name Service (NBNS) é um serviço do protocolo TCP/IP. Este serviço faz a resolução nomes e números IP e os armazena, disponibilizando esta informação para quem necessite usar. Cada cliente envia seu nome NetBIOS e número IP para o servidor WINS, que armazena estas informações em um banco de dados. Quando um cliente desejar se comunicar com um outro, ele envia o nome desejado ao servidor WINS. Se o nome constar na base de dados, o servidor WINS retorna ao solicitante o número IP.
+
+\section{DNS}
+
+DNS (Domain Name System) é uma base de dados hierárquica e distribuída, usadapara a resolução de nomes de domínios em endereços IP. É considerado como um banco dedados distribuído que converte nomes de hosts (máquinas) para endereços IP. É basicamenteum mapeamento de endereços IP e seus respectivos nomes. A utilização mais comum é nainternet. Todos os computadores da rede possuem um endereço IP. Os servidores DNSsimplesmente transformam ou resolvem esse o número em um nome. Por exemplo, oendereço www.meudominio.com.br corresponde ao IP 10.0.0.1. (SCRIMGER.R. et al, 2002)
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/dns}}
+   	\caption{Estrutura hierárquica do DNS (SCRIMGER.R. et al, 2002)}
+    \label{dns}
+\end{figure}
+figura 5 - Estrutura hierárquica do DNS (SCRIMGER.R. et al, 2002)
+
 
 \section{BIND}
 
@@ -82,9 +100,37 @@ Windows Internet Name Service (WINS) ou NetBIOS Name Service (NBNS) é um servi�
 
 O LDAP é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao Active Directory da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos.
 
+LDAP (Lightweight Directory Access Protocol) é um protocolo para acessarinformações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permitenavegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em umserviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura,navegação e pesquisas (TRIGO, 2007).
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/ldap}}
+   	\caption{Estrutura do protocolo LDAP (OPENLDAP FOUNDATION, 2003)}
+    \label{ldap}
+\end{figure}
+figura 6 - Estrutura do protocolo LDAP (OPENLDAP FOUNDATION, 2003)
+
 \section{Kerberos}
 
 Kerberos é um protocolo de segurança de rede e fornece autenticação entre conputadores e usuários através de um servidor centralizado que concede autenticações criptograficas a qualquer computador utilizando o Kerberos. Esse sistema de segurança e autenticação agraga diversos benefícios como autentificação mútua, autentificação delegada, interoperabilidade e gerência simplificada e confiável. O samba pode usar o Kerberos como um mecanismo autenticação de computadores e usuários.
+
+O Kerberos é um protocolo que prevê forte autenticação entre aplicações cliente-servidor e usa criptografia de chave simétrica no qual servidores fornecem acesso aos serviçossolicitados pelos clientes, caso provem que são eles mesmos. (FILHO. M. M. C, 2009)
+
+O Kerberos não autentica o host no servidor, apenas a aplicação que oferece o serviço.Ele trabalha com tickets , servindo para provar a autenticidade de um usuário e garantir oacesso aos serviços e aplicações. (CONECTIVA, 2009).
+
+Quando um usuário entra com as informações de login , considerando que seja umusuário cadastrado no KDC (é o servidor Kerberos), os dados são enviados para o servidor 25Kerberos que recebe as informações e as confere com as que estão cadastradas no banco dedados. Estas informações são criptografadas com a própria senha do usuário e enviadas devolta para ele. Este é o ticket TGT (Ticket-Grant-Ticket). Se as informações do ticket TGTpuderem ser descriptografadas, então o usuário é quem diz ser. O TGT é armazenado namáquina e, por segurança, tem um tempo de vida útil para o caso de ser interceptado na rede.(CONECTIVA, 2009)
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/kerberos}}
+   	\caption{Autenticação Kerberos (CONECTIVA, 2009)}
+    \label{kerberos}
+\end{figure}
+figura 7 - Autenticação Kerberos (CONECTIVA, 2009)
+
+\section{NTP}
+
+NTP (Network Time Protocol) é usado para sincronizar relógios de computadores narede local ou na internet (RNP, 2009).
 
 \section{NTVFS}
 
@@ -131,3 +177,51 @@ http://www.samba.org/samba/docs/
 
 GSSAPI:
 http://www.gta.ufrj.br/grad/10\_1/kerberos/gssapi.html
+
+POSTFIX.ORG.BR. Disponível em: http://www.postfix.org/LDAP\_README.html\# config.Acesso em dezembro de 2009.
+
+RNP - REDE NACIONAL DE ENSINO E PESQUISA.Apresenta descrição do protocoloNTP. Disponível em: http://www.rnp.br/ntp/. Acesso em outubro de 2009.
+
+SAMBA.ORG-1.Samba4 / Active Directory. Disponível em:http://wiki.samba.org/index.php/Samba4/ActiveDirectory. Acesso em: dezembro de 2009
+
+SAMBA.ORG-2.Apresenta informações sobre schemas e ldap. Disponível em:http://wiki.samba.org/index.php/Samba4/LDAP\_Backend. Acesso em dezembro de 2009.
+
+SAMBA.ORG-3. Instalação e configuração do Samba 4. Disponível em:http://wiki.samba.org/index.php/Samba4/HOWTO\#Step\_1:\_download\_Samba4. Acessoem outubro de 
+2009.
+
+SCRIMGER.R.;LASALLE.P.;PARIHAR.M.;GUPTA.M.TCP/IP - A Bíblia. Rio de Janeiro.Campus. 2002. 642 p.
+
+THE OPENLDAP FOUNDATION.OpenLdap 2.1 Administrator's Guide. Disponível em:http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em dezembro de 2009.
+
+TRIGO.C.H.OpenLDAP - Uma Abordagem Integrada
+. São Paulo. Novatec. 2007. 239 p.UFRJ.
+
+Apresenta funcionamento do protocolo CIFS. Disponível em:http://www.gta.ufrj.br/grad/01\_2/samba/smbcifsinternamente.htm. Acesso em outubro de2009.
+
+Ldap Browser. Versão 2.6. Softerra. 2004.
+
+ALECRIN. E. Servidor Samba: o que é. Disponível em:http://www.infowester.com/linuxsamba.php. Acesso em dezembro de 2009.
+
+CONECTIVA. Kerberos. Autenticação do Sistema. Disponível em:http://www.conectiva.com/doc/livros/online/10.0/servidor/pt\_BR/ch13s04.html. Acessoem outubro de 2009
+
+ERICH. S. M.Autenticação Integrada Baseada em Serviço de Diretório LDAP. Apresentaestudo do protocolo LDAP. Disponível em http://www.linux.ime.usp.br/~cef/mac499-06/monografias/erich/html/ch01s05.html. Acesso em dezembro de 2009
+
+FILHO.M.M.C. Kerberos. Apresentação do protocolo Kerberos. Disponível em:http://www.gta.ufrj.br/grad/99\_2/marcos/kerberos.htm. Acesso em julho de 2009
+
+FOCA GNU/Linux. Samba. Disponível em: http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em novembro de 2009.
+
+LDAP.ORG.BR Como instalar um PDC Samba+OpenLDAP. Disponível em:http://www.ldap.org.br/modules/ldap/files/files///samba+openLDAP+qmail.pdf. Acessoem setembro de 2009.
+
+Linux Magazine. São Paulo. Linux New Media do Brasil Editora Ltda. 2009. Mensal. ISSN1806-9428.
+
+LOSANO.M. Introdução ao Active Directory. Apresenta visão geral do Active Directory.Disponível em: http://technet.microsoft.com/pt-br/library/cc668412.aspx. Acesso emagosto de 2009.
+
+MICROSOFT-1. Simple Network Time Protocol. Apresenta detalhes do protocolo SNTP.Disponível em: http://msdn.microsoft.com/pt-br/library/aa919019.aspx. Acesso emagosto de 2009
+
+MICROSOFT-2. Descrição dos protocolos do Active Directory. Disponível em:http://technet.microsoft.com/pt-br/library/cc961766\%28en-us\%29.aspx. Acesso emsetembro de 2009.
+
+MINASI. M; ANDERSON. C.;SMITH. B.M;TOOMBS.D. Dominando o Windows 2000Server. São Paulo. Pearson Education do Brasil. 2001. 1275 p.
+
+MICROSOFT-3. Apresenta as operações mestres do Active Directory. Disponível emhttp://technet.microsoft.com/pt-br/library/cc716426.aspx. Acesso em dezembro de 2009.
+
+MORIMOTO.C.E. Redes e Servidores Linux - Guia Prático. Porto Alegre. Sul. 2005. 302p.
