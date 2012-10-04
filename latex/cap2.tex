@@ -24,9 +24,9 @@ O samba permite que um servidor linux seja apto a fornecer serviços como:
     \item \textbf{\#Servidor de domínio como PDC} Funcionando como controlador de domínio ativo dentro de um domínio Windows.
   \end{itemize}
 
-Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite ocompartilhamento de arquivos e impressoras sistemas Windows e Linux. Usando o Samba emum servidor Linux, ele se comporta exatamente como um servidor Windows, podendoinclusive autenticar usuários e compartilhar impressoras. Outra característica do Samba é que ele pode atuar como um Controlador Primário de Domínio (PDC), armazenando perfis deusuários, realizar controle de acesso, sendo suas as configurações tão efetivas quanto às de umservidor Windows (FOCA, 2007).
+Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite o compartilhamento de arquivos e impressoras sistemas Windows e Linux. Usando o Samba em um servidor Linux, ele se comporta exatamente como um servidor Windows, podendo inclusive autenticar usuários e compartilhar impressoras. Outra característica do Samba é que ele pode atuar como um Controlador Primário de Domínio (PDC), armazenando perfis de usuários, realizar controle de acesso, sendo suas as configurações tão efetivas quanto às de um servidor Windows (FOCA, 2007).
 
-\section{Permissões no Linux}
+%\section{Permissões no Linux}
 
 \section{Permissões especiais no Linux}
 
@@ -44,11 +44,80 @@ Existe no Linux três permissões especiais, para dar segurança ao sistema, cha
 
 No Samba, as configurações de compartilhamentos, configurações de impressoras e todas as configurações gerais, são realizadas através de um unico arquivo de configuraçõa, o "/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividio em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome "arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
 
-\section{Parâmetro}
+%\section{Parâmetro}
 
-\section{Variáveis}
+%\section{Variáveis}
 
-\section{Variáveis Especiais do Samba}
+\section{Variáveis de substituição do Samba}
+
+Esta seção foi baseada nos dados da página de manual do samba, com adições que não estavam presentes na versão original e exemplos. Existem variáveis especiais que podem ser usadas no arquivo de configuração do samba e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
+
+     [homes]
+      comment = Diretório home do usuário
+      path = /home/usuarios/\%u
+Cada uma das variáveis são descritas em detalhes abaixo:
+
+\%S
+O nome do serviço atual, se existir. Seu uso é interessante, principalmente no uso de diretórios homes.
+
+\%P
+O diretório raíz do serviço atual, se existir.
+
+\%u
+O nome de usuário do serviço atual, se aplicável. Esta variável é bastante útil para programação de scripts e também para criar arquivos de log personalizados, etc.
+
+\%g
+O grupo primário do usuário \%u.
+
+\%U
+O nome de usuário da seção (o nome de usuário solicitado pelo cliente, não é uma regra que ele será sempre o mesmo que ele recebeu).
+
+\%G
+O nome do grupo primário de \%U.
+
+\%H
+O diretório home do usuário, de acordo com \%u.
+
+\%v
+A versão do Samba.
+
+\%h
+O nome DNS da máquina que está executando o Samba.
+
+\%m
+O nome NetBIOS da máquina do cliente. Isto é muito útil para log de conexões personalizados e outras coisas úteis.
+
+\%L
+O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
+
+\%M
+O nome DNS da máquina cliente.
+
+\%N
+O nome do seu servidor de diretórios home NIS. Este parâmetro é obtido de uma entrada no seu arquivo auto.map. Se não tiver compilado o SAMBA com a opção --with-automount então este valor será o mesmo de %L.
+
+\%p
+O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma "%N:%p".
+
+\%R
+O nível de protocolo selecionado após a negociação. O valor retornado pode ser CORE, COREPLUS, LANMAN1, LANMAN2 ou NT1.
+
+\%d
+A identificação de processo do processo atual do servidor.
+
+\%a
+A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como "UNKNOWN" (desconhecido).
+
+\%I
+O endereço IP da máquina do cliente.
+
+\%T
+A data e hora atual.
+
+\%\$(var\_ambiente)
+Retorna o valor da variável de ambiente especificada.
+
+http://www.guiafoca.org/cgs/guia/avancado/ch-s-samba.html
 
 \section{PDC}
 
@@ -57,7 +126,7 @@ Além da função de servidor de arquivos, o Samba pode ser usando também comoC
 
 O Controlador de Domínio é responsável por fornecer autenticação para os clientes,sejam sistemas Linux ou Windows. Ou seja, apenas centraliza contas de usuários e fornecerecursos voltados para a administração de usuários, como a gestão de perfis móveis, que sãoas configurações de usuários que são lidas, independente de qual máquina o usuário utilize.Em uma rede de com pouco mais de 10 clientes a necessidade de ter um PDC é mais aparente,pois fica cada vez mais difícil de gerenciar as contas de clientes e máquinas conforme ocrescimento da rede. Com o Controlador de Domínio também é possível fornecer acesso porperfis móveis onde o usuário pode ter acesso à sua área de trabalho independente da máquina (da mesma rede) onde faz o login. Em contrapartida, bloqueando uma conta de usuário,automaticamente este estará bloqueado em todas as máquinas gerenciadas pelo Controladorde Domínio (MORIMOTO, 2005)
 
-\section{Comandos Básicos do Samba3}
+%\section{Comandos Básicos do Samba3}
 
 \section{SMBD}
 
@@ -95,6 +164,11 @@ DNS (Domain Name System) é uma base de dados hierárquica e distribuída, usada
 
 
 \section{BIND}
+
+http://pt.wikipedia.org/wiki/BIND
+
+BIND (Berkeley Internet Name Domain ou, como chamado previamente, Berkeley Internet Name Daemon[1]) é o servidor para o protocolo DNS mais utilizado na Internet,[2] especialmente em sistemas do tipo Unix, onde ele pode ser considerado um padrão de facto. Foi criado por quatro estudantes de graduação, membros de um grupo de pesquisas em ciência da computação da Universidade de Berkeley, e foi distribuído pela primeira vez com o sistema operacional 4.3BSD. O programador Paul Vixie, enquanto trabalhava para a empresa DEC, foi o primeiro mantenedor do BIND. Atualmente o BIND é suportado e mantido pelo Internet Systems Consortium.
+Para a versão 9, o BIND foi praticamente reescrito. Ele passou a suportar, dentre outras funcionalidades, a extensão DNSSEC e os protocolos TSIG e IPv6.
 
 \section{Ldap}
 
