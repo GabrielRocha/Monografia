@@ -4,12 +4,6 @@ O capitulo explica termos técnicos essenciais para o melhor entendimento do tra
 
 \section{Samba}
 
-/* Samba é um software open source e reimplementa os protocolos SMB e CIFS para prover
-uma série de serviços para ambiente Windows, como servidor de arquivos e impressão e pode
-ser usado em um Servidor de Domínio como um Primary Domain Controller (PDC) ou como
-como um membro do domínio, e pode também ser usado como parte de um domínio Active
-Directory. */
-
 Samba é um software open source que provê serviços a clientes nos protocolos SMB e CIFS.
 O samba permite a interoperabilidade entre servidores Linux/Unix e clientes baseados na
 plataforma Windows.
@@ -130,11 +124,12 @@ O Controlador de Domínio é responsável por fornecer autenticação para os cl
 
 \section{SMBD}
 
-É um daemon que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O SMBD é um dos componentes principais do Samba, e 
+É um daemon que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. (Eckstein, Collier-Brown, Kelly,1999)
 
 \section{NMBD}
 
 É um daemon que cuida do Windows Internet Name Service (WINS) e auxilia com a navegação e resolução de nomes.
+(Eckstein, Collier-Brown, Kelly,1999)
 
 \section{NETBIOS}
 
@@ -188,7 +183,7 @@ LDAP (Lightweight Directory Access Protocol) é um protocolo para acessarinforma
 
 Kerberos é um protocolo de segurança de rede e fornece autenticação entre conputadores e usuários através de um servidor centralizado que concede autenticações criptograficas a qualquer computador utilizando o Kerberos. Esse sistema de segurança e autenticação agraga diversos benefícios como autentificação mútua, autentificação delegada, interoperabilidade e gerência simplificada e confiável. O samba pode usar o Kerberos como um mecanismo autenticação de computadores e usuários.
 
-O Kerberos é um protocolo que prevê forte autenticação entre aplicações cliente-servidor e usa criptografia de chave simétrica no qual servidores fornecem acesso aos serviçossolicitados pelos clientes, caso provem que são eles mesmos. (FILHO. M. M. C, 2009)
+O Kerberos é um protocolo que prevê forte autenticação entre aplicações cliente-servidor e usa criptografia de chave simétrica no qual servidores fornecem acesso aos serviços solicitados pelos clientes, caso provem que são eles mesmos. (FILHO. M. M. C, 2009)
 
 O Kerberos não autentica o host no servidor, apenas a aplicação que oferece o serviço.Ele trabalha com tickets , servindo para provar a autenticidade de um usuário e garantir oacesso aos serviços e aplicações. (CONECTIVA, 2009).
 
