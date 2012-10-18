@@ -236,13 +236,13 @@ Domain Guests RID=514
 
 \begin{enumerate}
 	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga o passo 2.		
-	\item \textbf{\# net groupmap add ntgroup="Domain Admins" rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
-	\item \textbf{\# net groupmap add ntgroup="Domain Users" rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
+	\item \textbf{\# net groupmap add ntgroup='Domain Admins' rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
+	\item \textbf{\# net groupmap add ntgroup='Domain Users' rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
 \end{enumerate}
 
 \begin{itemize}
-	\item \textbf{\# net groupmap delete ntgroup="Domain Admins"} - Caso queira remover um mapeamento de grupo.
-	\item \textbf{\# net groupmap modify ntgroup="Domain Admins" rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
+	\item \textbf{\# net groupmap delete ntgroup='Domain Admins'} - Caso queira remover um mapeamento de grupo.
+	\item \textbf{\# net groupmap modify ntgroup='Domain Admins' rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
 \end{itemize}
 
 Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em algum terminal windows no domínio, ele terá permissões de administrador.
