@@ -224,16 +224,50 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 
 Primeiro é necessário saber qual o ID dos principais grupos do Windows.
 
-*****TABELA RID WIKI SAMBA*******
+http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/groupmapping.html
+
 
 RID (Relative Identifier) 
-
-Domain Admins RID=512 
-
-Domain Users RID=513 
-
-Domain Guests RID=514
-
+\begin{table}
+	\centering
+	\caption{Tabela do RID Windows}
+	\begin{tabular}{cccc}
+		
+		\hline
+		
+		Well-Known Entity & RID & Type &	Essential \\
+		
+		\hline
+		
+		\hline
+		
+		Domain Administrator & 500 & User & No \\
+		Domain Guest & 501 & User & No \\		
+		Domain KRBTGT & 502	& User & No \\
+		Domain Admins & 512 & Group & Yes \\
+		Domain Users & 513 & Group & Yes \\
+		Domain Guests & 514 & Group & Yes \\
+		Domain Computers & 515 & Group & No \\
+		Domain Controllers & 516 & Group & No \\
+		Domain Certificate Admins & 517 & Group & No \\
+		Domain Schema Admins & 518 & Group & No \\		
+		Domain Enterprise Admins & 519 & Group & No \\
+		Domain Policy Admins & 520 & Group & No \\
+		Builtin Admins & 544 & Alias & No \\
+		Builtin users & 545 & Alias & No \\
+		Builtin Guests & 546 & Alias & No \\
+		Builtin Power Users & 547 & Alias & No \\
+		Builtin Account Operators & 548 & Alias & No \\
+		Builtin System Operators & 549 & Alias & No \\
+		Builtin Print Operators	& 550 & Alias & No \\
+		%Builtin Backup Operators & 551 & Alias & No \\
+		%Builtin Replicator & 552 & Alias & No \\
+		%Builtin RAS Servers & 553 & Alias & No \\
+		 	
+		\hline
+	\end{tabular}
+	\label{tab}
+\end{table}
 \begin{enumerate}
 	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga o passo 2.		
 	\item \textbf{\# net groupmap add ntgroup='Domain Admins' rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
