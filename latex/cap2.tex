@@ -18,7 +18,7 @@ O samba permite que um servidor linux seja apto a fornecer serviços como:
     \item \textbf{\#Servidor de domínio como PDC} Funcionando como controlador de domínio ativo dentro de um domínio Windows.
   \end{itemize}
 
-Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite o compartilhamento de arquivos e impressoras sistemas Windows e Linux. Usando o Samba em um servidor Linux, ele se comporta exatamente como um servidor Windows, podendo inclusive autenticar usuários e compartilhar impressoras. Outra característica do Samba é que ele pode atuar como um Controlador Primário de Domínio (PDC), armazenando perfis de usuários, realizar controle de acesso, sendo suas as configurações tão efetivas quanto às de um servidor Windows (FOCA, 2007).
+Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite o compartilhamento de arquivos e impressoras sistemas Windows e Linux. Usando o Samba em um servidor Linux, ele se comporta exatamente como um servidor Windows, podendo inclusive autenticar usuários e compartilhar impressoras. Outra característica do Samba é que ele pode atuar como um Controlador Primário de Domínio (PDC), armazenando perfis de usuários, realizar controle de acesso, sendo suas as configurações tão efetivas quanto às de um servidor Windows \cite{FOCA}.
 
 %\section{Permissões no Linux}
 
@@ -44,11 +44,12 @@ No Samba, as configurações de compartilhamentos, configurações de impressora
 
 \section{Variáveis de substituição do Samba}
 
-Esta seção foi baseada nos dados da página de manual do samba, com adições que não estavam presentes na versão original e exemplos. Existem variáveis especiais que podem ser usadas no arquivo de configuração do samba e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
+Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do samba e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
 
      [homes]
       comment = Diretório home do usuário
       path = /home/usuarios/\%u
+
 Cada uma das variáveis são descritas em detalhes abaixo:
 
 \%S
@@ -111,29 +112,27 @@ A data e hora atual.
 \%\$(var\_ambiente)
 Retorna o valor da variável de ambiente especificada.
 
-http://www.guiafoca.org/cgs/guia/avancado/ch-s-samba.html
-
 \section{PDC}
 
 Além da função de servidor de arquivos, o Samba pode ser usando também comoControlador de Domínio ou DC (Domain Controller 
-), também conhecido como Controladorde Domínio Primário ou PDC (Primary Domain Controller) (MORIMOTO, 2005).
+), também conhecido como Controlador de Domínio Primário ou PDC (Primary Domain Controller) \cite{MORIMOTO}.
 
-O Controlador de Domínio é responsável por fornecer autenticação para os clientes,sejam sistemas Linux ou Windows. Ou seja, apenas centraliza contas de usuários e fornecerecursos voltados para a administração de usuários, como a gestão de perfis móveis, que sãoas configurações de usuários que são lidas, independente de qual máquina o usuário utilize.Em uma rede de com pouco mais de 10 clientes a necessidade de ter um PDC é mais aparente,pois fica cada vez mais difícil de gerenciar as contas de clientes e máquinas conforme ocrescimento da rede. Com o Controlador de Domínio também é possível fornecer acesso porperfis móveis onde o usuário pode ter acesso à sua área de trabalho independente da máquina (da mesma rede) onde faz o login. Em contrapartida, bloqueando uma conta de usuário,automaticamente este estará bloqueado em todas as máquinas gerenciadas pelo Controladorde Domínio (MORIMOTO, 2005)
+O Controlador de Domínio é responsável por fornecer autenticação para os clientes,sejam sistemas Linux ou Windows. Ou seja, apenas centraliza contas de usuários e fornece recursos voltados para a administração de usuários, como a gestão de perfis móveis, que são as configurações de usuários que são lidas, independente de qual máquina o usuário utilize.Em uma rede de com pouco mais de 10 clientes a necessidade de ter um PDC é mais aparente,pois fica cada vez mais difícil de gerenciar as contas de clientes e máquinas conforme o crescimento da rede. Com o Controlador de Domínio também é possível fornecer acesso por perfis móveis onde o usuário pode ter acesso à sua área de trabalho independente da máquina (da mesma rede) onde faz o login. Em contrapartida, bloqueando uma conta de usuário,automaticamente este estará bloqueado em todas as máquinas gerenciadas pelo Controlador de Domínio \cite{MORIMOTO}
 
 %\section{Comandos Básicos do Samba3}
 
 \section{SMBD}
 
-É um daemon que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. (Eckstein, Collier-Brown, Kelly,1999)
+É um daemon que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
 
 \section{NMBD}
 
 É um daemon que cuida do Windows Internet Name Service (WINS) e auxilia com a navegação e resolução de nomes.
-(Eckstein, Collier-Brown, Kelly,1999)
+\cite{SAMBA}
 
 \section{NETBIOS}
 
-NETBIOS, Networking Basic Input/Outbut System, é uma API desenvolvida em 1984 pela IBM, que fornece serviços relacionados na camada de sessão do modelo OSI, permitindo a comunicação entre computadores na rede através de um nome NETBIOS correspondente a um hostname.
+NETBIOS, Networking Basic Input/Outbut System, é uma API desenvolvida em 1984 pela IBM, que fornece serviços relacionados na camada de sessão do modelo OSI, permitindo a comunicação entre computadores na rede através de um nome NETBIOS correspondente a um hostname.\cite{WIKIPEDIA}
 
 % \section{Domain Master}
 % 
@@ -149,59 +148,55 @@ Windows Internet Name Service (WINS) ou NetBIOS Name Service (NBNS) é um servi�
 
 \section{DNS}
 
-DNS (Domain Name System) é uma base de dados hierárquica e distribuída, usadapara a resolução de nomes de domínios em endereços IP. É considerado como um banco dedados distribuído que converte nomes de hosts (máquinas) para endereços IP. É basicamenteum mapeamento de endereços IP e seus respectivos nomes. A utilização mais comum é nainternet. Todos os computadores da rede possuem um endereço IP. Os servidores DNSsimplesmente transformam ou resolvem esse o número em um nome. Por exemplo, oendereço www.meudominio.com.br corresponde ao IP 10.0.0.1. (SCRIMGER.R. et al, 2002)
+DNS (Domain Name System) é uma base de dados hierárquica e distribuída, usadapara a resolução de nomes de domínios em endereços IP. É considerado como um banco dedados distribuído que converte nomes de hosts (máquinas) para endereços IP. É basicamenteum mapeamento de endereços IP e seus respectivos nomes. A utilização mais comum é nainternet. Todos os computadores da rede possuem um endereço IP. Os servidores DNSsimplesmente transformam ou resolvem esse o número em um nome. Por exemplo, oendereço www.meudominio.com.br corresponde ao IP 10.0.0.1. \cite{SCRIMER}
 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/dns}}
-   	\caption{Estrutura hierárquica do DNS (SCRIMGER.R. et al, 2002)}
+   	\caption{Estrutura hierárquica do DNS \cite{SCRIMER}}
     \label{dns}
 \end{figure}
-%figura 5 - Estrutura hierárquica do DNS (SCRIMGER.R. et al, 2002)
-
 
 \section{BIND}
 
-http://pt.wikipedia.org/wiki/BIND
 
 BIND (Berkeley Internet Name Domain ou, como chamado previamente, Berkeley Internet Name Daemon[1]) é o servidor para o protocolo DNS mais utilizado na Internet,[2] especialmente em sistemas do tipo Unix, onde ele pode ser considerado um padrão de facto. Foi criado por quatro estudantes de graduação, membros de um grupo de pesquisas em ciência da computação da Universidade de Berkeley, e foi distribuído pela primeira vez com o sistema operacional 4.3BSD. O programador Paul Vixie, enquanto trabalhava para a empresa DEC, foi o primeiro mantenedor do BIND. Atualmente o BIND é suportado e mantido pelo Internet Systems Consortium.
-Para a versão 9, o BIND foi praticamente reescrito. Ele passou a suportar, dentre outras funcionalidades, a extensão DNSSEC e os protocolos TSIG e IPv6.
+Para a versão 9, o BIND foi praticamente reescrito. Ele passou a suportar, dentre outras funcionalidades, a extensão DNSSEC e os protocolos TSIG e IPv6 \cite{BIND}.
 
 \section{Ldap}
 
 O LDAP é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao Active Directory da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos.
 
-LDAP (Lightweight Directory Access Protocol) é um protocolo para acessarinformações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permitenavegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em umserviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura,navegação e pesquisas (TRIGO, 2007).
+LDAP (Lightweight Directory Access Protocol) é um protocolo para acessarinformações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permitenavegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em umserviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura,navegação e pesquisas \cite{TRIGO}.
 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/ldap}}
-   	\caption{Estrutura do protocolo LDAP (OPENLDAP FOUNDATION, 2003)}
+   	\caption{Estrutura do protocolo LDAP \cite{LDAP}}
     \label{ldap}
 \end{figure}
-% figura 6 - Estrutura do protocolo LDAP (OPENLDAP FOUNDATION, 2003)
 
 \section{Kerberos}
 
 Kerberos é um protocolo de segurança de rede e fornece autenticação entre conputadores e usuários através de um servidor centralizado que concede autenticações criptograficas a qualquer computador utilizando o Kerberos. Esse sistema de segurança e autenticação agraga diversos benefícios como autentificação mútua, autentificação delegada, interoperabilidade e gerência simplificada e confiável. O samba pode usar o Kerberos como um mecanismo autenticação de computadores e usuários.
 
-O Kerberos é um protocolo que prevê forte autenticação entre aplicações cliente-servidor e usa criptografia de chave simétrica no qual servidores fornecem acesso aos serviços solicitados pelos clientes, caso provem que são eles mesmos. (FILHO. M. M. C, 2009)
+O Kerberos é um protocolo que prevê forte autenticação entre aplicações cliente-servidor e usa criptografia de chave simétrica no qual servidores fornecem acesso aos serviços solicitados pelos clientes, caso provem que são eles mesmos. \cite{FILHO}
 
-O Kerberos não autentica o host no servidor, apenas a aplicação que oferece o serviço.Ele trabalha com tickets , servindo para provar a autenticidade de um usuário e garantir oacesso aos serviços e aplicações. (CONECTIVA, 2009).
+%O Kerberos não autentica o host no servidor, apenas a aplicação que oferece o serviço.Ele trabalha com tickets , servindo para provar a autenticidade de um usuário e garantir oacesso aos serviços e aplicações. (CONECTIVA, 2009).
 
-Quando um usuário entra com as informações de login , considerando que seja umusuário cadastrado no KDC (é o servidor Kerberos), os dados são enviados para o servidor 25Kerberos que recebe as informações e as confere com as que estão cadastradas no banco dedados. Estas informações são criptografadas com a própria senha do usuário e enviadas devolta para ele. Este é o ticket TGT (Ticket-Grant-Ticket). Se as informações do ticket TGTpuderem ser descriptografadas, então o usuário é quem diz ser. O TGT é armazenado namáquina e, por segurança, tem um tempo de vida útil para o caso de ser interceptado na rede.(CONECTIVA, 2009)
-
+%Quando um usuário entra com as informações de login , considerando que seja umusuário cadastrado no KDC (é o servidor Kerberos), os dados são enviados para o servidor 25Kerberos que recebe as informações e as confere com as que estão cadastradas no banco dedados. Estas informações são criptografadas com a própria senha do usuário e enviadas devolta para ele. Este é o ticket TGT (Ticket-Grant-Ticket). Se as informações do ticket TGTpuderem ser descriptografadas, então o usuário é quem diz ser. O TGT é armazenado namáquina e, por segurança, tem um tempo de vida útil para o caso de ser interceptado na rede.(CONECTIVA, 2009)
+ 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/kerberos}}
-   	\caption{Autenticação Kerberos (CONECTIVA, 2009)}
+   	\caption{Autenticação Kerberos \cite{KERBEROS}}
     \label{kerberos}
 \end{figure}
-figura 7 - Autenticação Kerberos (CONECTIVA, 2009)
+figura 7 - Autenticação Kerberos \cite{KERBEROS}
 
 \section{NTP}
 
-NTP (Network Time Protocol) é usado para sincronizar relógios de computadores narede local ou na internet (RNP, 2009).
+Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (Universal Time Coordinated).\cite{RNP}
 
 \section{NTVFS}
 
@@ -209,7 +204,7 @@ Sistema de arquivos que armazena os atributos do NTFS
 
 \section{GSSAPI}
 
-A GSSAPI é uma interface que permite desenvolvedores escreverem aplicações que aproveitam mecanismos de segurança tais como Kerberos, sem ter de programar explicitamente para qualquer mecanismo, ou seja, aplicações genéricas do ponto de vista de segurança. Programas que usam GSSAPI são, deste modo, altamente portáteis, não somente de uma plataforma para outra, mas de uma configuração de segurança a outra e de um protocolo de transporte a outro. A GSSAPI fornece vários níveis de proteção de dados, consistentes com os mecanismos de segurança subjacentes.
+A GSSAPI é uma interface que permite desenvolvedores escreverem aplicações que aproveitam mecanismos de segurança tais como Kerberos, sem ter de programar explicitamente para qualquer mecanismo, ou seja, aplicações genéricas do ponto de vista de segurança. Programas que usam GSSAPI são, deste modo, altamente portáteis, não somente de uma plataforma para outra, mas de uma configuração de segurança a outra e de um protocolo de transporte a outro. A GSSAPI fornece vários níveis de proteção de dados, consistentes com os mecanismos de segurança subjacentes.\cite{HUGO}
 
 
 \section{Referencias - Temporário}
@@ -246,12 +241,7 @@ NMBD:
 Using Samba (OREILLY)
 http://www.samba.org/samba/docs/
 
-GSSAPI:
-http://www.gta.ufrj.br/grad/10\_1/kerberos/gssapi.html
-
 POSTFIX.ORG.BR. Disponível em: http://www.postfix.org/LDAP\_README.html\# config.Acesso em dezembro de 2009.
-
-RNP - REDE NACIONAL DE ENSINO E PESQUISA.Apresenta descrição do protocoloNTP. Disponível em: http://www.rnp.br/ntp/. Acesso em outubro de 2009.
 
 SAMBA.ORG-1.Samba4 / Active Directory. Disponível em:http://wiki.samba.org/index.php/Samba4/ActiveDirectory. Acesso em: dezembro de 2009
 
@@ -260,24 +250,16 @@ SAMBA.ORG-2.Apresenta informações sobre schemas e ldap. Disponível em:http://
 SAMBA.ORG-3. Instalação e configuração do Samba 4. Disponível em:http://wiki.samba.org/index.php/Samba4/HOWTO\#Step\_1:\_download\_Samba4. Acessoem outubro de 
 2009.
 
-SCRIMGER.R.;LASALLE.P.;PARIHAR.M.;GUPTA.M.TCP/IP - A Bíblia. Rio de Janeiro.Campus. 2002. 642 p.
-
-THE OPENLDAP FOUNDATION.OpenLdap 2.1 Administrator's Guide. Disponível em:http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em dezembro de 2009.
-
-TRIGO.C.H.OpenLDAP - Uma Abordagem Integrada
-. São Paulo. Novatec. 2007. 239 p.UFRJ.
-
 Apresenta funcionamento do protocolo CIFS. Disponível em:http://www.gta.ufrj.br/grad/01\_2/samba/smbcifsinternamente.htm. Acesso em outubro de2009.
 
 Ldap Browser. Versão 2.6. Softerra. 2004.
 
 ALECRIN. E. Servidor Samba: o que é. Disponível em:http://www.infowester.com/linuxsamba.php. Acesso em dezembro de 2009.
 
-CONECTIVA. Kerberos. Autenticação do Sistema. Disponível em:http://www.conectiva.com/doc/livros/online/10.0/servidor/pt\_BR/ch13s04.html. Acessoem outubro de 2009
 
 ERICH. S. M.Autenticação Integrada Baseada em Serviço de Diretório LDAP. Apresentaestudo do protocolo LDAP. Disponível em http://www.linux.ime.usp.br/~cef/mac499-06/monografias/erich/html/ch01s05.html. Acesso em dezembro de 2009
 
-FILHO.M.M.C. Kerberos. Apresentação do protocolo Kerberos. Disponível em:http://www.gta.ufrj.br/grad/99\_2/marcos/kerberos.htm. Acesso em julho de 2009
+%FILHO.M.M.C. Kerberos. Apresentação do protocolo Kerberos. Disponível em:http://www.gta.ufrj.br/grad/99\_2/marcos/kerberos.htm. Acesso em julho de 2009
 
 FOCA GNU/Linux. Samba. Disponível em: http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em novembro de 2009.
 

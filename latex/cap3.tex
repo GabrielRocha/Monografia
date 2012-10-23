@@ -127,9 +127,9 @@ Explicação das variáveis utilizadas:
 		\end{enumerate}
 	\item \textbf{passdb backend} - Aceita valores smbpasswd ou tdbsam . Define qual será a forma de armazenagem dos registros dos usuários.
 		\begin{enumerate}
-			\item{smbpasswd} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo "/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.
-			\item{tdbsam} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo "/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote "samba" no Debian pergunta se deve ser criado).
-			\item{Diferença entre smbpasswd e tdbsam} - Segundo (http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html) O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede (veja mais detalhes a seguir). Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. 
+			\item{smbpasswd} - O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo "/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.\cite{BACKEND}
+			\item{tdbsam} - O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo "/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote "samba" no Debian pergunta se deve ser criado).\cite{BACKEND}
+			\item{Diferença entre smbpasswd e tdbsam} - O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede (veja mais detalhes a seguir). Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
 		\end{enumerate}
 	\item \textbf{local master} - Define se o servidor será o Master Browser.
 	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de "os level" o servidores windows.
@@ -224,13 +224,10 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 
 Primeiro é necessário saber qual o ID dos principais grupos do Windows.
 
-
-
-
 RID (Relative Identifier) 
 \begin{table}
 	\centering
-	\caption{Tabela do RID Windows \cite{http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/groupmapping.html}}
+	\caption{Tabela do RID Windows \cite{RID}}
 	\begin{tabular}{cccc}
 		
 		\hline
