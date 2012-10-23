@@ -1,7 +1,7 @@
 \chapter{ESTUDO DE CASO}
 
 Esta proposta de implementação foi motivada através de um cenário de instituição de ensino que necessitava de uma otimização na segurança e compartilhamento de seus recursos de TI. Para melhor gerenciamento e manutenção dos arquivos compartilhados e usuários na rede, seria necessária a implantação de um servidor que centralizasse todas essas tarefas.
-Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 Datacenter custa, atualmente, em torno de 10 mil reais (Em: <http://www.microsoft.com/en-us/server-cloud/windows-server/buy.aspx>. Acesso em 15 out. 2012). O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
+Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa, atualmente, em torno de 10 mil reais \ref{SERVER}. O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
 Para solucionar esse problema da compra de licenças foi criada uma versão livre, o Samba 4, que faz as mesmas tarefas de um Windows Server, trabalhando com o mesmo protocolo, o LDAP. Por ser livre, foi utilizada neste trabalho.
 A instituição abordada neste trabalho contém 110 computadores nos setores administrativos e 90 nos laboratórios de informática. Abaixo uma pequena demonstração da estrutura da rede:
 
@@ -25,17 +25,17 @@ Os setores são divididos conforme suas funções no organograma da instituiçã
 Com a proposta de implementação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Dois servidor serão inseridos na rede com as seguintes configurações:
 
 \begin{itemize}
-	\item{I7}
-	\item{4GB ram}
+	\item{Processador Intel Core I7\textregistered}
+	\item{4GB de memória RAM}
 	\item{Um servidor com 6 Tb de HD e o outro com 100 Gb de HD}
-	\item{Video, audio e rede onboard}
+	\item{Placas de vídeo, áudio e rede Onboard}
 \end{itemize}
 
 Em ambos os servidores foi instalado o sistema operacional Debian 6.0.5. Por trabalharem com o mesmo protocolo e para não ocorrer conflitos, o Samba 3 foi instalado em máquina diferente do Samba 4. Sendo assim ficaram as maquinas:
 
 \begin{itemize}
-	\item{Debian 6.0.5 com Samba 3 com 6 Tb}
-	\item{Debian 6.0.5 com Samba 4 com 100 Gb}
+	\item{Servidor de 6TB com sistema operacional Debian 6.0.5 e Samba 3}
+	\item{Servidor de 100Gb com sistema operacional Debian 6.0.5 e Samba 4}
 \end{itemize}
 
 Antes da instalação do Samba 4 seus pré requisitos foram instalados e configurados como o DNS Bind 9.9 e o Kerberos Heimdal com suas variáveis de ambiente.
