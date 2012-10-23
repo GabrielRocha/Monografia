@@ -4,7 +4,7 @@ O samba 4 vem com a proposta de criar um Active Directory livre, combatendo as v
 
 Por se tratar de um sistema ainda em fase de produção e sem previsão para a conclusão atualmente, alguns erros podem aparecer ou alguns parâmetros deverão ser modificados. A versão utilizada nesse trabalho é a Alpha22.
 
-\section{Instalação do SAMBA4}
+\section{Instalação do SAMBA 4}
 
 Todos os comandos foram testados no Ubuntu 12.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
 
@@ -93,7 +93,7 @@ Mudar o caminho da variável de ambiente PATH para que os comandos possam ser ac
 \section{Instalação e configuração do BIND9}
 
 O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS nas versões 9.8 e 9.9.
-Atualmente a versão do Bind9 no repositório é a 9.7 e com isso é gerada algumas incompatibilidades e para resolver esses problemas é feita o download e a  instalação manual da versão 9.9.
+Atualmente a versão do Bind9 no repositório é a 9.7 e com isso são geradas algumas incompatibilidades e para resolver esses problemas é feito o download e a instalação manual da versão 9.9.
 
 \# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz
 
@@ -230,7 +230,7 @@ A partir de agora para acessar a internet através do servidor samba o bind deve
 \section{Instalação do Kerberos}
 
 Segundo \cite{HEIMDAL} a autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.
-Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, necessário para interagir BIND com Samba4, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
+Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, necessário para interagir BIND com Samba 4, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
 
 \begin{itemize}
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
