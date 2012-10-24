@@ -1,6 +1,6 @@
 \chapter{SAMBA 4}
 
-O samba 4 vem com a proposta de criar um Active Directory livre, combatendo as versões pagas do Active Directory da Microsoft, utilizando o LDAP, Bind e Kerberos.
+O samba 4 vem com a proposta de criar um textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind e Kerberos.
 
 Por se tratar de um sistema ainda em fase de produção e sem previsão para a conclusão atualmente, alguns erros podem aparecer ou alguns parâmetros deverão ser modificados. A versão utilizada nesse trabalho é a Alpha22.
 
@@ -12,7 +12,7 @@ A instalação é realizada a partir do terminal, mas antes é necessário a ins
 
 \# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev autoconf python-dnspython git-core
 
-Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate deve ser usado para esse fim, onde um dos principais servidores é o br.pool.ntp.org.
+Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[1]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o br.pool.ntp.org.
 
 \# ntpdate br.pool.ntp.org
 
@@ -49,14 +49,14 @@ A instalação é a partir da execução do comando provision que fica localizad
 \# sbin/provision "--use-ntvfs "--realm=NOME\_SERVIDOR "--domain=NOME\_DOMINIO  "--adminpass= Senha12 "--server-role='domain controller'
 
 \begin{enumerate}
-	\item \textbf{use-ntvfs} - Habilita o NTVFS;
+	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[2]{Sistema de arquivos que armazena os atributos do NTFS};
 	\item \textbf{realm} - Domínio do servidor Kerberos;
 	\item \textbf{domain} - Domínio do samba;
 	\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
 
-Depois de instalado e configurado o servidor de Active Directory pode ser iniciado. Uma das forma é inicia-lo em modo debug para poder acompanhar melhor os processos realizados.
+Depois de instalado e configurado o servidor de textit{Active Directory} pode ser iniciado. Uma das forma é inicia-lo em modo debug para poder acompanhar melhor os processos realizados.
 
 \# /usr/local/samba/sbin/samba -i -M single
 
@@ -274,7 +274,7 @@ Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
 
 O AdminPack está disponível no site da Microsoft:  http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en 
 
-Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e maquinas presentes no Active Directory.\ref{tela_dsa}
+Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e maquinas presentes no textit{Active Directory}.\ref{tela_dsa}
 
 \begin{figure}[ht]
    	\centering
@@ -293,9 +293,9 @@ Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e m
 
 \section{Compartilhamento de arquivos e impressoras}
 
-SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e simplificada como o samba 3, e tem problemas com a integração dos usuários e grupos do Active Directory com os locais, dificultando a definição das permissões a arquivos e diretórios.
+SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e simplificada como o samba 3, e tem problemas com a integração dos usuários e grupos do textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios.
 
-Uma solução para tal problema é identificar o código do usuário no Active Directory e dar as devidas permissões a pasta desejada.
+Uma solução para tal problema é identificar o código do usuário no textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
 \begin{itemize}
 	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1)
@@ -305,7 +305,7 @@ Uma solução para tal problema é identificar o código do usuário no Active D
 
 \section{Gerenciando o Samba4 no Linux}
 
-O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no Active Directory. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém um forma de texto.
+O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém um forma de texto.
 
 \begin{figure}[ht]
    	\centering
@@ -314,15 +314,15 @@ O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de ge
     \label{Samba-tool}
 \end{figure}
 
-\section{Maquinas linux e samba3 interagindo com o Active Directory do  Samba4}
+\section{Maquinas linux e samba3 interagindo com o textit{Active Directory} do  Samba4}
 
-Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no Active Directory é modificar alguns arquivos de configuração.
+Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no textit{Active Directory} é modificar alguns arquivos de configuração.
 Segue abaixo os arquivos e os procedimentos.
 
 \textbf{Informações}
 
 \begin{itemize}
-	\item \textbf{fja.br} -  Domínio do Active Directory
+	\item \textbf{fja.br} -  Domínio do textit{Active Directory}
 	\item \textbf{fjadc01.fja.br} - Controlador de domínio
 	\item \textbf{10.1.0.1} - IP do controlador de domínio
 	\item \textbf{FJA.BR} - Kerberos Realm
@@ -399,7 +399,7 @@ ff02::3 ip6-allhosts
 
 .fja.br = FJA.BR
 
-\textbf {Testando a conexão com o Active Directory}
+\textbf {Testando a conexão com o \textit{Active Directory}}
 
 \begin{itemize}
 	\item {kinit $<$ENTER$>$}
@@ -580,9 +580,11 @@ Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e
 	\item {nome\_do\_usuário$@$gert:~\$}
 \end{itemize}
 
-\section{Script para adicionar maquina linux no Active Directory}
+\section{Script para adicionar maquina linux no textif{Active Directory}}
 
-Para facilitar a inserção das maquinas linux no Active Directory do samba 4 foi modificado um script e ele foi chamado de smbad.sh. Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh
+Para facilitar a inserção das maquinas linux no \textit{Active Directory} do samba 4 foi modificado um script e ele foi chamado de smbad.sh. 
+
+Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh
 
 \begin{figure}[ht]
    	\centering

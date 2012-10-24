@@ -22,7 +22,7 @@ Com ele é possível compartilhar impressoras, arquivos, criar usuários, permit
 
 Informe o usuário root e sua senha.
 
-Na barra de ferramentas pode se observar as opções de configuração do swat. Como se pode ser na figura \ref{swat}
+Na barra de ferramentas pode se observar as opções de configuração do swat. Como se pode ver na figura \ref{swat}
 
 \begin{figure}[ht]
    	\centering
@@ -56,6 +56,89 @@ Com todos os componentes instalados o servidor samba pode ser iniciado.
 			\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
 		\end{enumerate}
 \end{itemize}
+
+\section{Seções}
+
+No Samba, as configurações de compartilhamentos, configurações de impressoras e todas as configurações gerais, são realizadas através de um único arquivo de configuração, o "/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome "arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
+
+\section{Variáveis de substituição do Samba}
+
+Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do samba e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
+
+     [home]
+      comment = Diretório home do usuário
+      path = /home/usuarios/\%u
+
+Cada uma das variáveis são descritas em detalhes abaixo:
+
+\%S
+O nome do serviço atual, se existir. Seu uso é interessante, principalmente no uso de diretórios homes.
+
+\%P
+O diretório raíz do serviço atual, se existir.
+
+\%u
+O nome de usuário do serviço atual, se aplicável. Esta variável é bastante útil para programação de scripts e também para criar arquivos de log personalizados, etc.
+
+\%g
+O grupo primário do usuário \%u.
+
+\%U
+O nome de usuário da seção (o nome de usuário solicitado pelo cliente, não é uma regra que ele será sempre o mesmo que ele recebeu).
+
+\%G
+O nome do grupo primário de \%U.
+
+\%H
+O diretório home do usuário, de acordo com \%u.
+
+\%v
+A versão do Samba.
+
+\%h
+O nome DNS da máquina que está executando o Samba.
+
+\%m
+O nome NetBIOS da máquina do cliente. Isto é muito útil para log de conexões personalizados e outras coisas úteis.
+
+\%L
+O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
+
+\%M
+O nome DNS da máquina cliente.
+
+\%N
+O nome do seu servidor de diretórios home NIS. Este parâmetro é obtido de uma entrada no seu arquivo auto.map. Se não tiver compilado o SAMBA com a opção --with-automount então este valor será o mesmo de %L.
+
+\%p
+O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma "%N:%p".
+
+\%R
+O nível de protocolo selecionado após a negociação. O valor retornado pode ser CORE, COREPLUS, LANMAN1, LANMAN2 ou NT1.
+
+\%d
+A identificação de processo do processo atual do servidor.
+
+\%a
+A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{"UNKNOWN"} (desconhecido).
+
+\%I
+O endereço IP da máquina do cliente.
+
+\%T
+A data e hora atual.
+
+\%\$(var\_ambiente)
+Retorna o valor da variável de ambiente especificada.
+
+\section{SMBD}
+
+É um \textit{daemon} que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
+
+\section{NMBD}
+
+É um \textit{daemon} que cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.
+\cite{SAMBA}
 
 \section{Configuração do samba para ser um PDC}
 
@@ -96,7 +179,7 @@ Agora é necessário inserir, modificar e remover alguns parâmetros na seção 
 
 	os level = 100
 
-	wins support = yes
+%	wins support = yes
 
 	map to guest = Bad User
 

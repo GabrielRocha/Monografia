@@ -18,7 +18,7 @@
 \bibitem[Ericom 2012]{KERBEROS}
 \abntrefinfo{Ericom}{ERICOM}{2012}
 {ERICOM. \emph{Kerberos in PowerTerm Solutions}. 2012.
-Disponível em http://www.ericom.com/kerberos.asp. Acesso em outubro de 2012.}
+Disponível em http://www.ericom.com/kerberos.asp. Acesso em Outubro de 2012.}
 
 \bibitem[Filho 2009]{FILHO}
 \abntrefinfo{Filho}{FILHO}{2009}
@@ -28,7 +28,7 @@ Disponível em http://www.ericom.com/kerberos.asp. Acesso em outubro de 2012.}
 \abntrefinfo{FOCA}{FOCA}{2012}
 {FOCA. \emph{Guia Foca GNU/Linux Capítulo 18 - SAMBA}. 2012.
 Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
-  outubro de 2012.}
+  Outubro de 2012.}
 
 \bibitem[Grassato 2009]{HEIMDAL}
 \abntrefinfo{Grassato}{GRASSATO}{2009}
@@ -40,7 +40,7 @@ Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
   2007.
 Disponível em
   http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html.
-  Acesso em outubro de 2012.}
+  Acesso em Outubro de 2012.}
 
 \bibitem[Losano 2009]{LOSANO}
 \abntrefinfo{Losano}{LOSANO}{2009}
@@ -51,7 +51,7 @@ Disponível em
 {MICROSOFT. \emph{Windows Server 2012 How to Buy}. 2012.
 Disponível em
   http://www.microsoft.com/en-us/server-cloud/windows-server/buy.aspx. Acesso
-  em outubro 2012.}
+  em Outubro 2012.}
 
 \bibitem[Morimoto 2005]{MORIMOTO}
 \abntrefinfo{Morimoto}{MORIMOTO}{2005}
@@ -61,25 +61,32 @@ Disponível em
 \bibitem[RNP 2010]{RNP}
 \abntrefinfo{RNP}{RNP}{2010}
 {RNP. \emph{Serviço NTP}. 2010.
-Disponível em http://www.rnp.br/ntp/. Acesso em outubro de 2012.}
+Disponível em http://www.rnp.br/ntp/. Acesso em Outubro de 2012.}
 
 \bibitem[Samba.org 2003]{RID}
 \abntrefinfo{Samba.org}{SAMBA.ORG}{2003}
 {SAMBA.ORG. \emph{Samba HOWTO Collection}. 2003.
 Disponível em
   http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/groupmapping.html.
-  Acesso em outubro de 2012.}
+  Acesso em Outubro de 2012.}
 
 \bibitem[Scrimger Paul~Lasalle 2002]{SCRIMER}
 \abntrefinfo{Scrimger Paul~Lasalle}{SCRIMGER PAUL~LASALLE}{2002}
 {SCRIMGER PAUL~LASALLE, M.~P. R. \emph{TCP/IP - A Bíblia}. Rio de Janeiro:
   Campus, 2002.}
 
+\bibitem[Sistemas Telemáticos 2010]{NETBIOS}
+\abntrefinfo{Sistemas Telemáticos}{SISTEMAS TELEMáTICOS}{2010}
+{SISTEMAS TELEMáTICOS. \emph{Sistema NetBios}. 2010.
+Disponível em
+  http://sistemastelematicosraf.blogspot.com.br/2010/12/sistema-netbios.html.
+  Acesso em Outubro de 2012.}
+
 \bibitem[THE OPENLDAP FOUNDATION 2003]{LDAP}
 \abntrefinfo{THE OPENLDAP FOUNDATION}{THE OPENLDAP FOUNDATION}{2003}
 {THE OPENLDAP FOUNDATION. \emph{OpenLdap 2.1 Administrator's Guide.} 2003.
 Disponível em http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em
-  outubro de 2012.}
+  Outubro de 2012.}
 
 \bibitem[Trigo 2007]{TRIGO}
 \abntrefinfo{Trigo}{TRIGO}{2007}
@@ -89,17 +96,18 @@ Disponível em http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em
 \bibitem[Ubuntu Br 2011]{UBUNTU-WIKI}
 \abntrefinfo{Ubuntu Br}{UBUNTU BR}{2011}
 {UBUNTU BR. \emph{Autenticando AD}. 2011.
-Disponível em http://wiki.ubuntu-br.org/AutenticandoAD. Acesso em 03/08/2012.}
+Disponível em http://wiki.ubuntu-br.org/AutenticandoAD. Acesso em Agosto de
+  2012.}
 
 \bibitem[Wikipédia 2012]{BIND}
 \abntrefinfo{Wikipédia}{WIKIPéDIA}{2012a}
 {WIKIPéDIA. \emph{Bind}. 2012.
-Disponível em http://pt.wikipedia.org/wiki/BIND. Acesso em outubro de 2012.}
+Disponível em http://pt.wikipedia.org/wiki/BIND. Acesso em Outubro de 2012.}
 
 \bibitem[Wikipédia 2012]{WIKIPEDIA}
 \abntrefinfo{Wikipédia}{WIKIPéDIA}{2012b}
 {WIKIPéDIA. \emph{NetBios}. 2012.
-Disponível em http://pt.wikipedia.org/wiki/NetBios. Acesso em outubro de
+Disponível em http://pt.wikipedia.org/wiki/NetBios. Acesso em Outubro de
   2012.}
 
 \end{thebibliography}
