@@ -747,4 +747,73 @@ Com as permissões, usuários e impressoras configuradas, os drivers têm que se
 
 \section{Ingressando o Windows XP no Domínio}
 
+Para ingressar um computador windows no domínio é necessário que primeiramente ele esteja devidamente cadastrado no servidor Samba. O windows deve estar com os drivers de rede instalados e respondendo na rede.
+Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
+
+\begin{enumerate}
+	\item {Realizar logon no windows com uma conta que possua privilégios administrativos.}
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/logon_local_adm}}
+   			\caption{Tela de logon local}
+    		\label{logon_local_adm}
+	\end{figure}
+
+	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando “sysdm.cpl”.}
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/iniciar_executar}}
+   			\caption{Executando comando}
+    		\label{iniciar_executar}
+	\end{figure}
+
+	\item {Nas Propriedades do Sistema deve-se acessar a aba “Nome do Computador”. Na aba “Nome do Computador”, deve-se clicar no botão “Alterar”. Note que até então o computador esta configurado grupo de trabalho “GRUPO”, não fazendo parte de um domínio.
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/propriedades_do_sistema}}
+   			\caption{Propriedades de Sistema}
+    		\label{propriedades_do_sistema}
+	\end{figure}
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/alterar_nome_micro}}
+   			\caption{Alterando nome do micro}
+    		\label{alterar_nome_micro}
+	\end{figure}
+
+\item {No menu de “Alterações de nome do computador”, certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba. No campo “Membro de”, selecione a opção “Domínio” e digite o nome do domínio definido na sessão [global] do arquivo de configuração do Samba e em seguida confirme clicando em OK.}
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/incluir_dominio}}
+   			\caption{Incluir micro no domínio}
+    		\label{incluir_dominio}
+	\end{figure}
+
+\item {Insira a senha de administrador do servidor para o micro ingressar no domínio. E aguarde a mensagem de confirmação.}
+
+	\begin{figure}[ht]
+   			\centering
+   		\scalebox{1}{\includegraphics{figuras/senha_adm_dominio}}
+   			\caption{Inserir senha administrativa do servidor}
+    		\label{senha_adm_dominio}
+	\end{figure}
+
+\item {Reinicie o micro quando for solicitado pelo sistema.}
+
+\item {Após inicialidado o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor.}
+
+	\begin{figure}[ht]
+   			\centering
+   		 \scalebox{1}{\includegraphics{figuras/logon}}
+   			\caption{Efetuando logon no domínio}
+    		\label{logon}
+	\end{figure}
+
+\end{enumerate}
+
 \section{Ingressando o Linux no Domínio}
