@@ -44,6 +44,15 @@ Na barra de ferramentas pode se observar as opções de configuração do swat. 
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
+\section{SMBD}
+
+É um \textit{daemon} que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
+
+\section{NMBD}
+
+É um \textit{daemon} que cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.
+\cite{SAMBA}
+
 \section{Iniciando Samba}
 
 Com todos os componentes instalados o servidor samba pode ser iniciado.
@@ -132,15 +141,6 @@ A data e hora atual.
 
 \%\$(var\_ambiente)
 Retorna o valor da variável de ambiente especificada.
-
-\section{SMBD}
-
-É um \textit{daemon} que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
-
-\section{NMBD}
-
-É um \textit{daemon} que cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.
-\cite{SAMBA}
 
 \section{Configuração do samba para ser um PDC}
 
@@ -752,7 +752,6 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 \begin{enumerate}
 	\item {Realizar logon no windows com uma conta que possua privilégios administrativos.}
-
 	\begin{figure}[ht]
    			\centering
    		 \scalebox{1}{\includegraphics{figuras/logon_local_adm}}
@@ -761,7 +760,6 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	\end{figure}
 
 	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando “sysdm.cpl”.}
-
 	\begin{figure}[ht]
    			\centering
    		 \scalebox{1}{\includegraphics{figuras/iniciar_executar}}
@@ -770,7 +768,6 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	\end{figure}
 
 	\item {Nas Propriedades do Sistema deve-se acessar a aba “Nome do Computador”. Na aba “Nome do Computador”, deve-se clicar no botão “Alterar”. Note que até então o computador esta configurado grupo de trabalho “GRUPO”, não fazendo parte de um domínio.}
-
 	\begin{figure}[ht]
    			\centering
    		 \scalebox{1}{\includegraphics{figuras/propriedades_do_sistema}}
@@ -785,8 +782,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
     		\label{alterar_nome_micro}
 	\end{figure}
 
-\item {No menu de “Alterações de nome do computador”, certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba. No campo “Membro de”, selecione a opção “Domínio” e digite o nome do domínio definido na sessão [global] do arquivo de configuração do Samba e em seguida confirme clicando em OK.}
-
+	\item {No menu de “Alterações de nome do computador”, certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba. No campo “Membro de”, selecione a opção “Domínio” e digite o nome do domínio definido na sessão [global] do arquivo de configuração do Samba e em seguida confirme clicando em OK.}
 	\begin{figure}[ht]
    			\centering
    		 \scalebox{1}{\includegraphics{figuras/incluir_dominio}}
@@ -794,8 +790,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
     		\label{incluir_dominio}
 	\end{figure}
 
-\item {Insira a senha de administrador do servidor para o micro ingressar no domínio. E aguarde a mensagem de confirmação.}
-
+	\item {Insira a senha de administrador do servidor para o micro ingressar no domínio. E aguarde a mensagem de confirmação.}
 	\begin{figure}[ht]
    			\centering
    		\scalebox{1}{\includegraphics{figuras/senha_adm_dominio}}
@@ -803,17 +798,15 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
     		\label{senha_adm_dominio}
 	\end{figure}
 
-\item {Reinicie o micro quando for solicitado pelo sistema.}
+	\item {Reinicie o micro quando for solicitado pelo sistema.}
 
-\item {Após inicialidado o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor.}
-
-	\begin{figure}[ht]
-   			\centering
-   		 \scalebox{1}{\includegraphics{figuras/logon}}
-   			\caption{Efetuando logon no domínio}
-    		\label{logon}
-	\end{figure}
-
+	\item {Após inicialização o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor.}
+		\begin{figure}[ht]
+   				\centering
+   		 		\scalebox{1}{\includegraphics{figuras/logon}}
+   				\caption{Efetuando logon no domínio}
+    			\label{logon}
+		\end{figure}
 \end{enumerate}
 
 \section{Ingressando o Linux no Domínio}
