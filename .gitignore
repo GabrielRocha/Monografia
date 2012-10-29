@@ -30,3 +30,5 @@ latex/tcc.toc
 .DS_Store
 
 *.aux
+
+latex/tcc.fdb_latexmk
