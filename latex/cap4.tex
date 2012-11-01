@@ -46,7 +46,7 @@ Por padrão o samba 4 é instalado no /usr/local/samba.
 
 A instalação é a partir da execução do comando provision que fica localizado no /sbin do samba e a inserção de alguns parâmetros.
 
-\# sbin/provision "--use-ntvfs "--realm=NOME\_SERVIDOR "--domain=NOME\_DOMINIO  "--adminpass= Senha12 "--server-role='domain controller'
+\# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME\_SERVIDOR "--domain=NOME\_DOMINIO  "--adminpass= Senha12 "--server-role='dc'
 
 \begin{enumerate}
 	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[2]{Sistema de arquivos que armazena os atributos do NTFS};
@@ -200,7 +200,7 @@ Como o samba 4 já vem com configurações prontas do bind9 é necessário escol
    	\centering
     \scalebox{1}{\includegraphics{figuras/named_conf}}
    	\caption{Arquivo named.conf do samba}
-    \label{cups}
+    \label{named_conf}
 \end{figure}
 
 % \# For BIND 9.8.0

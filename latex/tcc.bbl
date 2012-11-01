@@ -34,14 +34,6 @@ Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
 \abntrefinfo{Grassato}{GRASSATO}{2009}
 {GRASSATO, D.~P. \emph{Instalação Samba4}. 2009.}
 
-\bibitem[Guia do Hardware 2007]{BACKEND}
-\abntrefinfo{Guia do Hardware}{GUIA DO HARDWARE}{2007}
-{GUIA DO HARDWARE. \emph{Samba, Parte 2: Configuração avançada do Samba}.
-  2007.
-Disponível em
-  http://www.hardware.com.br/tutoriais/samba-configuracao-avancada/pagina8.html.
-  Acesso em Outubro de 2012.}
-
 \bibitem[Losano 2009]{LOSANO}
 \abntrefinfo{Losano}{LOSANO}{2009}
 {LOSANO, M. \emph{Introdução ao Active Directory - Parte 1}. 2009.}
@@ -57,6 +49,11 @@ Disponível em
 \abntrefinfo{Morimoto}{MORIMOTO}{2005}
 {MORIMOTO, C.~E. \emph{Redes e Servidores Linux - Guia Prático}. Porto Alegre:
   Sulina, 2005.}
+
+\bibitem[Morimoto 2008]{BACKEND}
+\abntrefinfo{Morimoto}{MORIMOTO}{2008}
+{MORIMOTO, C.~E. \emph{Servidores Linux, Guia Prático}. Porto Alegre: GDH
+  Press e Sul Editores, 2008.}
 
 \bibitem[RNP 2010]{RNP}
 \abntrefinfo{RNP}{RNP}{2010}
