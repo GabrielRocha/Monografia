@@ -6,7 +6,7 @@ Este capítulo descreve como são feitas a instalação e a configuração de um
 %O pacote samba pode ser instalado através do repositório de sistemas da distribuição em que está sendo usado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possamos instalar a versão mais atual do samba.
 
 O pacote samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do samba 3.
-
+ 
 \begin{itemize}
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
     \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote samba 3.
@@ -43,25 +43,15 @@ Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
-\section{SMBD}
-
-É um \textit{daemon} que permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
-
-\section{NMBD}
-
-É um \textit{daemon} que cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.
-\cite{SAMBA}
+Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e adição de configurações no smb.conf, mas toda vez que as configurações são alteradas e salvas ele gera um novo arquivo smb.conf e com isso apaga todos os possíveis comentários existentes no arquivo. Por se tratar de um arquivo com muitas variáveis, parâmetros e seções, nesse trabalho o foco será a edição através de editores de texto padrão como o ``VIM", pois assim algumas configurações podem ser inseridas como comentários para fins de explicação ou como base para futuras modificações.
+ 
+%Como o TCC não toca mais no assunto do SWAT, coloque ao final dessa seção as vantagens e desvantagens dele (vantagem = fácil configuração, desvantagem a meu ver = não permite comentários dentro do arquivo smb.conf, além de apagar os comentários que estavam lá)... Aí comenta que visando um aprofundamento do assunto, ou sei lá o que, este trabalho (tcc) irá priorizar a configuração realizada diretamente no arquivo smb.conf.
 
 \section{Iniciando samba 3}
 
-Com todos os componentes instalados o servidor samba 3 pode ser iniciado.
+Com todos os componentes instalados a aplicação pode ser iniciada. O samba 3 trabalha com dois \textit{daemon} principais, geralmente eles se encontram no /usr/sbin/,  que são: SMBD e o NMBD
 
-O samba 3 trabalha com dois \textit{daemon} principais, geralmente eles se encontram no /usr/sbin/,  que são: SMBD e o NMBD
-
-O SMBD permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. \cite{SAMBA}
-
-O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.
-\cite{SAMBA}
+O SMBD permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.\cite{SAMBA}
 
 \begin{itemize}
 	\item \textbf{\# /etc/init.d/smbd start} - Inicia o samba 3. Existem outras formas de inicia-lo, como:
@@ -76,19 +66,19 @@ O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a na
 
 \section{Seções}
 
-No samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o "/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome "arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
+No samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o ``/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome ``arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
 
 \section{Variáveis de substituição do samba 3}
-
-Ao longo deste trabalho diversas variáveis de substituição serão utilizadas, principalmente nos scripts aqui propostos. Cada uma das variáveis são descritas em detalhes a seguir:
 
 Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
 
      [home]
+
       comment = Diretório home do usuário
+
       path = /home/usuarios/\%u
 
-Cada uma das variáveis são descritas em detalhes abaixo:
+Ao longo deste trabalho diversas variáveis de substituição serão utilizadas, principalmente nos scripts aqui propostos. Cada uma das variáveis são descritas em detalhes a seguir:
 
 \%S
 O nome do serviço atual, se existir. Seu uso é interessante, principalmente no uso de diretórios homes.
@@ -130,7 +120,7 @@ O nome DNS da máquina cliente.
 O nome do seu servidor de diretórios home NIS. Este parâmetro é obtido de uma entrada no seu arquivo auto.map. Se não tiver compilado o SAMBA com a opção --with-automount então este valor será o mesmo de %L.
 
 \%p
-O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma "%N:%p".
+O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma ``\%N:\%p".
 
 \%R
 O nível de protocolo selecionado após a negociação. O valor retornado pode ser CORE, COREPLUS, LANMAN1, LANMAN2 ou NT1.
@@ -139,7 +129,7 @@ O nível de protocolo selecionado após a negociação. O valor retornado pode s
 A identificação de processo do processo atual do servidor.
 
 \%a
-A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{"UNKNOWN"} (desconhecido).
+A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{``UNKNOWN"} (desconhecido).
 
 \%I
 O endereço IP da máquina do cliente.
@@ -165,13 +155,13 @@ Agora é necessário inserir, modificar e remover alguns parâmetros na seção 
 
 [global] 
 
-	workgroup = "nome do servidor de domínio" 
+	workgroup = ``nome do servidor de domínio" 
 
-	server string = "Título"       
+	server string = ``Título"       
 
 	security = user
 
-	netbios name = "nome que será da netbios do servidor"
+	netbios name = ``nome que será da netbios do servidor"
 
 	domain master = yes
 
@@ -208,7 +198,7 @@ Explicação das variáveis utilizadas:
 			\item {domain} - Quando um servidor de domínio será responsável pela identificação e segurança dos usuários.
 		\end{enumerate} 
 	\item \textbf{netbios name} - Nome da netbios do servidor.
-	\item \textbf{encrypt passwords} - Quando informado o valor "true" as senhas informadas para o servidor serão criptografadas.
+	\item \textbf{encrypt passwords} - Quando informado o valor ``true" as senhas informadas para o servidor serão criptografadas.
 	\item \textbf{domain master} - Informa que o servidor samba 3 será o domínio principal da rede.
 	\item \textbf{domain logons} - O servidor samba 3 passa a ser um controlador de domínio.
 	\item \textbf{enable privileges} - Habilita alguns privilégios no samba 3. Alguns deles:
@@ -220,12 +210,12 @@ Explicação das variáveis utilizadas:
 		\end{enumerate}
 	\item \textbf{passdb backend} - Aceita valores smbpasswd ou tdbsam . Define qual será a forma de armazenagem dos registros dos usuários.
 		\begin{enumerate}
-			\item{smbpasswd} - O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo "/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.\cite{BACKEND}
-			\item{tdbsam} - O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo "/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote "samba" no Debian pergunta se deve ser criado).\cite{BACKEND}
+			\item{smbpasswd} - O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo ``/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.\cite{BACKEND}
+			\item{tdbsam} - O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo ``/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote ``samba" no Debian pergunta se deve ser criado).\cite{BACKEND}
 			\item{Diferença entre smbpasswd e tdbsam} - O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede. Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
 		\end{enumerate}
 	\item \textbf{local master} - Define se o servidor será o Master Browser.
-	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de "os level" o servidores windows.
+	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de ``os level" o servidores windows.
 %	\item \textbf{win support} - Se nmbd será um servidor WINS.
 	\item \textbf{map to guest} - Torna usuário guest todos que não conseguirem se identificar com um login e senha valida.
 	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd pararem de funcionar.
@@ -254,7 +244,7 @@ Os usuários que terão acesso e permissões de login no domínio devem ser cria
 	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
 \end{itemize}
 
-Cada usuário no sistema deverá conter uma pasta com o nome de "profile.pds". Essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
+Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". Essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
 
 \begin{itemize}
 	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
@@ -444,12 +434,16 @@ browseable = no
 
 \begin{itemize}
 	\item \textbf{[Diretoria]} - Nome do compartilhamento que será mostrado no servidor.
-	\item \textbf{path} - Nele devemos mapear diretórios que serão compartilhados na rede. Cabe ressaltar que após a criação desses diretórios, é necessário o ajuste das permissões de acesso, do dono do diretório e do grupo do diretório, utilizando os programas chmod e chown, respectivamente. O ajuste varia caso a caso, e deve ser realizado com cautela, para não dar mais permissões que o necessário. Uma breve explicação sobre o chmod e chown é realizada a seguir:
-		\begin{enumerate}
-			\item {\# chmod} - Define as permissões do arquivo. Exemplo: \# chmod 774 -R /pasta\_criada - Essas permissões definem que o usuário proprietário do diretório e todos os usuário do grupo do diretório terão controle total no diretório e em seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
-			\item {\# chown} - Define qual será o usuário e grupo proprietário do diretório ou arquivo. Exemplo: \# chown usuario.grupo /diretorio .
-		\end{enumerate} 
+	\item \textbf{path} - Nele devemos mapear diretórios que serão compartilhados na rede. 
+\end{itemize}
 
+	Cabe ressaltar que após a criação desses diretórios, é necessário o ajuste das permissões de acesso, do dono do diretório e do grupo do diretório, utilizando os programas chmod e chown, respectivamente. O ajuste varia caso a caso, e deve ser realizado com cautela, para não dar mais permissões que o necessário. Uma breve explicação sobre o chmod e chown é realizada a seguir:
+
+\# chmod - Define as permissões do arquivo. Exemplo: \# chmod 774 -R /pasta\_criada - Essas permissões definem que o usuário proprietário do diretório e todos os usuário do grupo do diretório terão controle total no diretório e em seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
+
+\# chown - Define qual será o usuário e grupo proprietário do diretório ou arquivo. Exemplo: \# chown usuario.grupo /diretorio .
+
+\begin{itemize}
 	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou não.
 	\item \textbf{Valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuários.
 	\item \textbf{force group} - Força qual será o grupo proprietário dos arquivos criados no compartilhamento.
@@ -552,7 +546,7 @@ load printers = yes
 O samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o linux.
 
 \begin{itemize}
-	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote samba 3 instalado é compatível com o CUPS. A saída deve ser algo como "HAVE CUPS"
+	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
 \end{itemize}
 
 Caso o cups não esteja instalado.
@@ -629,7 +623,7 @@ Se o caminho apontado pelo path não existir ele terá que ser criado com as per
 	\item \textbf{\# cd /var/lib/samba/printers}
 	\item \textbf{\# mkdir WIN40 W32X86} - Essas pastas são os locais onde ficarão os drivers das impressoras, o WIN40 para sistemas Windows 95/98/ME e o W32X86 Windows NT/2000/XP.
 	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
-	\item \textbf{\# net -S localhost -U root -W 'NOME DO SERVIDOR' rpc rights grant 'NOME DO SERVIDOR$\backslash$root' SePrintOperatorPrivilege} - Irá definir que o usuário root terá todas os privilégios necessários para gerenciar as impressoras.
+	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$root" SePrintOperatorPrivilege} - Irá definir que o usuário root terá todas os privilégios necessários para gerenciar as impressoras.
 \end{itemize}
 
 Com as permissões, usuários e impressoras configuradas, os drivers tem que ser passados para o servidor. A sequência de figuras a seguir ilustra o passo-a-passo para a adição dos desses drivers.
@@ -663,7 +657,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	
 %	\pagebreak
 	
-	\item \textbf{Acessar a pasta 'Impressoras e aparelhos de fax'} -\ref{impressora_aparelho_fax}
+	\item \textbf{Acessar a pasta ``Impressoras e aparelhos de fax"} -\ref{impressora_aparelho_fax}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/impressora_aparelho_fax}}
@@ -721,15 +715,13 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	\end{figure}
 
 	
-	\item \textbf{Selecione a opção 'Não', se selecionar o SIM o driver será instalado somente na maquina local} - \ref{opcao_nao}
+	\item \textbf{Selecione a opção ``Não"', se selecionar o SIM o driver será instalado somente na maquina local} - \ref{opcao_nao}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/opcao_nao}}
 	   	\caption{Opção para não instalar o driver naquele momento}
 	    \label{opcao_nao}
 	\end{figure}
-	
-	\pagebreak
 	
 	\item \textbf{Selecione o drive que será vinculado a impressora} - \ref{aba_avancado}
 	\begin{figure}[ht]
@@ -738,6 +730,8 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	   	\caption{Aba onde será feito o link da impressora com o driver}
 	    \label{aba_avancado}
 	\end{figure}
+	
+		\pagebreak
 		
 	\item \textbf{Logar com o usuário do domínio no qual será mapeada a impressora} - \ref{login_dominio}
 	\begin{figure}[ht]
@@ -747,7 +741,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	    \label{login_dominio}
 	\end{figure}
 	
-	\pagebreak
+	% \pagebreak
 	
 	\item \textbf{Selecione a impressora no servidor} - \ref{selecionar_impressora_servidor}
 	\begin{figure}[ht]
@@ -786,19 +780,19 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
     		\label{logon_local_adm}
 	\end{figure}
 
-	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando "sysdm.cpl". \ref{iniciar_executar}}
-	\begin{figure}[ht]
-   			\centering
-   		 \scalebox{1}{\includegraphics{figuras/iniciar_executar}}
-   			\caption{Executando comando}
-    		\label{iniciar_executar}
-	\end{figure}
+	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando ``sysdm.cpl". }%\ref{iniciar_executar}}
+	% \begin{figure}[ht]
+	%    			\centering
+	%    		 \scalebox{1}{\includegraphics{figuras/iniciar_executar}}
+	%    			\caption{Executando comando}
+	%     		\label{iniciar_executar}
+	% \end{figure}
 
-\pagebreak 
+% \pagebreak 
 
 %	\item {Nas Propriedades do Sistema deve-se acessar a aba "Nome do Computador". Na aba "Nome do Computador", deve-se clicar no botão "Alterar". Note que até então o computador esta configurado grupo de trabalho "GRUPO", não fazendo parte de um domínio. \ref{alterar_nome_micro}}
 
-	\item {Acessar a aba "Nome do Computador". Deve-se clicar no botão "Alterar". \ref{alterar_nome_micro}}
+	\item {Acessar a aba ``Nome do Computador". Deve-se clicar no botão ``Alterar". \ref{alterar_nome_micro}}
 	
 %		\begin{figure}[ht]
 %	   			\centering
@@ -813,8 +807,10 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	   			\caption{Alterando nome do micro}
 	    		\label{alterar_nome_micro}
 		\end{figure}
+		
+		\pagebreak 
 
-	\item {No menu de "Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor samba 3. No campo "Membro de", selecione a opção "Domínio" e digite o nome do domínio definido na sessão [global] do samba 3 e depois clique em OK. \ref{incluir_dominio}} 
+	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do samba 3 e depois clique em OK. \ref{incluir_dominio}} 
 			\begin{figure}[ht]
 		   			\centering
 		   		 \scalebox{1}{\includegraphics{figuras/incluir_dominio}}
@@ -822,7 +818,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 		    		\label{incluir_dominio}
 			\end{figure}
 	 
-	\pagebreak
+	%\pagebreak
 	
 	\item {Insira a senha de administrador do servidor para o micro ingressar no domínio. E aguarde a mensagem de confirmação.} %\ref{senha_adm_dominio}}
 			% \begin{figure}[ht]

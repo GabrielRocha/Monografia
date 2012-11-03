@@ -93,8 +93,9 @@ Disponível em http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em
 \bibitem[Ubuntu Br 2011]{UBUNTU-WIKI}
 \abntrefinfo{Ubuntu Br}{UBUNTU BR}{2011}
 {UBUNTU BR. \emph{Autenticando AD}. 2011.
-Disponível em http://wiki.ubuntu-br.org/AutenticandoAD. Acesso em Agosto de
-  2012.}
+Dispon{\'\i}vel em:
+  \htmladdnormallink{$<$http:\-/\-/wiki\-.ubuntu-br\-.org\-/AutenticandoAD$>$}{http://wiki.ubuntu-br.org/AutenticandoAD}.
+  Acesso em: 10/08/2012.}
 
 \bibitem[Wikipédia 2012]{BIND}
 \abntrefinfo{Wikipédia}{WIKIPéDIA}{2012a}
