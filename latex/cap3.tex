@@ -849,42 +849,57 @@ Para ingressar um computador linux no domínio é necessário que primeiramente 
 A instalação desses pacotes na distribuição Ubuntu pode ser realizada através dos comando:
 
 \begin{itemize}
-	\item \textbf{\#apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
-	\item \textbf{\#apt-get install samba winbind libpam-modules} Realiza a instalação dos pacotes Samba, Winbind e módulos do PAM.
+	\item \textbf{\#apt-get update} - Atualiza a base de dados do repositório.
+	\item \textbf{\#apt-get install samba winbind libpam-modules} - Realiza a instalação dos pacotes Samba, Winbind e módulos do PAM.
 \end{itemize}
 
-Após a instalação é necessário realizar a configuração do micro para que possa fazer login no domínio. Começando pela configuração do Samba através do arquivo de configuração \textbf{\/etc/samba/smb.conf}, que deve ser editado para que a seção [global] fique conforme o exemplo. Pode-se optar por adicionar essa configuração à configuração existente, ou pode manter apenas essa configuração básica:
+Após a instalação é necessário realizar a configuração do micro para que possa fazer login no domínio. Começando pela configuração do Samba através do arquivo de configuração \textbf{/etc/samba/smb.conf}, que deve ser editado para que a seção [global] fique conforme o exemplo. Pode-se optar por adicionar essa configuração à configuração existente, ou pode manter apenas essa configuração básica:
 
 [global]
   	workgroup = Dominio
+
   	netbios name = cliente1
+
   	winbind use default domain = yes
+
   	obey pam restrictions = yes
+
   	security = domain
+
   	encrypt passwords = true
+
   	wins server = 192.168.1.1
+
   	winbind uid = 10000-20000
+
   	winbind gid = 10000-20000
+
   	template shell = /bin/bash
-  	template homedir = /home/%U
+
+  	template homedir = /home/\%U
+
   	winbind separator = +
+
   	printing = cups
+
   	invalid users = root
 
 Explicação de algumas variáveis importantes:
 \begin{itemize}
-	\item \textbf{\workgroup} - Nome do domínio configurado no servidor Samba 3.
-	\item \textbf{\netbios name} - Nome do computador cliente, que deve estar cadastrado no servidor.
-	\item \textbf{\wins server} - Ip do servidor PDC Samba 3.
+	\item \textbf{workgroup} - Nome do domínio configurado no servidor Samba 3.
+	\item \textbf{netbios name} - Nome do computador cliente, que deve estar cadastrado no servidor.
+	\item \textbf{wins server} - Ip do servidor PDC Samba 3.
 \end{itemize}
 
-Editado o arquivo \textbf{\/etc/samba/smb.conf}, deve-se testar o arquivo de configuração para verificação de erros através do comando \textbf{\#testparm}.
-Após a configuração do Samba, deve-se configurar o arquivo Network Services Switch (\textbf{\/etc/nsswitch.conf}), que determina a ordem das buscas quando uma informação é solicitada. Esse arquivo deve ter as seguintes linhas alteradas:
+Editado o arquivo \textbf{/etc/samba/smb.conf}, deve-se testar o arquivo de configuração para verificação de erros através do comando \textbf{\#testparm}.
+Após a configuração do Samba, deve-se configurar o arquivo \textit{Network Services Switch} (\textbf{/etc/nsswitch.conf}), que determina a ordem das buscas quando uma informação é solicitada. Esse arquivo deve ter as seguintes linhas alteradas:
 
   passwd: compat winbind
+
   group: compat winbind
+
   shadow: compat winbind
 
-Foi incluído o \textbf{\winbind} nas variáveis de busca \textbf{\passwd}, \textbf{\group} e \textbf{\shadow} para que esses valores sejam buscados no servidor Samba 3.
+Foi incluído o \textbf{winbind} nas variáveis de busca \textbf{passwd}, \textbf{group} e \textbf{shadow} para que esses valores sejam buscados no servidor Samba 3.
 
 Depois de concluídas as configurações
