@@ -25,8 +25,7 @@ O código fonte esta hospedado no servidor git dos desenvolvedores do samba, e o
 
 \# git clone git://git.samba.org/samba.git samba-master; cd samba-master
 
-O samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo (http://comunidade-linux-brasil.info/content/view/15/3/) se segue com o ./configure, make e o make install.
-Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
+O samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
 
 \# ./configure.developer
 
@@ -62,13 +61,13 @@ Depois de instalado e configurado o servidor de \textit{Active Directory} pode s
 
 Para facilitar a forma de ativar o samba 4 podem ser feito dois procedimentos.
 
-Criar um link do executável do samba no /etc/init.d/
+Criar um link do executável do samba no /etc/init.d/ .
 
 \# ln /usr/local/samba/sbin/samba /etc/init.d/samba
 
 Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
 
-\# echo "export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH"  $>$$>$ /root/.bashrc
+\# echo ``export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH"  $>$$>$ /root/.bashrc
 
 
 %\begin{itemize}
@@ -116,7 +115,7 @@ Configuração para a instalação, informando qual o local de instalação e on
 % 
 % *****EXPLICAR MAKE INSTALL*****
 
-Entrar no diretório onde se encontra os arquivos de configuração do bind
+Entrar no diretório onde se encontra os arquivos de configuração do bind9.
 
 \# cd /etc/bind
 
@@ -128,11 +127,11 @@ As seguintes configurações devem ser adicionadas.
 
 options \{
 	
-directory "/usr/local/bind/var/run/named";
+directory ``/usr/local/bind/var/run/named";
 
-tkey-gssapi-keytab "/usr/local/samba/private/dns.keytab" ;
+tkey-gssapi-keytab ``/usr/local/samba/private/dns.keytab" ;
 
-tkey-domain "nome\_do\_realm\_samba";
+tkey-domain ``nome\_do\_realm\_samba";
 	
 \};
 
@@ -178,16 +177,16 @@ O comando provision gera os arquivos de configuração necessários para o funci
 \begin{itemize}
 	\item \textbf{\# vim named.conf.local} -  Adicione a linha abaixo no arquivo;
 		\begin{enumerate}
-			\item \textbf{include "/usr/local/samba/private/named.conf";}
+			\item \textbf{include ``/usr/local/samba/private/named.conf";}
 		\end{enumerate}
 \end{itemize}
 
-Com os arquivos named.conf.local e named.conf.options devidamente criados e configurados, deve-se inclui-los no arquivos named.conf
+Com os arquivos named.conf.local e named.conf.options devidamente criados e configurados, deve-se inclui-los no arquivos named.conf.
 
 \# vim named.conf
 
-include "/etc/bind/named.conf.local";
-include "/etc/bind/named.conf.options";
+include ``/etc/bind/named.conf.local";
+include ``/etc/bind/named.conf.options";
 
 
 Como o samba 4 já vem com configurações prontas do bind9 é necessário escolher qual a versão do dns que esta sendo utilizada.
@@ -199,7 +198,7 @@ Como o samba 4 já vem com configurações prontas do bind9 é necessário escol
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/named_conf}}
-   	\caption{Arquivo named.conf do samba}
+   	\caption{Arquivo named.conf do samba.}
     \label{named_conf}
 \end{figure}
 
@@ -216,14 +215,14 @@ Como o samba 4 já vem com configurações prontas do bind9 é necessário escol
 \begin{itemize}
 	\item \textbf{\# mkdir /usr/local/bind/var/run/named} - Cria o diretório onde ficaram os arquivos para a execução do bind;
 	\item \textbf{\# groupadd named \&\& useradd named -g named} - Cria o usuário responsável pelo bind e o insere no grupo named;
-	\item{\# chown named:named /usr/local/samba/private/dns.keytab}
-	\item \textbf{\# /usr/local/bind9/sbin/named -u named -g} - Inicia o bind com o usuário named;
+	%\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab} - Modifica o usuário e grupo proprietário do arquivo;
+	\item \textbf{\# /usr/local/bind9/sbin/named -u named -g} - Inicia o bind com o usuário named.
 \end{itemize}
 
 O servidor samba tem que ter seu endereço DNS configurado para apontar para seu servidor DNS.
 
 \begin{itemize}
-	\item \textbf{\# echo 'nameserver ip\_do\_servidor' $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
+	\item \textbf{\# echo ``nameserver ip\_do\_servidor" $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
 \end{itemize}
 
 A partir de agora para acessar a internet através do servidor samba o bind deverá estar sendo executado.
@@ -237,32 +236,32 @@ Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
 \end{itemize}
 
-Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo samba que esta localizado em /usr/local/samba/private/krb5.conf
+Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo samba que esta localizado em /usr/local/samba/private/krb5.conf .
 
 \begin{itemize}
 	\item \textbf{\# cp /usr/local/samba/private/krb5.conf  /etc/}
 \end{itemize}
 
-Teste para verificar se todos as configurações foram realizadas corretamente
+Teste para verificar se todos as configurações foram realizadas corretamente.
 
 \begin{itemize}
-	\item \textbf{\# host -t SRV \_ldap.\_tcp."nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp."nome do realm sem aspas" has SRV record 0 100 389 server."nome do realm sem aspas".}
-	\item \textbf{\# host -t SRV \_kerberos.\_udp."nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp."nome do realm sem aspas" has SRV record 0 100 88 server."nome do realm sem aspas".}
-	\item \textbf{\# host -t A "nome do realm sem aspas"} - O resultado deve ser parecido : \textbf{"nome do realm sem aspas" has address "ip do servidor}
+	\item \textbf{\# host -t SRV \_ldap.\_tcp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.``nome do realm sem aspas" has SRV record 0 100 389 server.``nome do realm sem aspas".}
+	\item \textbf{\# host -t SRV \_kerberos.\_udp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.``nome do realm sem aspas" has SRV record 0 100 88 server.``nome do realm sem aspas".}
+	\item \textbf{\# host -t A ``nome do realm sem aspas"} - O resultado deve ser parecido : \textbf{``nome do realm sem aspas" has address ``ip do servidor".} 
 \end{itemize}
 
 \section{Kerberos com Bind9}
 
-Configurar atualizações dinâmicas no DNS com o kerberos
+Configurar atualizações dinâmicas no DNS com o kerberos.
 
-Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind
+Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind9.
 
 \begin{itemize}
-	\item \textbf{\# echo "export KEYTAB\_FILE=/usr/local/samba/private/dns.keytab" >> /root/.bashrc}
-	\item \textbf{\# echo "export KRB5\_KTNAME=/usr/local/samba/private/dns.keytab" >> /root/.bashrc}
+	\item \textbf{\# echo ``export KEYTAB\_FILE=/usr/local/samba/private/dns.keytab" $>$$>$ /root/.bashrc}
+	\item \textbf{\# echo ``export KRB5\_KTNAME=/usr/local/samba/private/dns.keytab" $>$$>$ /root/.bashrc}
 \end{itemize}
 
-Mudar o dono e o grupo do dns.keytab para que o bind possa alterar o arquivo
+Mudar o dono e o grupo do dns.keytab para que o bind9 possa alterar o arquivo.
 
 \begin{itemize}
 	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab}
@@ -280,14 +279,14 @@ Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e m
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/dsamsc}}
-   	\caption{Tela para executar o DSA}
+   	\caption{Tela para executar o DSA.}
     \label{dsa}
 \end{figure}
 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/addsa}}
-   	\caption{Tela do DSA}
+   	\caption{Tela do DSA.}
     \label{tela_dsa}
 \end{figure}
 
@@ -299,7 +298,7 @@ SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e
 Uma solução para tal problema é identificar o código do usuário no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
 \begin{itemize}
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1)
+	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1).
 	\item \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
 	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
@@ -311,25 +310,24 @@ O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de ge
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/samba-tool}}
-   	\caption{samba-tool no terminal}
+   	\caption{samba-tool no terminal.}
     \label{Samba-tool}
 \end{figure}
 
 \section{Maquinas linux e samba3 interagindo com o \textit{Active Directory} do  Samba4}
 
-Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração.
-Segue abaixo os arquivos e os procedimentos.
+Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração.Segue abaixo os arquivos e os procedimentos.
 
 \textbf{Informações}
 
 \begin{itemize}
-	\item \textbf{fja.br} -  Domínio do \textit{Active Directory}
-	\item \textbf{fjadc01.fja.br} - Controlador de domínio
-	\item \textbf{10.1.0.1} - IP do controlador de domínio
-	\item \textbf{FJA.BR} - Kerberos Realm
-	\item \textbf{gert} - Estação de Trabalho Ubuntu
-	\item \textbf{gert.fja.br} - FQDN da estação de trabalho
-	\item \textbf{fjadc01} - Servidor NTP
+	\item \textbf{fja.br} -  Domínio do \textit{Active Directory}.
+	\item \textbf{fjadc01.fja.br} - Controlador de domínio.
+	\item \textbf{10.1.0.1} - IP do controlador de domínio.
+	\item \textbf{FJA.BR} - Kerberos Realm.
+	\item \textbf{gert} - Estação de Trabalho Ubuntu.
+	\item \textbf{gert.fja.br} - FQDN da estação de trabalho.
+	\item \textbf{fjadc01} - Servidor NTP.
 \end{itemize}
 
 \textbf{Instalando os pacotes necessários}
@@ -344,7 +342,7 @@ Segue abaixo os arquivos e os procedimentos.
 	\item {\# ntpdate 10.2.0.1}
 \end{itemize}
 
-\textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede}
+\textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede.}
 
 \begin{itemize}
 	\item {\# vim /etc/hosts}
@@ -400,7 +398,7 @@ ff02::3 ip6-allhosts
 
 .fja.br = FJA.BR
 
-\textbf {Testando a conexão com o \textit{Active Directory}}
+\textbf {Testando a conexão com o \textit{Active Directory}.}
 
 \begin{itemize}
 	\item {kinit $<$ENTER$>$}
@@ -410,7 +408,7 @@ ff02::3 ip6-allhosts
 	\item {Default principal: alex$@$FJA.BR}
 \end{itemize}
 
-\textbf {Se o resultado for este o Kerberos está funcionando corretamente}
+\textbf {Se o resultado for este o Kerberos está funcionando corretamente.}
 
 	Valid starting Expires Service principal 07/16/07 15:48:35  07/17/07 01:49:08  
 
@@ -420,10 +418,10 @@ ff02::3 ip6-allhosts
 	
 	klist: You have no tickets cached
 
-\textbf{Acessando o Domínio}
+\textbf{Acessando o Domínio.}
 
 \begin{itemize}
-	\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas
+	\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas.
 \end{itemize}
 
 [global]
@@ -476,7 +474,7 @@ ff02::3 ip6-allhosts
 
         os level = 0
 
-\textbf{Reinicie os serviços}
+\textbf{Reinicie os serviços.}
 
 \begin{itemize}
 	\item \textbf{\# /etc/init.d/winbind stop}
@@ -484,14 +482,14 @@ ff02::3 ip6-allhosts
 	\item \textbf{\# /etc/init.d/winbind start}
 \end{itemize}
 
-\textbf{Adicione a conta ao domínio}
+\textbf{Adicione a conta ao domínio.}
 
 \begin{itemize}
 	\item \textbf{\# net ads join}
-	\item \textbf{Resultado} - Using short domain name – GERT Joined 'GERT' to realm 'FJA.BR'
+	\item \textbf{Resultado} - Using short domain name – GERT Joined ``GERT" to realm ``FJA.BR"
 \end{itemize}
 
-\textbf{Configure a Autenticação}
+\textbf{Configure a Autenticação.}
 
 \begin{itemize}
 	\item \textbf{\# vim /etc/nsswitch.conf}
@@ -519,10 +517,10 @@ quiosque:*:10018:10000:Quiosque:/home/ADMINISTRATIVO/quiosque:/bin/bash
 
 \_\_coordenação de design:x:10047:smarino,coorddes
 
-\textbf{Configure o PAM}
+\textbf{Configure o PAM.}
 
 \begin{itemize}
-	\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas
+	\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas.
 \end{itemize}
 
 account sufficient       pam\_winbind.so
@@ -530,7 +528,7 @@ account sufficient       pam\_winbind.so
 account required         pam\_unix.so
 
 \begin{itemize}
-	\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas
+	\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas.
 \end{itemize}
 
 auth sufficient pam\_winbind.so
@@ -540,7 +538,7 @@ auth sufficient pam\_unix.so nullok\_secure use\_first\_pass
 auth required   pam\_deny.so
 
 \begin{itemize}
-	\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas
+	\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas.
 \end{itemize}
 
 session required pam\_unix.so
@@ -548,7 +546,7 @@ session required pam\_unix.so
 session required pam\_mkhomedir.so umask=0022 skel=/etc/skel
 
 \begin{itemize}
-	\item {/etc/pam.d/sudo} - Adicione as seguintes linhas
+	\item {/etc/pam.d/sudo} - Adicione as seguintes linhas.
 \end{itemize}
 
 auth sufficient pam\_winbind.so
@@ -571,9 +569,9 @@ $@$include common-account
 	\item \textbf{\# /etc/init.d/winbind start}
 \end{itemize}
 
-\textbf{Logando no domínio}
+\textbf{Logando no domínio.}
 
-Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do dominio
+Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do domínio.
 
 \begin{itemize}
 	\item {login: nome\_do\_usuário}
@@ -581,7 +579,7 @@ Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e
 	\item {nome\_do\_usuário$@$gert:~\$}
 \end{itemize}
 
-\section{Script para adicionar maquina linux no textif{Active Directory}}
+\section{Script para adicionar maquina linux no textif{Active Directory}.}
 
 Para facilitar a inserção das maquinas linux no \textit{Active Directory} do samba 4 foi modificado um script e ele foi chamado de smbad.sh. 
 
@@ -590,7 +588,7 @@ Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/smbad}}
-   	\caption{Tela do script para inserir maquinas linux no AD}
+   	\caption{Tela do script para inserir maquinas linux no AD.}
     \label{smbad}
 \end{figure}
 

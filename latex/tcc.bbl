@@ -38,6 +38,10 @@ Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
 \abntrefinfo{Losano}{LOSANO}{2009}
 {LOSANO, M. \emph{Introdução ao Active Directory - Parte 1}. 2009.}
 
+\bibitem[Långstedt 2005]{INSTALL}
+\abntrefinfo{Långstedt}{LåNGSTEDT}{2005}
+{LåNGSTEDT, N. \emph{Installing software from source in Linux - 1.2}. 2005.}
+
 \bibitem[Microsoft 2012]{SERVER}
 \abntrefinfo{Microsoft}{MICROSOFT}{2012}
 {MICROSOFT. \emph{Windows Server 2012 How to Buy}. 2012.
