@@ -1,25 +1,25 @@
 \chapter{SAMBA 3}
-Este capítulo descreve como são feitas a instalação e a configuração de um servidor samba 3 como controlador de domínio, servidor de impressão e servidor de dados, respeitando as regras de usuários e permissões.
+Este capítulo descreve como são feitas a instalação e a configuração de um servidor Samba 3 como controlador de domínio, servidor de impressão e servidor de dados, respeitando as regras de usuários e permissões.
 
-\section{Instalação do samba 3}
+\section{Instalação do Samba 3}
 
 %O pacote samba pode ser instalado através do repositório de sistemas da distribuição em que está sendo usado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possamos instalar a versão mais atual do samba.
 
-O pacote samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do samba 3.
+O pacote Samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do Samba 3.
  
 \begin{itemize}
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
-    \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote samba 3.
-    \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor samba 3 e permite acesso de compartilhamentos no windows ou linux a partir de uma máquina linux.
+    \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote Samba 3.
+    \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor Samba 3 e permite acesso de compartilhamentos no windows ou linux a partir de uma máquina linux.
 \end{itemize}
 
-\section{SWAT - Gerenciando o samba 3 pelo browser}
+\section{SWAT - Gerenciando o Samba 3 pelo browser}
 
 %Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir ou restringir acessos, tudo em um ambiente gráfico.
 O SWAT é uma ferramenta para a edição do /etc/smb.conf, porém por meio de uma interface gráfica. Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir ou restringir acessos.
 
 \begin{itemize}
- \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do samba 3.
+ \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do Samba 3.
     \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
 \end{itemize}
 
@@ -33,11 +33,11 @@ Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Home} - Documentação do samba 3
-    \item \textbf{Globals} - Variáveis globais de configuração do samba 3
+    \item \textbf{Home} - Documentação do Samba 3
+    \item \textbf{Globals} - Variáveis globais de configuração do Samba 3
     \item \textbf{Shares} - Ativar compartilhamentos de diretórios e arquivos
     \item \textbf{Printers} - Compartilhamento de impressoras
-    \item \textbf{Wizard} - Escreve as modificações no arquivo smb.conf do samba 3
+    \item \textbf{Wizard} - Escreve as modificações no arquivo smb.conf do Samba 3
     \item \textbf{Status} - Status do servidor com usuário, compartilhamento dos ativos e arquivos abertos
     \item \textbf{View} - Mostra o arquivo smb.conf
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
@@ -47,30 +47,30 @@ Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e a
  
 %Como o TCC não toca mais no assunto do SWAT, coloque ao final dessa seção as vantagens e desvantagens dele (vantagem = fácil configuração, desvantagem a meu ver = não permite comentários dentro do arquivo smb.conf, além de apagar os comentários que estavam lá)... Aí comenta que visando um aprofundamento do assunto, ou sei lá o que, este trabalho (tcc) irá priorizar a configuração realizada diretamente no arquivo smb.conf.
 
-\section{Iniciando samba 3}
+\section{Iniciando Samba 3}
 
-Com todos os componentes instalados a aplicação pode ser iniciada. O samba 3 trabalha com dois \textit{daemon} principais, geralmente eles se encontram no /usr/sbin/,  que são: SMBD e o NMBD
+Com todos os componentes instalados a aplicação pode ser iniciada. O Samba 3 trabalha com dois \textit{daemon} principais, geralmente eles se encontram no /usr/sbin/,  que são: SMBD e o NMBD
 
 O SMBD permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.\cite{SAMBA}
 
 \begin{itemize}
-	\item \textbf{\# /etc/init.d/smbd start} - Inicia o samba 3. Existem outras formas de inicia-lo, como:
+	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3. Existem outras formas de inicia-lo, como:
 		\begin{enumerate}
-			\item \textbf{\# service smbd start} - Inicia o samba 3.
-			\item \textbf{\# service smbd stop} - Para o processo do samba 3.
-			\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o samba 3.
-			\item \textbf{\# /etc/init.d/samba start} - Para iniciar o samba 3 em computadores com Debian 6.
+			\item \textbf{\# service smbd start} - Inicia o Samba 3.
+			\item \textbf{\# service smbd stop} - Para o processo do Samba 3.
+			\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+			\item \textbf{\# /etc/init.d/samba start} - Para iniciar o Samba 3 em computadores com Debian 6.
 			\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
 		\end{enumerate}
 \end{itemize}
 
 \section{Seções}
 
-No samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o ``/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome ``arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
+No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o ``/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome ``arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
 
-\section{Variáveis de substituição do samba 3}
+\section{Variáveis de substituição do Samba 3}
 
-Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
+Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
 
      [home]
 
@@ -111,7 +111,7 @@ O nome DNS da máquina que está executando o Samba.
 O nome NetBIOS da máquina do cliente. Isto é muito útil para log de conexões personalizados e outras coisas úteis.
 
 \%L
-O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
+O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no Samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
 
 \%M
 O nome DNS da máquina cliente.
@@ -129,7 +129,7 @@ O nível de protocolo selecionado após a negociação. O valor retornado pode s
 A identificação de processo do processo atual do servidor.
 
 \%a
-A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{``UNKNOWN"} (desconhecido).
+A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O Samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{``UNKNOWN"} (desconhecido).
 
 \%I
 O endereço IP da máquina do cliente.
@@ -140,17 +140,17 @@ A data e hora atual.
 \%\$(var\_ambiente)
 Retorna o valor da variável de ambiente especificada.
 
-\section{Configuração do samba para ser um PDC}
+\section{Configuração do Samba para ser um PDC}
 
 O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no linux.
 
 \begin{itemize}
-	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do samba 3, auxiliando o profissional de TI no momento de sua configuração.
+	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
 	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
 	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
 \end{itemize}
 
-Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o samba 3 se comporte como um PDC.
+Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC.
 {\raggedright
 
 [global] 
@@ -199,9 +199,9 @@ Explicação das variáveis utilizadas:
 		\end{enumerate} 
 	\item \textbf{netbios name} - Nome da netbios do servidor.
 	\item \textbf{encrypt passwords} - Quando informado o valor ``true" as senhas informadas para o servidor serão criptografadas.
-	\item \textbf{domain master} - Informa que o servidor samba 3 será o domínio principal da rede.
-	\item \textbf{domain logons} - O servidor samba 3 passa a ser um controlador de domínio.
-	\item \textbf{enable privileges} - Habilita alguns privilégios no samba 3. Alguns deles:
+	\item \textbf{domain master} - Informa que o servidor Samba 3 será o domínio principal da rede.
+	\item \textbf{domain logons} - O servidor Samba 3 passa a ser um controlador de domínio.
+	\item \textbf{enable privileges} - Habilita alguns privilégios no Samba 3. Alguns deles:
 		\begin{enumerate}
 			\item {SeAddUsersPrivilege} - Adicionar usuários e grupos no domínio 
 			\item {SeDiskOperatorPrivilege} - Gerencia os discos compartilhados 
@@ -221,12 +221,12 @@ Explicação das variáveis utilizadas:
 	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd pararem de funcionar.
 \end{itemize}
 
-Com todas as variáveis devidamente adicionadas o servidor samba 3 precisa ser reiniciado para que todas as modificações entrem em vigor.
+Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser reiniciado para que todas as modificações entrem em vigor.
 
 \begin{itemize}
 	\item \textbf{\# testparm} - Verifica se existe algum erro de sintaxe no arquivos de configuração no smb.conf
-	\item \textbf{\# /etc/init.d/smbd restart} - Reinicia o samba 3.
-	\item \textbf{\# /etc/init.d/nmbd restart} - Reinicia o servidor de nomes do samba 3.
+	\item \textbf{\# /etc/init.d/smbd restart} - Reinicia o Samba 3.
+	\item \textbf{\# /etc/init.d/nmbd restart} - Reinicia o servidor de nomes do Samba 3.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -238,7 +238,7 @@ Com todas as variáveis devidamente adicionadas o servidor samba 3 precisa ser r
 
 \section{Cadastro de Usuário}
 
-Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o samba 3. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no samba 3.
+Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o Samba 3. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no Samba 3.
 
 \begin{itemize}
 	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
@@ -250,13 +250,13 @@ Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". 
 	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
 \end{itemize}
 
-Antes de cadastrá-los no samba 3 eles precisam ser criados no sistema.
+Antes de cadastrá-los no Samba 3 eles precisam ser criados no sistema.
 
 \begin{itemize}
 	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
 \end{itemize}
 
-Após o usuário ser criado no sistema, ele necessita ser cadastrado no samba 3.
+Após o usuário ser criado no sistema, ele necessita ser cadastrado no Samba 3.
 
 \begin{itemize}
 	\item \textbf{\# smbpasswd -a usuario} - Informe a mesma senha cadastrada no linux.
@@ -264,24 +264,24 @@ Após o usuário ser criado no sistema, ele necessita ser cadastrado no samba 3.
 
 \section{Cadastro de Máquinas}
 
-Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas que poderão entrar no domínio também devem ser cadastradas. As máquinas são cadastradas como usuários normais no linux antes de serem cadastradas no samba 3, porém sem pasta home e sem bash para login.
+Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas que poderão entrar no domínio também devem ser cadastradas. As máquinas são cadastradas como usuários normais no linux antes de serem cadastradas no Samba 3, porém sem pasta home e sem bash para login.
 
 \begin{itemize}
 	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas para melhor organização dos usuários no linux.
-	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--disabled-login "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o samba 3 irá identificar que o usuário na verdade é uma maquina. 
+	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--disabled-login "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o Samba 3 irá identificar que o usuário na verdade é uma maquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/máquina.
 \end{itemize}
 
-Após a criação do usuário/máquina no sistema agora ele tem que ser cadastrado no samba 3.
+Após a criação do usuário/máquina no sistema agora ele tem que ser cadastrado no Samba 3.
 
 \begin{itemize}	
-	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra o usuário como uma máquina no samba 3.
+	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra o usuário como uma máquina no Samba 3.
 \end{itemize}
 
 
 \section{Script de Cadastro de Usuários e Máquinas}
 
-Para facilitar a criação e exclusão dos usuários no sistema e no samba 3, foi feito o script \textbf{smbmanager.sh} conforme o anexo no Apêndice A1. Com ele é possível criar usuários e máquinas, adicionar usuários em grupos e também excluí-los do sistema. Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbmanager.sh
+Para facilitar a criação e exclusão dos usuários no sistema e no Samba 3, foi feito o script \textbf{smbmanager.sh}\footnote[1]{Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbmanager.sh} conforme o anexo no Apêndice A1. Com ele é possível criar usuários e máquinas, adicionar usuários em grupos e também excluí-los do sistema.
 
 O script tem que ter a permissão de root para que possa ser iniciado.
 
@@ -299,7 +299,7 @@ O script tem que ter a permissão de root para que possa ser iniciado.
 
 \section{Migração dos Usuários Administradores e Users do Linux para o Windows}
 
-Para que o Windows possa reconhecer um grupo de usuários administradores do linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos. A tabela \ref{tab} apresenta alguns dos grupos e seus respectivos RID (Relative Identifier). Os comandos a seguir devem ser utilizados para mapear esses grupos no samba 3.
+Para que o Windows possa reconhecer um grupo de usuários administradores do linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos. A tabela \ref{tab} apresenta alguns dos grupos e seus respectivos RID (Relative Identifier). Os comandos a seguir devem ser utilizados para mapear esses grupos no Samba 3.
 
 \begin{table}[h!]
 	\centering
@@ -359,10 +359,10 @@ Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em 
 
 \section{Perfis Moveis}
 
-Para que as configurações e personalizações do perfil do usuário no windows sejam salvas é necessário a criação de um perfil móvel no servidor samba 3. 
+Para que as configurações e personalizações do perfil do usuário no windows sejam salvas é necessário a criação de um perfil móvel no servidor Samba 3. 
 A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade de se realizar backup na máquina do usuário, pois os arquivos são salvos no servidor, sendo assim é só o usuário fazer o login em outra máquina windows que o seu perfil e os seus dados serão migrados para o novo computador. Porém o perfil móvel tem um problema que é a quantidade de dados armazenados. Se o número de usuários e dados de cada um for muito grande, cria-se a necessidade de ter um servidor com muito espaço de armazenamento e uma rede muito bem estruturada. 
 
-Para ativar a configuração de perfil móvel no samba 3 deve-se adicionar no [global] 
+Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [global] 
 
 \textbf	{logon path = $\backslash$$\backslash$\%L$\backslash$Profiles$\backslash$\%U}
 
@@ -478,7 +478,7 @@ veto files = *.tmp/*.doc \# Não será permitido inserir esses tipos de arquivos
 
 \section{Script Logon}
 
-Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o samba 3 fornece a opção na seção [global]. 
+Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o Samba 3 fornece a opção na seção [global]. 
 
 \begin{itemize}
 	\item {logon script = \%G.bat } - Com essa variável adicionada, o sistema irá buscar o script com o nome do grupo primário do usuário. Trabalhar com o grupo é mais fácil de se gerenciar pois o mesmo script serve para mais de um usuário. O uso do \%U é um complicador, já que cada seria necessário criar um script para cada usuário do sistema.
@@ -530,7 +530,7 @@ Exemplo de um script diretoria.bat
 
 O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem precisar da conexão local na impressora.
 
-Para compartilhar as impressoras com o samba 3 deve-se adicionar na seção [global] 
+Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] 
 
 [global]
 
@@ -543,10 +543,10 @@ load printers = yes
 	\item \textbf{load printers} - Carrega as impressoras
 \end{itemize}
 
-O samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o linux.
+O Samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o linux.
 
 \begin{itemize}
-	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
+	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote Samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
 \end{itemize}
 
 Caso o cups não esteja instalado.
@@ -577,7 +577,7 @@ path = /var/spool/samba
 browseable = yes
 
 \begin{itemize}
-	\item \textbf{path} - Esse caminho é onde ficarão os spools de impressão. Esse diretório é criado automaticamente pelo samba 3 e deve ter a permissão 777.
+	\item \textbf{path} - Esse caminho é onde ficarão os spools de impressão. Esse diretório é criado automaticamente pelo Samba 3 e deve ter a permissão 777.
 	\begin{enumerate}
 		\item \textbf{chmod 777 -R /var/spool/samba}
 	\end{enumerate}
@@ -589,7 +589,7 @@ Dessa forma ao acessar o servidor irão aparecer todas as impressoras instaladas
 
 Para conectar-se a uma impressora compartilhada é necessário a instalação dos drivers da mesma. 
 
-Um problema é como esses drivers são armazenados e instalados, já que uma das formas de instalar esses drivers é ir até o computador com o instalador em cd ou pen-drive e realizar a instalação manualmente, porém em uma grande rede se perde muito tempo com a locomoção e instalação. A solução desse problema é a instalação automática dos drivers, e com a utilização do samba 3 os drivers serão instalados assim que o usuário tentar conectar a impressora.
+Um problema é como esses drivers são armazenados e instalados, já que uma das formas de instalar esses drivers é ir até o computador com o instalador em cd ou pen-drive e realizar a instalação manualmente, porém em uma grande rede se perde muito tempo com a locomoção e instalação. A solução desse problema é a instalação automática dos drivers, e com a utilização do Samba 3 os drivers serão instalados assim que o usuário tentar conectar a impressora.
 
 Adiciona no [global]
 
@@ -767,7 +767,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 
 \section{Ingressando o Windows XP no Domínio}
 
-Para ingressar um computador windows no domínio é necessário que primeiramente ele esteja devidamente cadastrado no servidor samba 3. O windows deve estar com os drivers de rede instalados e respondendo na rede.
+Para ingressar um computador windows no domínio é necessário que primeiramente ele esteja devidamente cadastrado no servidor Samba 3. O windows deve estar com os drivers de rede instalados e respondendo na rede.
 Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 \begin{enumerate}
@@ -810,7 +810,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 		
 		\pagebreak 
 
-	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do samba 3 e depois clique em OK. \ref{incluir_dominio}} 
+	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do Samba 3 e depois clique em OK. \ref{incluir_dominio}} 
 			\begin{figure}[ht]
 		   			\centering
 		   		 \scalebox{1}{\includegraphics{figuras/incluir_dominio}}
@@ -844,7 +844,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 \section{Ingressando o Linux no Domínio}
 
-Para ingressar um computador linux no domínio é necessário que primeiramente ele esteja devidamente cadastrado no servidor samba 3. Para o linux realize login no servidor PDC é necessário a instalação de três pacotes essenciais. São eles o Samba, o Winbind e os módulos do PAM (libpam-modules).
+Para ingressar um computador linux no domínio é necessário que primeiramente ele esteja devidamente cadastrado no servidor Samba 3. Para o linux realize login no servidor PDC é necessário a instalação de três pacotes essenciais. São eles o Samba, o Winbind e os módulos do PAM (libpam-modules).
 
 A instalação desses pacotes na distribuição Ubuntu pode ser realizada através dos comando:
 

@@ -1,6 +1,6 @@
 \chapter{SAMBA 4}
 
-O samba 4 vem com a proposta de criar um \textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind e Kerberos.
+O Samba 4 vem com a proposta de criar um \textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind e Kerberos.
 
 Por se tratar de um sistema ainda em fase de produção e sem previsão para a conclusão atualmente, alguns erros podem aparecer ou alguns parâmetros deverão ser modificados. A versão utilizada nesse trabalho é a Alpha22.
 
@@ -12,7 +12,7 @@ A instalação é realizada a partir do terminal, mas antes é necessário a ins
 
 \# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev git-core autoconf python-dnspython ntpdate
 
-Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[1]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.
+Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[2]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.
 
 \# ntpdate pool.ntp.br
 
@@ -21,11 +21,11 @@ Antes de começar a instalação o relógio do servidor tem que estar atualizado
 	%\item \textbf{\# ntpdate br.pool.ntp.org} - Atualiza a hora do servidor a partir do servidor br.pool.ntp.org.
 %\end{itemize}
 
-O código fonte esta hospedado no servidor git dos desenvolvedores do samba, e o mesmo deve ser clonado para a maquina de destino.
+O código fonte esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.
 
 \# git clone git://git.samba.org/samba.git samba-master; cd samba-master
 
-O samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
+O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
 
 \# ./configure.developer
 
@@ -39,18 +39,18 @@ Para verificar a versão instalada é só executar o seguinte comando:
 
 \section{Criação de Domínio com o Samba 4}
 
-Por padrão o samba 4 é instalado no /usr/local/samba.
+Por padrão o Samba 4 é instalado no /usr/local/samba.
 
 \# cd /usr/local/samba
 
-A instalação é a partir da execução do comando provision que fica localizado no /sbin do samba e a inserção de alguns parâmetros.
+A instalação é a partir da execução do comando provision que fica localizado no /sbin do Samba e a inserção de alguns parâmetros.
 
 \# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME\_SERVIDOR "--domain=NOME\_DOMINIO  "--adminpass= Senha12 "--server-role='dc'
 
 \begin{enumerate}
-	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[2]{Sistema de arquivos que armazena os atributos do NTFS};
+	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[3]{Sistema de arquivos que armazena os atributos do NTFS};
 	\item \textbf{realm} - Domínio do servidor Kerberos;
-	\item \textbf{domain} - Domínio do samba;
+	\item \textbf{domain} - Domínio do Samba;
 	\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
@@ -59,9 +59,9 @@ Depois de instalado e configurado o servidor de \textit{Active Directory} pode s
 
 \# /usr/local/samba/sbin/samba -i -M single
 
-Para facilitar a forma de ativar o samba 4 podem ser feito dois procedimentos.
+Para facilitar a forma de ativar o Samba 4 podem ser feito dois procedimentos.
 
-Criar um link do executável do samba no /etc/init.d/ .
+Criar um link do executável do Samba no /etc/init.d/ .
 
 \# ln /usr/local/samba/sbin/samba /etc/init.d/samba
 
@@ -91,7 +91,7 @@ Mudar o caminho da variável de ambiente PATH para que os comandos possam ser ac
 
 \section{Instalação e configuração do BIND9}
 
-O samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS nas versões 9.8 e 9.9.
+O Samba 4 já vem pré configurado para trabalhar com BIND9 para ser o servidor DNS nas versões 9.8 e 9.9.
 Atualmente a versão do Bind9 no repositório é a 9.7 e com isso são geradas algumas incompatibilidades e para resolver esses problemas é feito o download e a instalação manual da versão 9.9.
 
 \# wget ftp://ftp.isc.org/isc/bind9/9.9.0/bind-9.9.0.tar.gz
@@ -172,7 +172,7 @@ As variáveis adicionadas no arquivos são para:
 %			\end{enumerate}
 %\end{itemize}
 
-O comando provision gera os arquivos de configuração necessários para o funcionamento do samba com o servidor dns.
+O comando provision gera os arquivos de configuração necessários para o funcionamento do Samba com o servidor dns.
 
 \begin{itemize}
 	\item \textbf{\# vim named.conf.local} -  Adicione a linha abaixo no arquivo;
@@ -189,7 +189,7 @@ include ``/etc/bind/named.conf.local";
 include ``/etc/bind/named.conf.options";
 
 
-Como o samba 4 já vem com configurações prontas do bind9 é necessário escolher qual a versão do dns que esta sendo utilizada.
+Como o Samba 4 já vem com configurações prontas do bind9 é necessário escolher qual a versão do dns que esta sendo utilizada.
 
 \begin{itemize}
 	\item \textbf{\# vim /usr/local/samba/private/named.conf}
@@ -198,7 +198,7 @@ Como o samba 4 já vem com configurações prontas do bind9 é necessário escol
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/named_conf}}
-   	\caption{Arquivo named.conf do samba.}
+   	\caption{Arquivo named.conf do Samba.}
     \label{named_conf}
 \end{figure}
 
@@ -219,13 +219,13 @@ Como o samba 4 já vem com configurações prontas do bind9 é necessário escol
 	\item \textbf{\# /usr/local/bind9/sbin/named -u named -g} - Inicia o bind com o usuário named.
 \end{itemize}
 
-O servidor samba tem que ter seu endereço DNS configurado para apontar para seu servidor DNS.
+O servidor Samba tem que ter seu endereço DNS configurado para apontar para seu servidor DNS.
 
 \begin{itemize}
 	\item \textbf{\# echo ``nameserver ip\_do\_servidor" $>$$>$ /etc/resolv.conf} - Define o endereço do servidor de DNS que o computador irá enviar suas solicitações;
 \end{itemize}
 
-A partir de agora para acessar a internet através do servidor samba o bind deverá estar sendo executado.
+A partir de agora para acessar a internet através do servidor Samba o bind deverá estar sendo executado.
 
 \section{Instalação do Kerberos}
 
@@ -236,7 +236,7 @@ Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
 \end{itemize}
 
-Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo samba que esta localizado em /usr/local/samba/private/krb5.conf .
+Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo Samba que esta localizado em /usr/local/samba/private/krb5.conf .
 
 \begin{itemize}
 	\item \textbf{\# cp /usr/local/samba/private/krb5.conf  /etc/}
@@ -252,29 +252,22 @@ Teste para verificar se todos as configurações foram realizadas corretamente.
 
 \section{Kerberos com Bind9}
 
-Configurar atualizações dinâmicas no DNS com o kerberos.
-
-Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind9.
+Configurar atualizações dinâmicas no DNS com o kerberos. Para o funcionamento das atualizações algumas variáveis necessárias de sistema devem ser criadas para o acesso do kerberos com bind9.
 
 \begin{itemize}
 	\item \textbf{\# echo ``export KEYTAB\_FILE=/usr/local/samba/private/dns.keytab" $>$$>$ /root/.bashrc}
 	\item \textbf{\# echo ``export KRB5\_KTNAME=/usr/local/samba/private/dns.keytab" $>$$>$ /root/.bashrc}
+	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab} - Mudar o dono e o grupo do dns.keytab para que o bind9 possa alterar o arquivo.
+	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate "--verbose} - Atualização automática do dns do Samba.
 \end{itemize}
 
-Mudar o dono e o grupo do dns.keytab para que o bind9 possa alterar o arquivo.
+\section{Gerenciando o Samba4 através do Windows e do Linux}
 
-\begin{itemize}
-	\item \textbf{\# chown named:named /usr/local/samba/private/dns.keytab}
-	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate "--verbose} - Atualização automática do dns do samba.
-\end{itemize}
+É possível gerenciar o servidor Samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack\footnote[4]{O AdminPack está disponível no site da Microsoft:
 
-\section{Gerenciando o samba 4 no Windows XP}
+http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en} presente no Windows Server. Essa ferramenta permite gerenciar todos os usuários, grupos e maquinas presentes no \textit{Active Directory}
 
-É possível gerenciar o servidor samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack presente no Windows Server.
-
-O AdminPack está disponível no site da Microsoft:  http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en 
-
-Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e maquinas presentes no \textit{Active Directory}.\ref{tela_dsa}
+Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} \ref{tela_dsa}.
 
 \begin{figure}[ht]
    	\centering
@@ -282,6 +275,8 @@ Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e m
    	\caption{Tela para executar o DSA.}
     \label{dsa}
 \end{figure}
+ 
+\pagebreak
 
 \begin{figure}[ht]
    	\centering
@@ -290,31 +285,30 @@ Com a ferramenta instalada é possível gerenciar todos os usuários, grupos e m
     \label{tela_dsa}
 \end{figure}
 
+O samba-tools é uma ferramenta que acompanha o Samba 4 no linux e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém um forma de texto \ref{samba-tool}.
+
+\begin{figure}[h!]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/samba-tool}}
+   	\caption{samba-tool no terminal.}
+    \label{samba-tool}
+\end{figure}
+
+%\pagebreak
 
 \section{Compartilhamento de arquivos e impressoras}
 
-SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e simplificada como o samba 3, e tem problemas com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios.
+SAMBA4 ainda não consegue compartilhar arquivos e impressoras de forma fácil e simplificada como o Samba 3, e tem problemas com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios.
 
 Uma solução para tal problema é identificar o código do usuário no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
 \begin{itemize}
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1).
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do samba 4.
+	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no Samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1).
+	\item \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do Samba 4.
 	\item \textbf{\# chown 3000011 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
 \end{itemize} 
 
-\section{Gerenciando o Samba4 no Linux}
-
-O samba-tools é uma ferramenta que acompanha o samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém um forma de texto.
-
-\begin{figure}[ht]
-   	\centering
-    \scalebox{1}{\includegraphics{figuras/samba-tool}}
-   	\caption{samba-tool no terminal.}
-    \label{Samba-tool}
-\end{figure}
-
-\section{Maquinas linux e samba3 interagindo com o \textit{Active Directory} do  Samba4}
+\section{Maquinas linux interagindo com o \textit{Active Directory} do  Samba4}
 
 Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração.Segue abaixo os arquivos e os procedimentos.
 
@@ -579,11 +573,11 @@ Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e
 	\item {nome\_do\_usuário$@$gert:~\$}
 \end{itemize}
 
-\section{Script para adicionar maquina linux no textif{Active Directory}.}
+\section{Script para adicionar maquina linux no \textit{Active Directory}.}
 
-Para facilitar a inserção das maquinas linux no \textit{Active Directory} do samba 4 foi modificado um script e ele foi chamado de smbad.sh. 
+O cadastro de maquinas no samba 4 se difere do samba 3 por não ser necessário o cadastramento do computador como usuário, com o \$ no final do nome, no servidor e depois cadastra-lo no Samba 4.
 
-Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh
+Para facilitar a inserção das maquinas linux no \textit{Active Directory} do Samba 4 foi modificado um script e ele foi chamado de smbad.sh\footnote[4]{Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh}. 
 
 \begin{figure}[ht]
    	\centering
@@ -591,5 +585,13 @@ Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex
    	\caption{Tela do script para inserir maquinas linux no AD.}
     \label{smbad}
 \end{figure}
+
+\section{Samba3 e Samba 4 na rede}
+
+O Samba 3 e Samba 4 não podem ser instalados e configurados no mesmo servidor por trabalharem com os mesmos daemons de inicialização, um serviço quando iniciado anula o outro.
+
+Por ainda terem funções distintas a melhor forma de se trabalhar com os dois na mesma rede é trabalhando em servidores distintos porém interligados. 
+
+O servidor onde o Samba 3 estiver instalado terá que ser cadastrado no servidor Samba 4 para poder fazer o login a partir dele, assim todas as regras feitas no Samba 3 em relação a permissão de usuário no compartilhamento serão validas para os usuários cadastrados no Samba 4.
 
 \section{Windows no domínio Samba 4}
