@@ -23,30 +23,23 @@ Os setores são divididos conforme suas funções no organograma da instituiçã
 
 * Chefe de Gabinete
 
-Com a proposta de implementação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Dois servidor serão inseridos na rede com as seguintes configurações:
+Com a proposta de implementação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Um servidor foi inserido na rede com o sistema operacional Debian 6.0.5 e com as seguintes configurações:
 
 \begin{itemize}
 	\item{Processador Intel Core I7\textregistered}
 	\item{4GB de memória RAM}
-	\item{Um servidor com 6 Tb de HD e o outro com 100 Gb de HD}
+	\item{Um servidor com 6 Tb de HD}
 	\item{Placas de vídeo, áudio e rede Onboard}
 \end{itemize}
 
-Em ambos os servidores foi instalado o sistema operacional Debian 6.0.5. Por trabalharem com o mesmo protocolo e para não ocorrer conflitos, o Samba 3 foi instalado em máquina diferente do Samba 4. Sendo assim ficaram as maquinas:
-
-\begin{itemize}
-	\item{Servidor de 6TB com sistema operacional Debian 6.0.5 e Samba 3}
-	\item{Servidor de 100Gb com sistema operacional Debian 6.0.5 e Samba 4}
-\end{itemize}
-
-Antes da instalação do Samba 4 seus pré requisitos foram instalados e configurados como o DNS Bind 9.9 e o Kerberos Heimdal com suas variáveis de ambiente.
+Antes da instalação do Samba 4 seus pré requisitos foram instalados e o Kerberos Heimdal com suas variáveis de ambiente.
 Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.
 
 \# cd /usr/local/samba/
 
 \# sbin/provision "--use-ntvfs "--realm=instituto.ensino "--domain=instituto "--adminpass= Senha12 "--server-role=’domain controller’
 
-Com o samba 4 já configurado e com as modificações no named.conf.local do bind realizadas, foi inserido no domínio do active directory  as máquinas Windows XP e as máquinas Linux, através do script smbad.sh, que se encontram na rede.
+Com o samba 4 as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de dns \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh, que se encontram na rede.
 
 Por não ter uma ferramenta mais completa para o gerenciamento do Samba 4 pelo Linux, um computador com Windows XP foi designado para tal tarefa. Nele foram instalados o adminpack e o gerenciador de gpo do Windows. Por trabalharem com o mesmo protocolo como já foi dito anteriormente não houveram incompatibilidades na utilização das ferramentas.
 
@@ -54,9 +47,14 @@ Os usuários foram criados a partir da interface gráfica do adminpack no Window
 
 Com os usuários cadastrados e inseridos em seus grupos, foram criadas as GPO`s com os scripts de inicialização e nelas foram definidos os mapeamentos automáticos dos compartilhamentos
 
-O servidor que contém o Samba 3 foi inserido no Active Directory pelo scritpt smbad.sh. Com o servidor logando através do AD, as regras de segurança e permissões dos usuários criadas no Samba 3 irão valer para os usuários contidos no AD. Foram criados compartilhamentos com os nomes dos setores mais importantes da instituição afim de melhorar e garantir o melhor trabalhos das pessoas no setor.
+Foram criados compartilhamentos com os nomes dos setores mais importantes da instituição afim de melhorar e garantir o melhor trabalhos das pessoas no setor. Com a intenção de melhorar o controle dos recursos de armazenamento foram impostas regras de QUOTA com o EDQUOTA que consiste em um dos principais programas gerenciadores de cota de disco no linux.
 
-A seguir é apresentada uma parte do smb.conf, que corresponde as seções de compartilhamento de arquivos. As seções foram inseridas com a sigla dos setores e os valores da seção global são alterados pelo script smbad.sh. Foi decidido vetar arquivos de vídeo e áudio para não sobrecarregar o servidor.
+\begin{itemize}
+		\item {Pasta do usuário: 20Gb}
+		\item {Pasta do setor: 100Gb}
+\end{itemize}
+
+A seguir é apresentada uma parte do smb.conf do Samba 4, que corresponde as seções de compartilhamento de arquivos. As seções foram inseridas com a sigla dos setores. Foi decidido vetar arquivos de vídeo e áudio para não sobrecarregar o servidor.
 
 [Chefia\_de\_Gabinete]
 
@@ -145,7 +143,7 @@ chmod 770 -R /srv/samba/ddgp
 
 chown root:ddgp -R /srv/samba/ddgp
 
-Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 3 e compartilhadas para os demais computadores com a instalação dos drives automática.
+Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.
 
 [printers] 
 
@@ -166,6 +164,3 @@ read only = yes
 write list = root 
 
 inherit permissions = yes
-
-%\section{Objetivos alcançados}
-%\section{Trabalhos futuros}

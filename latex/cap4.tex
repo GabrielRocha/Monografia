@@ -4,6 +4,8 @@ O Samba 4 vem com a proposta de criar um \textit{Active Directory} livre, combat
 
 Por se tratar de um sistema ainda em fase de produção e sem previsão para a conclusão atualmente, alguns erros podem aparecer ou alguns parâmetros deverão ser modificados. A versão utilizada nesse trabalho é a Alpha22.
 
+Outra coisa, você viu que o Samba 4 já está no 4º Release Candidate... Coloque isso em algum lugar no TCC, pois o projeto já passou dos estados alpha e beta, daqui a pouco será lançado oficialmente como estável...
+
 \section{Instalação do SAMBA 4}
 
 Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
@@ -60,7 +62,7 @@ A instalação é a partir da execução do comando provision que fica localizad
 	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[3]{Sistema de arquivos que armazena os atributos do NTFS};
 	\item \textbf{realm} - Domínio do servidor Kerberos;
 	\item \textbf{domain} - Domínio do Samba;
-	\item \textbf{adminpass} - Senha do Administrator, essa senha deve ter pelo menos uma letra maiúscula;
+	\item \textbf{adminpass} - Senha do Administrator, essa senha tem algumas regras de segurança como no mínimo 7 letras uma letra;
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
 
@@ -78,7 +80,37 @@ Mudar o caminho da variável de ambiente PATH para que os comandos possam ser ac
 
 \# echo ``export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH"  $>$$>$ /root/.bashrc
 
+Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário.
 
+\# echo ```domain NOME DOMINIO nameserver IP DO SERVIDOR"  $>$ /etc/resolv.conf
+
+Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.
+
+\# echo 'include ``/usr/local/samba/private/named.conf"' $>$ /etc/bind/named.conf.local
+
+\# vim /etc/bind/named.options
+
+Adicione as seguintes linhas:
+
+\textbf{options}\{ 
+	
+\textbf{directory ``/usr/local/bind/var/run/named"; }
+
+\textbf{tkey-gssapi-keytab ``/usr/local/samba/private/dns.keytab" ; }
+
+\textbf{tkey-domain ``nome\_do\_realm\_samba"; }
+	
+\};
+
+As variáveis adicionadas no arquivos são para:
+
+\begin{itemize}
+	\item{directory} -  É o caminho absoluto do seu servidor dns;
+	\item{tkey-gssapi-keytab} - Local da chave do dns para conexão com o kerberos;
+	\item{tkey-domain} - Nome do Domínio.
+%	\item{auth-nxdomain} - ...
+%	\item{listen-on-v6} - ...
+\end{itemize}
 
 \section{Instalação do Kerberos}
 
