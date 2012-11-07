@@ -66,11 +66,9 @@ comment = Chefia de gabinete
 
 path = /srv/samba/chefia
 
-valid users = +direcao
+valid users = usuario1, usuario2 \# Usuários do setor
 
 read only = no
-
-force group = direcao
 
 browseable = no
 
@@ -82,11 +80,9 @@ comment = Diretoria do Departamento de Administração e Finanças
 
 path = /srv/samba/ddaf
 
-valid users = +ddaf
+valid users = usuario3, usuario4 \# Usuários do setor
 
 read only = no
-
-force group = ddaf
 
 browseable = no
 
@@ -98,11 +94,9 @@ comment = Diretoria do Departamento de Gestão de Pessoas
 
 path = /srv/samba/ddgp
 
-valid users = +ddgp
+valid users = usuario5, usuario6 \# Usuários do setor
 
 read only = no
-
-force group = ddgp
 
 browseable = no
 
@@ -114,11 +108,9 @@ comment = Coordenação de Registros Acadêmicos
 
 path = /srv/samba/cra
 
-valid users = +registro
+valid users = usuario7, usuario8 \# Usuários do setor
 
 read only = no
-
-force group = registro
 
 browseable = no
 
@@ -139,13 +131,13 @@ browseable = no
 
 veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
 
-Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o grupo com o nome do setor ou do usuário que será designado a pasta:
+Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:
 
 mkdir /srv/samba/ddgp
 
 chmod 770 -R /srv/samba/ddgp
 
-chown root:ddgp -R /srv/samba/ddgp
+chown root.3000020 -R /srv/samba/ddgp
 
 Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.
 
