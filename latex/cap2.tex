@@ -1,6 +1,6 @@
-\chapter{CONCEITOS E TÉCNICAS NECESSÁRIAS}
+\chapter{TECNOLOGIAS EMPREGADAS}
 
-O capitulo explica termos técnicos essenciais para o melhor entendimento do trabalho.
+Este capitulo faz uma introdução das tecnologias utilizadas, tais como o Samba, NetBIOS, \textit{Active Directory}, DNS, LDAP, Kerberos, entre outros, além da apresentação de termos técnicos essenciais para o melhor entendimento deste trabalho.
 
 \section{Samba}
 
@@ -67,16 +67,16 @@ O \textit{Active Directory} (AD) é um serviço de diretório nas redes Windows 
 
 Serviço de diretório é um conjunto de Atributos sobre recursos e serviços existentes na rede, isso significa que é uma maneira de organizar e simplificar o acesso aos recursos de sua rede centralizando-os; Bem como, reforçar a segurança e dar proteção aos objetos da base de dados contra intrusos, ou controlar acessos dos usuários internos da rede.
 
-O \textit{Active Directory} mantém dados como contas de usuários, impressoras,grupos,computadores, servidores,recursos de rede, etc. Ele pode ser totalmente escalonável, aumentando conforme a nossa necessidade.\cite{LOSANO}
+O \textit{Active Directory} mantém dados como contas de usuários, impressoras, grupos, computadores, servidores, recursos de rede, etc. Ele pode ser totalmente escalonável, aumentando conforme a nossa necessidade.\cite{LOSANO}
 
 \section{DNS}
 
-DNS (\textit{Domain Name System}) é uma base de dados hierárquica e distribuída, usada para a resolução de nomes de domínios em endereços IP. É considerado como um banco de dados distribuído que converte nomes de \textit{hosts} (máquinas) para endereços IP. É basicamente um mapeamento de endereços IP e seus respectivos nomes. A utilização mais comum é na internet. Todos os computadores da rede possuem um endereço IP. Os servidores DNS simplesmente transformam ou resolvem esse o número em um nome. Por exemplo, o endereço www.iff.edu.br corresponde ao IP 200.143.198.110. \cite{SCRIMER}
+DNS (\textit{Domain Name System}) é uma base de dados hierárquica e distribuída, usada para a resolução de nomes de domínios em endereços IP. É considerado como um banco de dados distribuído que converte nomes de \textit{hosts} (máquinas) para endereços IP. É basicamente um mapeamento de endereços IP e seus respectivos nomes. A utilização mais comum é na internet. Todos os computadores da rede possuem um endereço IP. Os servidores DNS simplesmente transformam ou resolvem esse o número em um nome \cite{SCRIMER}. Por exemplo, o endereço www.iff.edu.br corresponde ao IP 200.143.198.110. 
 
 \begin{figure}[ht]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/dns}}
-   	\caption{Estrutura hierárquica do DNS \cite{SCRIMER}}
+    \scalebox{1}{\includegraphics{figuras/servidor_dns}}
+   	\caption{Estrutura hierárquica do DNS \cite{DNS}}
     \label{dns}
 \end{figure}
 

@@ -70,7 +70,7 @@ No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são 
 
 \section{Variáveis de substituição do Samba 3}
 
-Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
+Existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário \cite{FOCA}. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
 
      [home]
 
@@ -80,65 +80,45 @@ Segundo \cite{FOCA}  existem variáveis especiais que podem ser usadas no arquiv
 
 Ao longo deste trabalho diversas variáveis de substituição serão utilizadas, principalmente nos scripts aqui propostos. Cada uma das variáveis são descritas em detalhes a seguir:
 
-\%S
-O nome do serviço atual, se existir. Seu uso é interessante, principalmente no uso de diretórios homes.
+\%S - O nome do serviço atual, se existir. Seu uso é interessante, principalmente no uso de diretórios homes.
 
-\%P
-O diretório raíz do serviço atual, se existir.
+\%P - O diretório raíz do serviço atual, se existir.
 
-\%u
-O nome de usuário do serviço atual, se aplicável. Esta variável é bastante útil para programação de scripts e também para criar arquivos de log personalizados, etc.
+\%u - O nome de usuário do serviço atual, se aplicável. Esta variável é bastante útil para programação de scripts e também para criar arquivos de log personalizados, etc.
 
-\%g
-O grupo primário do usuário \%u.
+\%g - O grupo primário do usuário \%u.
 
-\%U
-O nome de usuário da seção (o nome de usuário solicitado pelo cliente, não é uma regra que ele será sempre o mesmo que ele recebeu).
+\%U - O nome de usuário da seção (o nome de usuário solicitado pelo cliente, não é uma regra que ele será sempre o mesmo que ele recebeu).
 
-\%G
-O nome do grupo primário de \%U.
+\%G - O nome do grupo primário de \%U.
 
-\%H
-O diretório home do usuário, de acordo com \%u.
+\%H - O diretório home do usuário, de acordo com \%u.
 
-\%v
-A versão do Samba.
+\%v - A versão do Samba.
 
-\%h
-O nome DNS da máquina que está executando o Samba.
+\%h - O nome DNS da máquina que está executando o Samba.
 
-\%m
-O nome NetBIOS da máquina do cliente. Isto é muito útil para log de conexões personalizados e outras coisas úteis.
+\%m - O nome NetBIOS da máquina do cliente. Isto é muito útil para log de conexões personalizados e outras coisas úteis.
 
-\%L
-O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no Samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
+\%L - O nome NetBIOS do servidor. Como o servidor pode usar mais de um nome no Samba (aliases), você poderá saber com qual nome o seu servidor está sendo acessado e possivelmente torna-lo o nome primário de sua máquina.
 
-\%M
-O nome DNS da máquina cliente.
+\%M - O nome DNS da máquina cliente.
 
-\%N
-O nome do seu servidor de diretórios home NIS. Este parâmetro é obtido de uma entrada no seu arquivo auto.map. Se não tiver compilado o SAMBA com a opção --with-automount então este valor será o mesmo de %L.
+\%N - O nome do seu servidor de diretórios home NIS. Este parâmetro é obtido de uma entrada no seu arquivo auto.map. Se não tiver compilado o SAMBA com a opção --with-automount então este valor será o mesmo de %L.
 
-\%p
-O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma ``\%N:\%p".
+\%p - O caminho do diretório home do serviço, obtido de uma entrada mapeada no arquivo auto.map do NIS. A entrada NIS do arquivo auto.map é dividida na forma ``\%N:\%p".
 
-\%R
-O nível de protocolo selecionado após a negociação. O valor retornado pode ser CORE, COREPLUS, LANMAN1, LANMAN2 ou NT1.
+\%R - O nível de protocolo selecionado após a negociação. O valor retornado pode ser CORE, COREPLUS, LANMAN1, LANMAN2 ou NT1.
 
-\%d
-A identificação de processo do processo atual do servidor.
+\%d - A identificação de processo do processo atual do servidor.
 
-\%a
-A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O Samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{``UNKNOWN"} (desconhecido).
+\%a - A arquitetura da máquina remota. Somente algumas são reconhecidas e a resposta pode não ser totalmente confiável. O Samba atualmente reconhece Samba, Windows for Workgroups, Windows 95, Windows NT e Windows 2000. Qualquer outra coisa será mostrado como \textit{``UNKNOWN"} (desconhecido).
 
-\%I
-O endereço IP da máquina do cliente.
+\%I - O endereço IP da máquina do cliente.
 
-\%T
-A data e hora atual.
+\%T - A data e hora atual.
 
-\%\$(var\_ambiente)
-Retorna o valor da variável de ambiente especificada.
+\%\$(var\_ambiente) - Retorna o valor da variável de ambiente especificada.
 
 \section{Configuração do Samba para ser um PDC}
 
