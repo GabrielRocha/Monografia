@@ -890,8 +890,11 @@ Depois de concluídas as configurações, é necessário reiniciar o Samba e o W
 \end{itemize}
 
 Para testar a configuração realizada deve-se fazer o ingresso no domínio conforme abaixo. Será retornada uma mensagem de sucesso.
+
 \textbf{\#net rpc join member -U root}
+
 \textbf{Password:}
+
 \textbf{Joined domain DOMINIO.}
 
 A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
@@ -899,19 +902,28 @@ A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
 Após o teste de ingresso no domínio é necessário configurar o sistema de autenticação PAM para busca os logins no servidor. Para isso é necessário modificar os arquivos \textbf{/etc/pam.d/login} e \textbf{/etc/pam.d/gdm}. O arquivo \textbf{/etc/pam.d/login} é responsável pelas configurações de autenticação de usuários no sistema, enquanto o arquivo \textbf{/etc/pam.d/gdm} é responsável pelas configurações de autenticação na interface de login do gnome.
 No arquivo \textbf{/etc/pam.d/login}, deve-se adicionar as linhas abaixo ao inicio do arquivo:
 
-\textbf{session required pam_mkhomedir.so skel=/etc/skel umask=0022}
-\textbf{session optional pam_mount.so}
-\textbf{auth sufficient pam_winbind.so}
-\textbf{account sufficient pam_winbind.so}
-\textbf{session required pam_winbind.so}
+\textbf{session required pam\_mkhomedir.so skel=/etc/skel umask=0022}
+
+\textbf{session optional pam\_mount.so}
+
+\textbf{auth sufficient pam\_winbind.so}
+
+\textbf{account sufficient pam\_winbind.so}
+
+\textbf{session required pam\_winbind.so}
 
 No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas abaixo ao inicio do arquivo:
 
-\textbf{auth required /lib/security/pam_securetty.so}
-\textbf{auth required /lib/security/pam_nologin.so}
-\textbf{auth sufficient /lib/security/pam_winbind.so}
-\textbf{auth required /lib/security/pam_pwdb.so use_first_pass shadow nullok}
-\textbf{account required /lib/security/pam_winbind.so}
-\textbf{session required /lib/security/pam_mkhomedir.so skel=/etc/skel umask=0022}
+\textbf{auth required /lib/security/pam\_securetty.so}
 
-As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automatico não pode estar ativada no micro. 
+\textbf{auth required /lib/security/pam\_nologin.so}
+
+\textbf{auth sufficient /lib/security/pam\_winbind.so}
+
+\textbf{auth required /lib/security/pam\_pwdb.so use\_first\_pass shadow nullok}
+
+\textbf{account required /lib/security/pam\_winbind.so}
+
+\textbf{session required /lib/security/pam\_mkhomedir.so skel=/etc/skel umask=0022}
+
+As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador. 
