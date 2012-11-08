@@ -455,16 +455,19 @@ Para facilitar a inserção das maquinas linux no \textit{Active Directory} do S
     \label{smbad}
 \end{figure}
 
-\section{Compartilhamento de arquivos e impressoras}
+\section{Compartilhamento de arquivos}
 
 SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios. Uma solução para tal problema é identificar o código do usuário ou grupo no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
-\begin{itemize}
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no Samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER(1).
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do Samba 4.
-	\item \textbf{\# /usr/local/samba/bin/wbinfo "--group-info Dtic} - Mostra o gid do grupo e é a referência do grupo local com o do Samba 4.
-	\item \textbf{\# chown 3000011.3000020 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
-\end{itemize} 
+%\begin{itemize}
+\noindent \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no Samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER.
+
+\noindent \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do Samba 4.
+
+\noindent \textbf{\# /usr/local/samba/bin/wbinfo "--group-info Dtic} - Mostra o gid do grupo e é a referência do grupo local com o do Samba 4.
+
+\noindent \textbf{\# chown 3000011.3000020 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
+%\end{itemize} 
 
 
 %\section{Samba3 e Samba 4}
