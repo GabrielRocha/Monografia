@@ -482,3 +482,6 @@ SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Acti
 %O servidor onde o Samba 3 estiver instalado terá que ser cadastrado no servidor Samba 4 para poder fazer o login a partir dele, assim todas as regras feitas no Samba 3 em relação a permissão de usuário no compartilhamento serão validas para os usuários cadastrados no Samba 4.
 
 \section{Windows no domínio Samba 4}
+
+O procedimento para ingressar um computador Windows no domínio através do Samba 4 é o mesmo executado no caso do Samba 3, porém, no caso do Samba 4 o computador a ser ingressado no domínio não necessíta estar cadastrado no servidor pois no momento em que o micro for ingressado no domínio, será automaticamente criada uma conta de máquina com o nome do computador pelo Samba 4.
+Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede.
