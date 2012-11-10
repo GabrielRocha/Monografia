@@ -138,7 +138,7 @@ server string = 'Titulo'
 
 security = user
 
-netbios name = 'nome que será da netbios do servidor'
+netbios name = 'nome que sera da netbios do servidor'
 
 domain master = yes
 
@@ -354,7 +354,7 @@ logon drive = H:
 	\item \textbf{logon drive} - Unidade que será mapeada com o caminho $\backslash$$\backslash$servidor$\backslash$profiles$\backslash$"nome do usuário" no Windows.
 \end{itemize}
 
-O diretório profile criados fica compartilhado para que seja mapeado na unidade H do usuário no windows.
+O diretório profile criados fica compartilhado para que seja mapeado na unidade H do usuário no windows.\\
 
 \begin{lstlisting}	
 [profiles] 
@@ -437,18 +437,18 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 	\item \textbf{hosts allow} - Ip`s ou faixas de ips que podem conectar ao compartilhamento.
 \end{itemize}
 
-\textbf{Exemplo da aplicação de algumas delas}
+\textbf{Exemplo da aplicação de algumas delas}\\
 
 \begin{lstlisting}	
 [Backup]
 
-write list = usuario1 \# Somente o usuario1 tera permissao de escrita no compartilhamento.
+write list = usuario1 # Somente o usuario1 tera permissao de escrita no compartilhamento.
 
-read list = usuario2 \# O usuario2 so podera ler e listas os arquivos e diretorios desse compartilhamento.
+read list = usuario2 # O usuario2 so podera ler e listas os arquivos e diretorios desse compartilhamento.
 
-host allow = 192.168.1.2-192.168.1.20 \# Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderao acessar esse compartilhamento.
+host allow = 192.168.1.2-192.168.1.20 # Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderao acessar esse compartilhamento.
 
-veto files = *.tmp/*.doc \# Nao sera permitido inserir esses tipos de arquivos no compartilhamento. Essa variavel aceita expressões regulares
+veto files = *.tmp/*.doc # Nao sera permitido inserir esses tipos de arquivos no compartilhamento. Essa variavel aceita expressoes regulares
 \end{lstlisting}
 
 \section{Script Logon}
@@ -467,7 +467,7 @@ Exemplo:
 
 \textbf{Script a ser procurado : grupo.bat}
 
-Esse script precisa estar compartilhado no smb.conf para que possa ser executado. 
+Esse script precisa estar compartilhado no smb.conf para que possa ser executado.\\
 
 \begin{lstlisting}	
 [netlogon] 
@@ -501,7 +501,7 @@ Exemplo de um script diretoria.bat
 
 O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem precisar da conexão local na impressora.
 
-Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] 
+Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global]\\
 
 \begin{lstlisting}	
 [global]
@@ -537,7 +537,7 @@ Caso o cups não esteja instalado.
     \label{cups}
 \end{figure}
 
-Habilitando o compartilhamento de impressora
+Habilitando o compartilhamento de impressora.\\
 
 \begin{lstlisting}	
 [printers]
@@ -572,7 +572,7 @@ Adiciona no [global]
 	\item \textbf{enable privileges = yes} - Permite privilégios a usuários
 \end{itemize}
 
-Criar um compartilhamento não visível onde ficará os drivers das impressoras.
+Criar um compartilhamento não visível onde ficará os drivers das impressoras.\\
 
 \begin{lstlisting}	
 [print$]
@@ -884,7 +884,7 @@ auth	required	pam_nologin.so	no_warn
 Cada linha de configuração é formada por 4 campos. No exemplo temos os 4 campos na seguinte ordem: Nome instalação, tag de controle, nome do módulo, e argumentos do módulo. Campos adicionais serão interpretados como argumentos do módulo.
 
 Após o teste de ingresso no domínio é necessário configurar o sistema de autenticação PAM para busca os logins no servidor. Para isso é necessário modificar os arquivos \textbf{/etc/pam.d/login} e \textbf{/etc/pam.d/gdm}. O arquivo \textbf{/etc/pam.d/login} é responsável pelas configurações de autenticação de usuários no sistema, enquanto o arquivo \textbf{/etc/pam.d/gdm} é responsável pelas configurações de autenticação na interface de login do gnome.
-No arquivo \textbf{/etc/pam.d/login}, deve-se adicionar as linhas abaixo ao inicio do arquivo:
+No arquivo \textbf{/etc/pam.d/login}, deve-se adicionar as linhas abaixo ao inicio do arquivo:\\
 
 \begin{lstlisting}
 session required pam_mkhomedir.so skel=/etc/skel umask=0022
@@ -898,7 +898,7 @@ account sufficient pam_winbind.so
 session required pam_winbind.so
 \end{lstlisting}
 
-No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas abaixo ao inicio do arquivo:
+No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas abaixo ao inicio do arquivo:\\
 
 \begin{lstlisting}	
 auth required /lib/security/pam_securetty.so
