@@ -13,7 +13,7 @@
  %            frame=shadowbox
 %}
 \lstset{numbers=left,
-		language=python,
+		language=bash,
 		stepnumber=1,
 		firstnumber=1,
 		numberstyle=\tiny,
@@ -105,50 +105,28 @@ fi
 
 \section{smbda.sh}
 
-\lstset{numbers=left,
-		language=python,
-		stepnumber=1,
-		firstnumber=1,
-		numberstyle=\tiny,
-		extendedchars=true,
-		breaklines=true,
-		frame = shadowbox
-		basicstyle=\footnotesize,
-		stringstyle=\ttfamily,
-		showstringspaces=false
-		backgroundcolor=\color{gray}
-}
-
 \begin{lstlisting}
 
-#!/bin/sh
+#!/bin/sh 
+# Copyright (C) 2011 - Fabio Antonio Ferreira
+# http://fantonio.wordpress.com | fantonios@gmail.com
+# Este trabalho esta licenciado sob uma Licenca Creative Commons
+# Atribuicao-Compartilhamento pela mesma Licenca 2.5 Brasil. Para ver a copia
+# desta licenca, acesse: http://creativecommons.org/licenses/by-sa/2.5/br/
+# ou envie uma carta para Creative Commons, 171 Second Street, Suite 300,
+# San Francisco, California 94105, USA.
+# Modificacoes em 27 de Julho de 2012 por Gabriel Rocha (GBR)
+# email: gabriel.rocha.gbr@gmail.com
+# Versao 1.1
  
-###############################################################################
-# Copyright (C) 2011 - Fabio Antonio Ferreira                                 #
-# http://fantonio.wordpress.com | fantonios@gmail.com                         #
-#                                                                             #
-# Este trabalho esta licenciado sob uma Licença Creative Commons              #
-# Atribuicao-Compartilhamento pela mesma Licença 2.5 Brasil. Para ver a copia #
-# desta licenca, acesse: http://creativecommons.org/licenses/by-sa/2.5/br/    #
-# ou envie uma carta para Creative Commons, 171 Second Street, Suite 300,     #
-# San Francisco, California 94105, USA.                                       #
-#                                                                             #
-# Modificacoes em 27 de Julho de 2012 por Gabriel Rocha (GBR)                 #
-# email: gabriel.rocha.gbr@gmail.com                                          #
-###############################################################################
-#
-# Versão 1.1
-#
-#
- 
-# == FUNCOES ==================================================================
+# == FUNCOES ==
 USUARIO=`whoami`
 if [ "$USUARIO" != "root" ]; then
   echo
-  echo "=============================================================================="
+  echo "======================================================"
   echo " ESTE PROGRAMA PRECISA SER EXECUTADO COM PERMISSOES DE SUPERUSUARIO!          "  
   echo " Abortando...                              "
-  echo "=============================================================================="
+  echo "======================================================"
   echo
   exit 1
 fi
@@ -227,7 +205,7 @@ _RETURN_BACKUP () {
          
         check=$(echo $?)
    if [ $check -eq 0 ]; then
-      echo "Recuperação do Backup executada com sucesso!"
+      echo "Recuperacao do Backup executada com sucesso!"
    else
       echo "Falha na recuperacao do Backup."
    fi
@@ -235,10 +213,10 @@ _RETURN_BACKUP () {
 }
  
 _NOME_DOMINIO () {
-    #Entrada do nome do dominio ao qual deseja engreçar.
+    #Entrada do nome do dominio ao qual deseja engrecar.
 	#No caso do linux temos dois servidores um do KDC e outro do dominio
 	#No windows informamos o servidor kdc
-    read -p "Entre com o nome do Domínio:" var1
+    read -p "Entre com o nome do Dominio:" var1
     dominio=$(echo $var1 | tr a-z A-Z)
     read -p "Entre com o seu KDC (key Distribution Center):" var2
     kdc=$(echo $var2 | tr A-Z a-z)         
@@ -411,27 +389,27 @@ _ADDDOMINIO () {
    echo "++  Adicionando a Maquina no Dominio  ++"
    echo "++++++++++++++++++++++++++++++++++++++++++++"
         # Adicionando a maquina ao dominio
-        read -p "Entre com um usuário administrador de Domínio:" user   
+        read -p "Entre com um usuario administrador de Dominio:" user   
    net ads join -U $user;
         check=$(echo $?)
         clear
-        # Validação da conexão com o domínio
+        # Validacao da conexao com o dominio
         if [ $check -eq 0 ]; then
-      echo "Sua máquina foi adicionada no Domínio!"
+      echo "Sua maquina foi adicionada no Dominio!"
    else
-      echo "Falha ao adicionar a máquina no Domínio"
+      echo "Falha ao adicionar a maquina no Dominio"
    fi
     
 }
  
 _TESTDOMINIO () {
-        # Teste de requisição ao dominio
+        # Teste de requisicao ao dominio
         wbinfo -t > /dev/null
         check=$(echo $?)
    if [ $check -eq 0 ]; then
-      echo "Teste de Domínio!"
+      echo "Teste de Dominio!"
    else
-      echo "Falha ao testar o Domínio"
+      echo "Falha ao testar o Dominio"
    fi
 }
  
@@ -441,7 +419,7 @@ _FUNCAUTENTICACAO () {
               group:          compat winbind
               shadow:         compat" > /etc/nsswitch.conf
  
-        # Teste de configuração do Winbind        
+        # Teste de configuracao do Winbind        
         check=$(echo $?)
    if [ $check -eq 0 ]; then
       echo "Winbind testado com sucesso!"
@@ -463,7 +441,7 @@ _FUNCAUTENTICACAO () {
               auth sufficient pam_unix.so use_first_pass
               auth required   pam_deny.so
               @include common-account" > /etc/pam.d/sudo
-        # Teste de configuração do PAM
+        # Teste de configuracao do PAM
         check=$(echo $?)
    if [ $check -eq 0 ]; then
       echo "PAM configurado com sucesso!"
@@ -476,10 +454,10 @@ _FUNCAUTENTICACAO () {
 _FUNC_HOMEDIR () {
         HOME_DIR=$var1
         if [ -d /home/$HOME_DIR ]; then
-                echo "Já existe este diretório !"                
+                echo "Ja existe este diretorio !"                
         else
-                echo "Este diretório não existe !"
-                echo "Criando o diretório $HOME_DIR"
+                echo "Este diretorio nao existe !"
+                echo "Criando o diretorio $HOME_DIR"
       mkdir /home/$var1
                 sleep 2
         fi
@@ -490,42 +468,41 @@ _FUNC_DEL_MAQ_DOMINIO () {
    maquina=$(hostname)
         azul="{FONTE}33[0;34m"
         echo "++++++++++++++++++++++++++++++++++++++++++++"
-        echo "++  {FONTE}33[0;34m Removendo a Máquina no Domínio  ++"
+        echo "++  {FONTE}33[0;34m Removendo a Maquina no Dominio  ++"
         echo "++++++++++++++++++++++++++++++++++++++++++++"
        
-        # Remover a máquina ao domínio
-        read -p "Entre com um usuário administrador de Domínio:" user
+        # Remover a maquina ao dominio
+        read -p "Entre com um usuario administrador de Dominio:" user
    net ads status -U $user
    check1=$(echo $?)   
    clear
-   # Validação se a máquina está no domínio
+   # Validacao se a maquina esta no dominio
    if [ $check1 -eq 255 ]; then
-      echo "A máquina $maquina não está no dominio"
-   else
-      # Validação de remoção de máquina do domínio
+      echo "A maquina $maquina nao esta no dominio"
+   else 
+      # Validacao de remocao de maquina do dominio
       net ads leave -U $user;
       check=$(echo $?)
       clear
       if [ $check -eq 0 ]; then
-         echo "Sua máquina foi removida do Domínio!"
+         echo "Sua maquina foi removida do Dominio!"
 	 _RETURN_BACKUP
       else
-         echo "Falha ao remover a máquina no Domínio"
+         echo "Falha ao remover a maquina no Dominio"
       fi
    fi
  
 }
  
- 
 # =============================================================================
-# Menu de seleção
+# Menu de selecao
 echo "Linux Active Directory:"
-echo "(1) Adicionar Máquina no Domínio"
-echo "(2) Remover Máquina do Domínio"
-echo "(3) Verificar conexão com o Domínio"
+echo "(1) Adicionar Maquina no Dominio"
+echo "(2) Remover Maquina do Dominio"
+echo "(3) Verificar conexao com o Dominio"
 echo "(0) Sair"
  
-echo "Digite a opção desejada:"
+echo "Digite a opcao desejada:"
 read resposta
  
 case "$resposta" in
@@ -561,7 +538,6 @@ case "$resposta" in
                 exit
                 ;;  
         *)  
-                echo 'Opção Inválida!'
+                echo 'Opcao Invalida!'
 esac
-
 \end{lstlisting}
