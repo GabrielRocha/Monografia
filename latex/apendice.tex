@@ -12,19 +12,6 @@
  %            numberstyle=\footnotesize,
  %            frame=shadowbox
 %}
-\lstset{numbers=left,
-		language=bash,
-		stepnumber=1,
-		firstnumber=1,
-		numberstyle=\tiny,
-		extendedchars=true,
-		breaklines=true,
-		frame = shadowbox
-		basicstyle=\footnotesize,
-		stringstyle=\ttfamily,
-		showstringspaces=false
-		backgroundcolor=\color{gray}
-}
 
 \begin{lstlisting}
 #!/bin/bash
@@ -133,9 +120,9 @@ fi
  
 _HEAD () {
 `which clear`
-echo "=============================================================================="
-echo "          SISTEMA PARA ADICIONAR MAQUINA LINUX AO DOMINIO WINDOWS OU LINUX"
-echo "=============================================================================="
+  echo "======================================================"
+echo "SISTEMA PARA ADICIONAR MAQUINA LINUX AO DOMINIO WINDOWS OU LINUX"
+  echo "======================================================"
 }
  
 _PACOTES () {
@@ -494,7 +481,7 @@ _FUNC_DEL_MAQ_DOMINIO () {
  
 }
  
-# =============================================================================
+echo "======================================================"
 # Menu de selecao
 echo "Linux Active Directory:"
 echo "(1) Adicionar Maquina no Dominio"
@@ -521,8 +508,7 @@ case "$resposta" in
       _ADDDOMINIO
       _TESTDOMINIO
       _FUNCAUTENTICACAO
-      _FUNC_RESTART
-      azul="{FONTE}33[0;34m"
+      _FUNC_RESTART      
       echo "++++++++++++++++++++++++++++++++++++++++++++"
       echo "++ Bem vindo ao dominio $dominio ++"
       echo "++++++++++++++++++++++++++++++++++++++++++++"
