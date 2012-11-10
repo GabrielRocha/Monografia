@@ -9,27 +9,26 @@ O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases d
 
 Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
 
-A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
+A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.\\
 
 \begin{lstlisting}
-
 # apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev
  python-dev git-core autoconf python-dnspython ntpdate acl libacl1-dev
 \end{lstlisting}
 
-Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[2]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.
+Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[2]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.\\
 
 \begin{lstlisting}
 # ntpdate pool.ntp.br
 \end{lstlisting}
 
-O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.
+O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.\\
 
 \begin{lstlisting}
 # git clone git://git.samba.org/samba.git samba-master; cd samba-master
 \end{lstlisting}
 
-O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
+O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.\\
 
 \begin{lstlisting}
 # ./configure.developer
@@ -39,7 +38,7 @@ O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux
 # make install
 \end{lstlisting}
 
-Para verificar a versão instalada é só executar o seguinte comando:
+Para verificar a versão instalada é só executar o seguinte comando:\\
 
 \begin{lstlisting}
 # /usr/local/samba/bin/smbclient --version
@@ -47,14 +46,13 @@ Para verificar a versão instalada é só executar o seguinte comando:
 
 \section{Criação de Domínio com o Samba 4}
 
-O Samba 4 trabalha com regras ACL e para que ele possa ser instalado tem que habilitar o modo acl nas unidades de disco.
+O Samba 4 trabalha com regras ACL e para que ele possa ser instalado tem que habilitar o modo acl nas unidades de disco.\\
 
 \begin{lstlisting}
 # vim /etc/fstab
 \end{lstlisting}
 
 Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl na coluna options da montagem desta unidade, conforme figura \ref{fstab}.
-%Localizar a linha da unidade principal e adicionar o parâmetro acl nos options de montagem da unidade \ref{fstab}.
 
 \begin{figure}[ht]
    	\centering
@@ -63,16 +61,15 @@ Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl 
     \label{fstab}
 \end{figure}
 
-Por padrão o Samba 4 é instalado no /usr/local/samba.
+Por padrão o Samba 4 é instalado no /usr/local/samba.\\
 
 \begin{lstlisting}
 # cd /usr/local/samba
 \end{lstlisting}
 
-A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.
+A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.\\
 
 \begin{lstlisting}
-
 # bin/samba-tool domain provision --use-ntvfs --realm=NOME SERVIDOR
 --domain=NOME DOMINIO  --adminpass='Senha12' --server-role=dc
 \end{lstlisting}
@@ -85,37 +82,34 @@ A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta q
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
 
-%Depois de instalado e configurado o servidor de \textit{Active Directory} pode ser iniciado. Uma das forma é inicia-lo em modo debug  para poder acompanhar melhor os processos realizados.
-
-Depois de instalado e configurado o Samba 4 pode ser iniciado.
+Depois de instalado e configurado o Samba 4 pode ser iniciado.\\
 
 \begin{lstlisting}
-
 # /usr/local/samba/sbin/samba -i -M single
 \end{lstlisting}
 
 Para facilitar a forma de ativar o Samba 4 podem ser feito dois procedimentos.
 
-Criar um link do executável do Samba no /etc/init.d/ .
+Criar um link do executável do Samba no /etc/init.d/\\
 
 \begin{lstlisting}
 # ln /usr/local/samba/sbin/samba /etc/init.d/samba
 \end{lstlisting}
 
-Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
+Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.\\
 
 \begin{lstlisting}
 # echo "export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:$PATH" >> 
 /root/.bashrc
 \end{lstlisting}
 
-Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário. Cabe resaltar que os micros clientes do domínio devem ser configurados para usar o servidor do Samba 4 como DNS primário.
+Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário. Cabe resaltar que os micros clientes do domínio devem ser configurados para usar o servidor do Samba 4 como DNS primário.\\
 
 \begin{lstlisting}
 # echo "domain NOME DOMINIO nameserver IP DO SERVIDOR" > /etc/resolv.conf
 \end{lstlisting}
 
-Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.
+Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.\\
 
 \begin{lstlisting}
 # echo 'include "/usr/local/samba/private/named.conf"' > 
@@ -124,7 +118,7 @@ Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servido
 # vim /etc/bind/named.options
 \end{lstlisting}
 
-Adicione as seguintes linhas:
+Adicione as seguintes linhas:\\
 
 \begin{lstlisting}
 options{ 
@@ -148,9 +142,7 @@ As variáveis adicionadas no arquivos são para:
 
 \section{Instalação do Kerberos}
 
-Segundo \cite{HEIMDAL} a autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.
-%Em nosso caso utilizaremos BIND com suporte ao Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, necessário para interagir BIND com Samba 4, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
-Em nosso caso utilizaremos o Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
+Segundo \cite{HEIMDAL} a autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.Em nosso caso utilizaremos o Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
 
 \begin{itemize}
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
@@ -168,7 +160,6 @@ Teste para verificar se todos as configurações foram realizadas corretamente.
 	\item \textbf{\# host -t SRV \_ldap.\_tcp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.``nome do realm sem aspas" has SRV record 0 100 389 server.``nome do realm sem aspas".}
 	\item \textbf{\# host -t SRV \_kerberos.\_udp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.``nome do realm sem aspas" has SRV record 0 100 88 server.``nome do realm sem aspas".}
 	\item \textbf{\# host -t A ``nome do realm sem aspas"} - O resultado deve ser parecido : \textbf{``nome do realm sem aspas" has address ``ip do servidor".} 
-%	\item \textbf{\# /usr/local/samba/sbin/samba\_dnsupdate "--verbose} - Atualização automática do DNS do Samba.
 \end{itemize}
 
 \section{Gerenciando o Samba4 através do Windows e do Linux}
@@ -221,13 +212,13 @@ Descrição das variáveis que serão utilizadas na configuração e seus valore
 \end{itemize}
 
 \begin{enumerate}
-	\item \textbf{Instalando os pacotes necessários}
+	\item \textbf{Instalando os pacotes necessários}\\
 \begin{lstlisting}
 # aptitude install krb5-user libpam-krb5 winbind samba smbfs smbclient
 krb5-config libkrb53 libkadm55 vim
 \end{lstlisting}
 
-	\item \textbf{Sincronizando a hora}
+	\item \textbf{Sincronizando a hora}\\
 
 \begin{lstlisting}
 # ntpdate 10.2.0.1
@@ -236,7 +227,7 @@ krb5-config libkrb53 libkadm55 vim
 
 	\item \textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede.}
 	\begin{itemize}
-			\item \# vim /etc/hosts
+			\item \# vim /etc/hosts\\
 	\end{itemize}
 		\begin{lstlisting}
 127.0.0.1       gert.fja.br localhost gert
@@ -265,7 +256,7 @@ ff02::3 ip6-allhosts
 
 	\item \textbf{Configurando o Kerberos}
 		\begin{itemize}
-			\item {\# vim /etc/krb5.conf}
+			\item {\# vim /etc/krb5.conf}\\
 		\end{itemize}
 		\begin{lstlisting}
 [libdefaults]
@@ -300,7 +291,7 @@ admin_server = fjadc01.fja.br
 			\item {Default principal: alex$@$FJA.BR}
 		\end{itemize}
 
-	\item \textbf {Se o resultado for este o Kerberos está funcionando corretamente.}
+	\item \textbf {Se o resultado for este o Kerberos está funcionando corretamente.}\\
 
 		\begin{lstlisting}
 Valid starting Expires Service principal 07/16/07 15:48:35  
@@ -315,7 +306,7 @@ klist: You have no tickets cached
 
 	\item \textbf{Acessando o Domínio.}
 		\begin{itemize}
-			\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas.
+			\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas.\\
 		\end{itemize}
 
 		\begin{lstlisting}
@@ -368,8 +359,7 @@ preferred master = no
 os level = 0
 \end{lstlisting}
 
-	\item \textbf{Reinicie os serviços.}
-		%\begin{itemize}
+	\item \textbf{Reinicie os serviços.}\\
 		\begin{lstlisting}
 # /etc/init.d/winbind stop
 
@@ -377,9 +367,8 @@ os level = 0
 
 # /etc/init.d/winbind start
 \end{lstlisting}
-		%\end{itemize}
 
-	\item \textbf{Adicione a conta ao domínio.}
+	\item \textbf{Adicione a conta ao domínio.}\\
 		\begin{lstlisting}
 # net ads join
 		\end{lstlisting}
@@ -389,7 +378,7 @@ os level = 0
 
 	\item \textbf{Configure a Autenticação.}
 		\begin{itemize}
-				\item \# vim /etc/nsswitch.conf
+				\item \# vim /etc/nsswitch.conf\\
 		\end{itemize}
 		\begin{lstlisting}
 passwd:   compat winbind
@@ -415,7 +404,7 @@ shadow:   compat
 
 	\item \textbf{Configure o PAM.}
 		\begin{itemize}
-			\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas.
+			\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
 		\begin{lstlisting}
@@ -425,7 +414,7 @@ account required     pam_unix.so
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas.
+			\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
 		\begin{lstlisting}
@@ -437,7 +426,7 @@ auth required   pam_deny.so
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas.
+			\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas.\\
 		\end{itemize}
 
 		\begin{lstlisting}
@@ -447,7 +436,7 @@ session required pam_mkhomedir.so umask=0022 skel=/etc/skel
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {/etc/pam.d/sudo} - Adicione as seguintes linhas.
+			\item {/etc/pam.d/sudo} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
 		\begin{lstlisting}
@@ -460,8 +449,7 @@ auth required   pam_deny.so
 @include common-account
 		\end{lstlisting}
 
-	\item \textbf{Reinicie os serviços}
-		%\begin{itemize}
+	\item \textbf{Reinicie os serviços}\\
 		\begin{lstlisting}
 # /etc/init.d/winbind stop
 
@@ -469,7 +457,6 @@ auth required   pam_deny.so
 			
 # /etc/init.d/winbind start
 		\end{lstlisting}
-		%\end{itemize}
 
 	\item \textbf{Logando no domínio.}
 		Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do domínio.
@@ -507,18 +494,6 @@ SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Acti
 \noindent \textbf{\# /usr/local/samba/bin/wbinfo "--group-info Dtic} - Mostra o gid do grupo e é a referência do grupo local com o do Samba 4.
 
 \noindent \textbf{\# chown 3000011.3000020 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
-%\end{itemize} 
-
-%\section{Samba3 e Samba 4}
-
-%O Samba 4 atualmente vem com a intenção de ser uma evolução do Samba 3. Com ele é capaz de fornecer na rede serviços como, controle de usuários, maquinas, compartilhamento de arquivos, compartilhamento de impressoras, controle de acesso ao compartilhamento e entre outros.
-%Com a adoção de um \textit{Active Directory} no mesmo sistema que fornece o compartilhamento de arquivos e impressoras, o Samba 4 permite uma ligação nas configurações de permissões a usuários inseridas no compartilhamento com os usuários cadastrados no domínio, assim eliminando a divisão entre o servidor de domínio e o de compartilhamento.
-
-%O Samba 3 e Samba 4 não podem ser instalados e configurados no mesmo servidor por trabalharem com os mesmos daemons de inicialização, um serviço quando iniciado anula o outro.
-
-%Por ainda terem funções distintas a melhor forma de se trabalhar com os dois na mesma rede é trabalhando em servidores distintos porém interligados. 
-
-%O servidor onde o Samba 3 estiver instalado terá que ser cadastrado no servidor Samba 4 para poder fazer o login a partir dele, assim todas as regras feitas no Samba 3 em relação a permissão de usuário no compartilhamento serão validas para os usuários cadastrados no Samba 4.
 
 \section{Windows no domínio Samba 4}
 

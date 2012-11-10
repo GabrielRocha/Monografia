@@ -37,11 +37,13 @@ Com a proposta de implementação abordada neste trabalho, cada setor e usuário
 \end{itemize}
 
 Antes da instalação do Samba 4 seus pré requisitos foram instalados e o Kerberos Heimdal com suas variáveis de ambiente.
-Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.
+Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.\\
 
-\# cd /usr/local/samba/
+\begin{lstlisting}
+# cd /usr/local/samba/
 
-\# sbin/provision "--use-ntvfs "--realm=instituto.ensino "--domain=instituto "--adminpass= Senha12 "--server-role=’domain controller’
+# sbin/provision --use-ntvfs --realm=instituto.ensino --domain=instituto --adminpass='Senha12' --server-role='domain controller'
+\end{lstlisting}
 
 Com o samba 4 as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de dns \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh, que se encontram na rede.
 
@@ -58,15 +60,16 @@ Foram criados compartilhamentos com os nomes dos setores mais importantes da ins
 		\item {Pasta do setor: 100Gb}
 \end{itemize}
 
-A seguir é apresentada uma parte do smb.conf do Samba 4, que corresponde as seções de compartilhamento de arquivos. As seções foram inseridas com a sigla dos setores. Foi decidido vetar arquivos de vídeo e áudio para não sobrecarregar o servidor.
+A seguir é apresentada uma parte do smb.conf do Samba 4, que corresponde as seções de compartilhamento de arquivos. As seções foram inseridas com a sigla dos setores. Foi decidido vetar arquivos de vídeo e áudio para não sobrecarregar o servidor.\\
 
-[Chefia\_de\_Gabinete]
+\begin{lstlisting}
+[Chefia_de_Gabinete]
 
 comment = Chefia de gabinete
 
 path = /srv/samba/chefia
 
-valid users = usuario1, usuario2 \# Usuários do setor
+valid users = usuario1, usuario2 # Usuarios do setor
 
 read only = no
 
@@ -76,11 +79,11 @@ veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
 
 [DDAF] 
 
-comment = Diretoria do Departamento de Administração e Finanças
+comment = Diretoria do Departamento de Administracao e Financas
 
 path = /srv/samba/ddaf
 
-valid users = usuario3, usuario4 \# Usuários do setor
+valid users = usuario3, usuario4 # Usuarios do setor
 
 read only = no
 
@@ -90,11 +93,11 @@ veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
 
 [DDGP] 
 
-comment = Diretoria do Departamento de Gestão de Pessoas
+comment = Diretoria do Departamento de Gestao de Pessoas
 
 path = /srv/samba/ddgp
 
-valid users = usuario5, usuario6 \# Usuários do setor
+valid users = usuario5, usuario6 # Usuarios do setor
 
 read only = no
 
@@ -104,11 +107,11 @@ veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
 
 [CRA] 
 
-comment = Coordenação de Registros Acadêmicos
+comment = Coordenacao de Registros Academicos
 
 path = /srv/samba/cra
 
-valid users = usuario7, usuario8 \# Usuários do setor
+valid users = usuario7, usuario8 # Usuarios do setor
 
 read only = no
 
@@ -119,28 +122,32 @@ veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
 
 [HOME] 
 
-comment = Pasta dos usuários
+comment = Pasta dos usuarios
 
-path = /srv/samba/\%U
+path = /srv/samba/%U
 
-valid users = \%U
+valid users = %U
 
 read only = no
 
 browseable = no
 
 veto files = *.wmv/*.avi/*.wma/*.mp?/*.flv
+\end{lstlisting}
 
-Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:
+Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:\\
 
+\begin{lstlisting}
 mkdir /srv/samba/ddgp
 
 chmod 770 -R /srv/samba/ddgp
 
 chown root.3000020 -R /srv/samba/ddgp
+\end{lstlisting}
 
-Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.
+Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.\\
 
+\begin{lstlisting}
 [printers] 
 
 print ok = yes 
@@ -151,7 +158,7 @@ path = /var/spool/samba
 
 browseable = yes
 
-[print\$] 
+[print$] 
 
 path = /var/lib/samba/printers 
 
@@ -160,5 +167,6 @@ read only = yes
 write list = root 
 
 inherit permissions = yes
+\end{lstlisting}
 
 Tendo realizado todo este estudo com base na rede já existente da instituição de ensino foi constatado que a implementação sugerida neste trabalho é a mais adequada para atender os objetivos já explicitados anteriormente sobre otimização e segurança.
