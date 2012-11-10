@@ -393,18 +393,17 @@ os level = 0
 				\item \# vim /etc/nsswitch.conf
 		\end{itemize}
 		\begin{lstlisting}
-passwd:         compat winbind
+passwd:   compat winbind
 
-group:          compat winbind
+group:    compat winbind
 
-shadow:         compat
+shadow:   compat
 		\end{lstlisting}
 
  	\item \textbf{Teste o winbind}
 		\begin{itemize}
 			\item {getent passwd}
 		\end{itemize}
-
 		quiosque:*:10018:10000:Quiosque:/home/ADMINISTRATIVO/quiosque:/bin/bash
 
 		\begin{itemize}
@@ -421,9 +420,9 @@ shadow:         compat
 		\end{itemize}
 
 		\begin{lstlisting}
-		account sufficient       pam\_winbind.so
+account sufficient   pam_winbind.so
 
-		account required         pam\_unix.so
+account required     pam_unix.so
 		\end{lstlisting}
 
 		\begin{itemize}
@@ -431,11 +430,11 @@ shadow:         compat
 		\end{itemize}
 
 		\begin{lstlisting}
-		auth sufficient pam\_winbind.so
+auth sufficient pam_winbind.so
 
-		auth sufficient pam\_unix.so nullok\_secure use\_first\_pass
+auth sufficient pam_unix.so nullok_secure use_first_pass
 
-		auth required   pam\_deny.so
+auth required   pam_deny.so
 		\end{lstlisting}
 
 		\begin{itemize}
@@ -443,9 +442,9 @@ shadow:         compat
 		\end{itemize}
 
 		\begin{lstlisting}
-		session required pam\_unix.so
+session required pam_unix.so
 
-		session required pam\_mkhomedir.so umask=0022 skel=/etc/skel
+session required pam_mkhomedir.so umask=0022 skel=/etc/skel
 		\end{lstlisting}
 
 		\begin{itemize}
@@ -453,23 +452,23 @@ shadow:         compat
 		\end{itemize}
 
 		\begin{lstlisting}
-		auth sufficient pam\_winbind.so
+auth sufficient pam_winbind.so
 
-		auth sufficient pam\_unix.so use\_first\_pass
+auth sufficient pam_unix.so use_first_pass
 
-		auth required   pam\_deny.so
+auth required   pam_deny.so
 
-		$@$include common-account
+@include common-account
 		\end{lstlisting}
 
 	\item \textbf{Reinicie os serviços}
 		%\begin{itemize}
 		\begin{lstlisting}
-			\# /etc/init.d/winbind stop
+# /etc/init.d/winbind stop
 
-			\# /etc/init.d/samba restart
+# /etc/init.d/samba restart
 			
-			\# /etc/init.d/winbind start
+# /etc/init.d/winbind start
 		\end{lstlisting}
 		%\end{itemize}
 
