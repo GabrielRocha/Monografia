@@ -27,6 +27,10 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: abnt-options.bib
 Database file #2: referencia.bib
+Repeated entry---line 138 of file referencia.bib
+ : @misc{NETBIOS
+ :              ,
+I'm skipping whatever remains of this entry
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
@@ -38,44 +42,45 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 | Em caso de duvidas ou problemas com este estilo procure |
 | http://abntex.codigolivre.org.br                        |
 +---------------------------------------------------------+
-You've used 23 entries,
+You've used 22 entries,
             6523 wiz_defined-function locations,
-            1293 strings with 12002 characters,
-and the built_in function-call counts, 14042 in all, are:
-= -- 1339
+            1288 strings with 11882 characters,
+and the built_in function-call counts, 13581 in all, are:
+= -- 1303
 > -- 165
 < -- 82
 + -- 182
 - -- 55
-* -- 749
-:= -- 1690
-add.period$ -- 75
-call.type$ -- 24
-change.case$ -- 132
-chr.to.int$ -- 21
-cite$ -- 21
-duplicate$ -- 955
-empty$ -- 1362
+* -- 725
+:= -- 1651
+add.period$ -- 71
+call.type$ -- 23
+change.case$ -- 126
+chr.to.int$ -- 20
+cite$ -- 20
+duplicate$ -- 928
+empty$ -- 1297
 format.name$ -- 253
-if$ -- 3459
+if$ -- 3327
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 371
-newline$ -- 103
+missing$ -- 355
+newline$ -- 98
 num.names$ -- 55
-pop$ -- 484
+pop$ -- 463
 preamble$ -- 1
-purify$ -- 69
+purify$ -- 66
 quote$ -- 0
-skip$ -- 1189
+skip$ -- 1153
 stack$ -- 1
-substring$ -- 509
-swap$ -- 312
+substring$ -- 490
+swap$ -- 302
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 80
+while$ -- 79
 width$ -- 0
-write$ -- 300
+write$ -- 286
+(There was 1 error message)

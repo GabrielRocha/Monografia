@@ -42,8 +42,15 @@ Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
 \abntrefinfo{Långstedt}{LåNGSTEDT}{2005}
 {LåNGSTEDT, N. \emph{Installing software from source in Linux - 1.2}. 2005.}
 
+\bibitem[Microsoft 2012]{NETBIOS}
+\abntrefinfo{Microsoft}{MICROSOFT}{2012a}
+{MICROSOFT. \emph{Resolução de nomes NetBIOS}. 2012.
+Disponível em
+  http://technet.microsoft.com/pt-br/library/cc738412(v=ws.10).aspx. Acesso em
+  Outubro de 2012.}
+
 \bibitem[Microsoft 2012]{SERVER}
-\abntrefinfo{Microsoft}{MICROSOFT}{2012}
+\abntrefinfo{Microsoft}{MICROSOFT}{2012b}
 {MICROSOFT. \emph{Windows Server 2012 How to Buy}. 2012.
 Disponível em
   http://www.microsoft.com/en-us/server-cloud/windows-server/buy.aspx. Acesso
@@ -83,13 +90,6 @@ Disponível em
 {SCRIMGER PAUL~LASALLE, M.~P. R. \emph{TCP/IP - A Bíblia}. Rio de Janeiro:
   Campus, 2002.}
 
-\bibitem[Sistemas Telemáticos 2010]{NETBIOS}
-\abntrefinfo{Sistemas Telemáticos}{SISTEMAS TELEMáTICOS}{2010}
-{SISTEMAS TELEMáTICOS. \emph{Sistema NetBios}. 2010.
-Disponível em
-  http://sistemastelematicosraf.blogspot.com.br/2010/12/sistema-netbios.html.
-  Acesso em Outubro de 2012.}
-
 \bibitem[THE OPENLDAP FOUNDATION 2003]{LDAP}
 \abntrefinfo{THE OPENLDAP FOUNDATION}{THE OPENLDAP FOUNDATION}{2003}
 {THE OPENLDAP FOUNDATION. \emph{OpenLdap 2.1 Administrator's Guide.} 2003.
@@ -109,14 +109,8 @@ Dispon{\'\i}vel em:
   Acesso em: 10/08/2012.}
 
 \bibitem[Wikipédia 2012]{BIND}
-\abntrefinfo{Wikipédia}{WIKIPéDIA}{2012a}
+\abntrefinfo{Wikipédia}{WIKIPéDIA}{2012}
 {WIKIPéDIA. \emph{Bind}. 2012.
 Disponível em http://pt.wikipedia.org/wiki/BIND. Acesso em Outubro de 2012.}
-
-\bibitem[Wikipédia 2012]{WIKIPEDIA}
-\abntrefinfo{Wikipédia}{WIKIPéDIA}{2012b}
-{WIKIPéDIA. \emph{NetBios}. 2012.
-Disponível em http://pt.wikipedia.org/wiki/NetBios. Acesso em Outubro de
-  2012.}
 
 \end{thebibliography}
