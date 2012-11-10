@@ -72,11 +72,18 @@ No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são 
 
 Existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário \cite{FOCA}. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:
 
-     [home]
+\begin{lstlisting}
+	
+	[home]
+	
+	comment = Diretório home do usuário
 
-      comment = Diretório home do usuário
+	path = /home/usuarios/\%u
+	
+\end{lstlisting}
+     
 
-      path = /home/usuarios/\%u
+      
 
 Ao longo deste trabalho diversas variáveis de substituição serão utilizadas, principalmente nos scripts aqui propostos. Cada uma das variáveis são descritas em detalhes a seguir:
 
@@ -133,37 +140,42 @@ O arquivo de configuração se encontra no diretório /etc, onde está a maioria
 Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC.
 {\raggedright
 
-[global] 
-
-	workgroup = ``nome do servidor de domínio" 
-
-	server string = ``Título"       
-
-	security = user
-
-	netbios name = ``nome que será da netbios do servidor"
-
-	domain master = yes
-
-	domain logons = yes
-
-	enable privileges = yes
-
-	passdb backend = tdbsam
+\begin{lstlisting}
 	
-	encrypt passwords = true
+	[global] 
 
-	preferred master = yes
+		workgroup = ``nome do servidor de domínio" 
 
-	local master = yes
+		server string = ``Título"       
 
-	os level = 100
+		security = user
 
-%	wins support = yes
+		netbios name = ``nome que será da netbios do servidor"
 
-	map to guest = Bad User
+		domain master = yes
 
-	panic action = /usr/share/samba/panic-action \%d
+		domain logons = yes
+
+		enable privileges = yes
+
+		passdb backend = tdbsam
+	
+		encrypt passwords = true
+
+		preferred master = yes
+
+		local master = yes
+
+		os level = 100
+
+		%	wins support = yes
+
+		map to guest = Bad User
+
+		panic action = /usr/share/samba/panic-action \%d
+	
+\end{lstlisting}
+
 }
 
 Explicação das variáveis utilizadas:
@@ -344,11 +356,16 @@ A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade 
 
 Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [global] 
 
-\textbf	{logon path = $\backslash$$\backslash$\%L$\backslash$Profiles$\backslash$\%U}
+\begin{lstlisting}
+	
+	logon path = $\backslash$$\backslash$\%L$\backslash$Profiles$\backslash$\%U
 
-\textbf {logon home = $\backslash$$\backslash$\%L$\backslash$Profiles$\backslash$\%U}
+	logon home = $\backslash$$\backslash$\%L$\backslash$Profiles$\backslash$\%U
 
-\textbf	{logon drive = H:}
+	logon drive = H:
+	
+\end{lstlisting}
+
 
 \begin{itemize}
 	\item \textbf{logon path} - Serve para indicar o caminho onde vão ficar os perfis no Windows XP/Vista/7 
@@ -369,19 +386,25 @@ Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [g
 
 O diretório profile criados fica compartilhado para que seja mapeado na unidade H do usuário no windows.
 
-[profiles] 
+\begin{lstlisting}
+	
+	[profiles] 
 
-	path = /var/samba/\%U 
+		path = /var/samba/\%U 
 	
-	writeable = yes 
+		writeable = yes 
 	
-	browseable = no 
+		browseable = no 
 	
-	create mask = 0600 
+		create mask = 0600 
 	
-	directory mask = 0700 
+		directory mask = 0700 
 	
-	available = yes 
+		available = yes
+	
+\end{lstlisting}
+
+ 
 
 \begin{itemize}
 	\item \textbf {path} - Caminho da pasta que vai ser compartilhada.
@@ -396,21 +419,25 @@ O diretório profile criados fica compartilhado para que seja mapeado na unidade
 
 O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf.
 
-[Diretoria]
+\begin{lstlisting}
+	
+	[Diretoria]
 
-path = /media/diretoria
+		path = /media/diretoria
 
-read only = no
+		read only = no
 
-valid users = +diretoria
+		valid users = +diretoria
 
-force group = diretoria
+		force group = diretoria
 
-create mask = 0770
+		create mask = 0770
 
-directory mask = 0770
+		directory mask = 0770
 
-browseable = no
+		browseable = no
+	
+\end{lstlisting}
 
 \begin{itemize}
 	\item \textbf{[Diretoria]} - Nome do compartilhamento que será mostrado no servidor.
@@ -446,15 +473,21 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 
 \textbf{Exemplo da aplicação de algumas delas}
 
-[Backup]
+\begin{lstlisting}
+	
+	[Backup]
 
-write list = usuario1 \# Somente o usuario1 terá permissão de escrita no compartilhamento.
+		write list = usuario1 \# Somente o usuario1 terá permissão de escrita no compartilhamento.
 
-read list = usuario2 \# O usuario2 só poderá ler e listas os arquivos e diretórios desse compartilhamento.
+		read list = usuario2 \# O usuario2 só poderá ler e listas os arquivos e diretórios desse compartilhamento.
 
-host allow = 192.168.1.2-192.168.1.20 \# Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderão acessar esse compartilhamento.
+		host allow = 192.168.1.2-192.168.1.20 \# Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderão acessar esse compartilhamento.
 
-veto files = *.tmp/*.doc \# Não será permitido inserir esses tipos de arquivos no compartilhamento. Essa variável aceita expressões regulares
+		veto files = *.tmp/*.doc \# Não será permitido inserir esses tipos de arquivos no compartilhamento. Essa variável aceita expressões regulares
+	
+\end{lstlisting}
+
+
 
 \section{Script Logon}
 
@@ -474,13 +507,19 @@ Exemplo:
 
 Esse script precisa estar compartilhado no smb.conf para que possa ser executado. 
 
+\begin{lstlisting}
+	
 	[netlogon] 
 
 		path = /var/samba/scripts 
 
 		read only = yes 
 
-		browseable = no 
+		browseable = no
+	
+\end{lstlisting}
+
+	 
 		
 
 %\begin{itemize}
@@ -512,11 +551,15 @@ O compartilhamento de impressora é a publicação das impressoras instaladas no
 
 Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] 
 
-[global]
+\begin{lstlisting}
+	
+	[global]
 
-printing = cups
+	printing = cups
 
-load printers = yes
+	load printers = yes
+	
+\end{lstlisting}
 
 \begin{itemize}
 	\item \textbf{printing} - Define qual o programa será utilizado para gerenciar as impressões 
@@ -546,15 +589,21 @@ Caso o cups não esteja instalado.
 
 Habilitando o compartilhamento de impressora
 
-[printers]
+\begin{lstlisting}
+	
+	[printers]
 
-print ok = yes
+	print ok = yes
 
-guest ok = yes
+	guest ok = yes
 
-path = /var/spool/samba
+	path = /var/spool/samba
 
-browseable = yes
+	browseable = yes
+	
+\end{lstlisting}
+
+
 
 \begin{itemize}
 	\item \textbf{path} - Esse caminho é onde ficarão os spools de impressão. Esse diretório é criado automaticamente pelo Samba 3 e deve ter a permissão 777.
@@ -579,15 +628,21 @@ Adiciona no [global]
 
 Criar um compartilhamento não visível onde ficará os drivers das impressoras.
 
-[print\$]
+\begin{lstlisting}
+	
+	[print\$]
 
-path = /var/lib/samba/printers
+	path = /var/lib/samba/printers
 
-read only = yes
+	read only = yes
 
-write list = root
+	write list = root
 
-inherit permissions = yes
+	inherit permissions = yes
+	
+\end{lstlisting}
+
+
 
 \begin{itemize}
 	\item \textbf{path} - Local onde os drivers serão instalados
@@ -835,34 +890,40 @@ A instalação desses pacotes na distribuição Ubuntu pode ser realizada atrav�
 
 Após a instalação é necessário realizar a configuração do micro para que possa fazer login no domínio. Começando pela configuração do Samba através do arquivo de configuração \textbf{/etc/samba/smb.conf}, que deve ser editado para que a seção [global] fique conforme o exemplo. Pode-se optar por adicionar essa configuração à configuração existente, ou pode manter apenas essa configuração básica:
 
-[global]
-  	workgroup = Dominio
+\begin{lstlisting}
+	
+	[global]
+  		workgroup = Dominio
 
-  	netbios name = cliente1
+  		netbios name = cliente1
 
-  	winbind use default domain = yes
+  		winbind use default domain = yes
 
-  	obey pam restrictions = yes
+  		obey pam restrictions = yes
 
-  	security = domain
+  		security = domain
 
-  	encrypt passwords = true
+  		encrypt passwords = true
 
-  	wins server = 192.168.1.1
+  		wins server = 192.168.1.1
 
-  	winbind uid = 10000-20000
+  		winbind uid = 10000-20000
 
-  	winbind gid = 10000-20000
+  		winbind gid = 10000-20000
 
-  	template shell = /bin/bash
+  		template shell = /bin/bash
 
-  	template homedir = /home/\%U
+  		template homedir = /home/\%U
 
-  	winbind separator = +
+  		winbind separator = +
 
-  	printing = cups
+  		printing = cups
 
-  	invalid users = root
+  	  	invalid users = root
+	
+\end{lstlisting}
+
+
 
 Explicação de algumas variáveis importantes:
 \begin{itemize}
@@ -874,56 +935,87 @@ Explicação de algumas variáveis importantes:
 Editado o arquivo \textbf{/etc/samba/smb.conf}, deve-se testar o arquivo de configuração para verificação de erros através do comando \textbf{\#testparm}.
 Após a configuração do Samba, deve-se configurar o arquivo \textit{Network Services Switch} (\textbf{/etc/nsswitch.conf}), que determina a ordem das buscas quando uma informação é solicitada. Esse arquivo deve ter as seguintes linhas alteradas:
 
-  passwd: compat winbind
+\begin{lstlisting}
+	
+	passwd: compat winbind
 
-  group: compat winbind
+	group: compat winbind
 
-  shadow: compat winbind
+	shadow: compat winbind
+	
+\end{lstlisting}
 
 Foi incluído o \textbf{winbind} nas variáveis de busca \textbf{passwd}, \textbf{group} e \textbf{shadow} para que esses valores sejam buscados no servidor Samba 3.
 
 Depois de concluídas as configurações, é necessário reiniciar o Samba e o Winbind.
-\begin{itemize}
-	\item \textbf{\#service winbind restart}
-	\item \textbf{\#service smbd restart}
-	\item \textbf{\#service nmbd restart}
-\end{itemize}
+
+\begin{lstlisting}
+	
+	#service winbind restart
+	#service smbd restart
+	#service nmbd restart
+	
+\end{lstlisting}
+
 
 Para testar a configuração realizada deve-se fazer o ingresso no domínio conforme abaixo. Será retornada uma mensagem de sucesso.
 
-\textbf{\#net rpc join member -U root}
+\begin{lstlisting}
+	
+	#net rpc join member -U root
 
-\textbf{Password:}
+	Password:
 
-\textbf{Joined domain DOMINIO.}
+	Joined domain DOMINIO.
+
+\end{lstlisting}
 
 A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
+
+Os arquivos a serem alterados em seguida serão as os arquivos de políticas de funcionamento do PAM. Essas políticas se encontram no diretório \textbf{/etc/pam.d}, onde está contido os arquivos de configuração pra cada serviço que utilize os módulos de autenticação do PAM. O nome de um arquivo nesse diretório indica a qual serviço o arquivo de configuração se refere (portanto o arquivo \textbf{/etc/pam.d/login} fará referência ao serviço de \textit{LOGIN} do Linux).
+Para definir políticas de autenticação a um serviço, deve-se acessar o arquivo do serviço desejado acrescentar as configurações desejadas seguindo a seguinte sintaxe:
+
+\begin{lstlisting}
+	
+	auth	required	pam_nologin.so	no_warn
+	
+\end{lstlisting}
+
+Cada linha de configuração é formada por 4 campos. No exemplo temos os 4 campos na seguinte ordem: Nome instalação, tag de controle, nome do módulo, e argumentos do módulo. Campos adicionais serão interpretados como argumentos do módulo.
 
 Após o teste de ingresso no domínio é necessário configurar o sistema de autenticação PAM para busca os logins no servidor. Para isso é necessário modificar os arquivos \textbf{/etc/pam.d/login} e \textbf{/etc/pam.d/gdm}. O arquivo \textbf{/etc/pam.d/login} é responsável pelas configurações de autenticação de usuários no sistema, enquanto o arquivo \textbf{/etc/pam.d/gdm} é responsável pelas configurações de autenticação na interface de login do gnome.
 No arquivo \textbf{/etc/pam.d/login}, deve-se adicionar as linhas abaixo ao inicio do arquivo:
 
-\textbf{session required pam\_mkhomedir.so skel=/etc/skel umask=0022}
+\begin{lstlisting}
 
-\textbf{session optional pam\_mount.so}
+	session required pam\_mkhomedir.so skel=/etc/skel umask=0022
 
-\textbf{auth sufficient pam\_winbind.so}
+	session optional pam\_mount.so
 
-\textbf{account sufficient pam\_winbind.so}
+	auth sufficient pam\_winbind.so
 
-\textbf{session required pam\_winbind.so}
+	account sufficient pam\_winbind.so
+
+	session required pam\_winbind.so
+
+\end{lstlisting}
 
 No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas abaixo ao inicio do arquivo:
 
-\textbf{auth required /lib/security/pam\_securetty.so}
+\begin{lstlisting}
+	
+	auth required /lib/security/pam\_securetty.so
 
-\textbf{auth required /lib/security/pam\_nologin.so}
+	auth required /lib/security/pam\_nologin.so
 
-\textbf{auth sufficient /lib/security/pam\_winbind.so}
+	auth sufficient /lib/security/pam\_winbind.so
 
-\textbf{auth required /lib/security/pam\_pwdb.so use\_first\_pass shadow nullok}
+	auth required /lib/security/pam\_pwdb.so use\_first\_pass shadow nullok
 
-\textbf{account required /lib/security/pam\_winbind.so}
+	account required /lib/security/pam\_winbind.so
 
-\textbf{session required /lib/security/pam\_mkhomedir.so skel=/etc/skel umask=0022}
+	session required /lib/security/pam\_mkhomedir.so skel=/etc/skel umask=0022
+
+\end{lstlisting}
 
 As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador. 
