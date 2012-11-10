@@ -5,10 +5,6 @@ Com a adoção de um \textit{Active Directory} no mesmo sistema que fornece o co
 
 O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases de testes iniciais alpha e beta, atualmente esta na 4º Release Candidate, mas sem data para o lançamento da versão estável.
 
-%Por se tratar de um sistema ainda em fase de produção e sem previsão para a conclusão atualmente, alguns erros podem aparecer ou alguns parâmetros deverão ser modificados. A versão utilizada nesse trabalho é a Alpha22.
-
-%Outra coisa, você viu que o Samba 4 já está no 4º Release Candidate... Coloque isso em algum lugar no TCC, pois o projeto já passou dos estados alpha e beta, daqui a pouco será lançado oficialmente como estável...
-
 \section{Instalação do SAMBA 4}
 
 Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
@@ -16,6 +12,7 @@ Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas ad
 A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
 
 \begin{lstlisting}
+
 # apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev
  python-dev git-core autoconf python-dnspython ntpdate acl libacl1-dev
 \end{lstlisting}
@@ -75,6 +72,7 @@ Por padrão o Samba 4 é instalado no /usr/local/samba.
 A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.
 
 \begin{lstlisting}
+
 # bin/samba-tool domain provision --use-ntvfs --realm=NOME SERVIDOR
 --domain=NOME DOMINIO  --adminpass='Senha12' --server-role=dc
 \end{lstlisting}
@@ -92,6 +90,7 @@ A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta q
 Depois de instalado e configurado o Samba 4 pode ser iniciado.
 
 \begin{lstlisting}
+
 # /usr/local/samba/sbin/samba -i -M single
 \end{lstlisting}
 
