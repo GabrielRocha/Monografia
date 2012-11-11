@@ -34,7 +34,11 @@ Existe no Linux três permissões especiais, para dar segurança ao sistema, cha
     \item \textbf{\#STICKY} O bit STICKY é aplicável a diretórios e faz com que a exclusão de arquivos pertencentes a estes diretórios seja apenas permitida ao dono do arquivo e ao administrador do sistema. Tem vantagem sobre a permissão “Somente Leitura” no diretório pois faz com que outros usuários possam criar e editar qualquer arquivo, impedindo-os apenas de apagá-lo.
   \end{itemize}
 
+<<<<<<< HEAD
 É importante ressaltar que de nada adiantará os arquivos e diretórios possuírem determinadas permissões locais se as concedidas através do Samba não forem compatívelmente atribuídas a eles. Por exemplo: de nada adiantará atribuir acesso de escrita a um arquivo no Linux se ele possui permissão "Somente Leitura" no Samba. A atribuição mais negativa, ou seja, a que concede menos permissões (neste caso a "Somente Leitura") prevalecerá sobre a outra.
+=======
+É importante ressaltar que de nada adiantará os arquivos e diretórios possuírem determinadas permissões locais se as concedidas através do Samba não forem compatíveis à as atribuídas a eles. Por exemplo: de nada adiantará atribuir acesso de escrita a um arquivo no Linux se ele possui permissão "Somente Leitura" no Samba. A atribuição mais negativa, ou seja, a que concede menos permissões (neste caso a "Somente Leitura") prevalecerá sobre a outra.
+>>>>>>> Update
 
 \section{PDC}
 
