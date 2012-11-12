@@ -48,15 +48,14 @@ Com todos os componentes instalados a aplicação pode ser iniciada. O Samba 3 t
 
 O SMBD permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.\cite{SAMBA}
 
+Existem varias formas de iniciar e parar os processos do Samba 3, que como:
 \begin{itemize}
-	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3. Existem outras formas de inicia-lo, como:
-		\begin{enumerate}
-			\item \textbf{\# service smbd start} - Inicia o Samba 3.
-			\item \textbf{\# service smbd stop} - Para o processo do Samba 3.
-			\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
-			\item \textbf{\# /etc/init.d/samba start} - Para iniciar o Samba 3 em computadores com Debian 6.
-			\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
-		\end{enumerate}
+	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3. 
+	\item \textbf{\# service smbd start} - Inicia o Samba 3.
+	\item \textbf{\# service smbd stop} - Para o processo do Samba 3.
+	\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+	\item \textbf{\# /etc/init.d/samba start} - Para iniciar o Samba 3 em computadores com Debian 6.
+	\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
 \end{itemize}
 
 \section{Seções}
