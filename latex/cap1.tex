@@ -1,27 +1,28 @@
 \chapter{INTRODUÇÃO}
 
 A organização lógica de uma rede é uma necessidade que se torna bem visível quando se possui um cenário com muitos computadores e muitos usuários, e a implementação de um domínio se torna indispensável para o gerênciamento mais eficiente desse tipo de recurso. A implementação de um domínio na rede permite que se possa fornecer maior confiabilidade, facilidade de manutenção, controle de recursos e aumento da segurança da informação.
-Esses recursos de gerenciamento de domínios são fornecidos através de PDC (Primary Domain Controller) e estão disponiveis para os sistemas operacionais mais atuantes do mercado, sendo que o principal e mais utilizado é o da Microsoft conhecido como AD (Active Directory).
-Devido ao fato de ser um software proprietário, a solução da Microsoft acaba não sendo a melhor alternativa para muitas organizações devido seu alto custo de utilização e manutenção, e por não permitir a customização dessas ferramentas para que atendam melhor as necessidades de cada cenário distinto.
-Recorrendo a ferramentas de software livre como o Samba 3 e o Samba 4 para obter a mesma solução, as organizações podem ter sem custo os recursos necessários para implementar e gerenciar um domínio em suas redes, porém há uma grande dificuldade devido ao fato de essas ferramentas livres ainda não estarem maduras o suficiente para a fácil utilização, mas apesar do baixo nível de maturidade, já se mostram capazes de substituir integralmente as ferramentas proprietárias existentes.
+
+Esses recursos de gerenciamento de domínios são fornecidos através de PDC (\textit{Primary Domain Controller}) e estão disponíveis para os sistemas operacionais mais atuantes do mercado, sendo que o principal e mais utilizado é o da Microsoft conhecido como AD (\textit{Active Directory}). Devido ao fato de ser um software proprietário, a solução da Microsoft acaba não sendo a melhor alternativa para muitas organizações devido seu alto custo de utilização e manutenção, e por não permitir a customização dessas ferramentas para que atendam melhor as necessidades de cada cenário distinto.
+
+Recorrendo a ferramentas de software livre como o Samba 3 e 4 para obter a mesma solução, as organizações podem ter sem custo os recursos necessários para implementar e gerenciar um domínio em suas redes. Porém, percebe-se uma grande dificuldade na configuração dessas ferramentas, principalmente para usuários não “acostumados” ao Linux, devido ao fato delas apresentarem o terminal de comando e arquivos texto como as principais formas de configuração, não necessitando de interface gráfica para tal. Entretanto, após configurado, o Samba 3 e 4 se mostram capazes de substituir integralmente as ferramentas proprietárias existentes.
 
 \section{Objetivo}
 
-O objetivo deste trabalho é apresentar tecnologias para o gerenciamento de recursos de redes que estão em fase de desenvolvimento e amadurecimento e que demonstram ser promissoras e se tornaram excelentes alternativas às principais ferramentas proprietárias existentes no mercado, além de servir como base para estudo de servidores linux e implementar, através de um estudo de caso, um serviço que pretende melhorar o controle da rede no IFF – campus Bom Jesus, e também melhorar e proporcionar maior segurança digital e diminuir o tempo de manutenção dos incidentes.
+O objetivo deste trabalho é apresentar especificamente a implementação do software Samba, em suas versões 3 e 4, como tecnologias livres e viáveis para o gerenciamento de recursos de redes. Apesar do Samba 4 estar em fase de desenvolvimento e amadurecimento, diferentemente do Samba 3 que já está estável há vários anos, ele demonstra ser promissor e possivelmente se tornará uma excelente alternativa às principais ferramentas proprietárias existentes no mercado. Além de servir como base para estudo de servidores linux, este trabalho visa implementar, através de um estudo de caso, um serviço que pretende melhorar o controle da rede no Instituto Federal Fluminense (IFF), especificamente do campus Bom Jesus, proporcionando maior segurança digital e diminuindo o tempo de manutenção dos incidentes.
 
 \section{Justificativa do trabalho}
 
 A implementação de um servidor de domínio no IFF – Campus Bom Jesus possibilitará um maior controle dos usuários que acessam o sistema, e assim será possível saber quem está logado no sistema, permitir ou bloquear o acesso à pastas e compartilhamentos pela rede, realizar a substituição mais fácil e ágil de equipamentos sem ter a necessidade do usuário ficar esperando a manutenção da máquina.
 
-O servidor de impressão permite que todas as impressoras sejam mapeadas por setor possibilitando que mais de uma máquina possa imprimir no mesmo equipamento sem ter uma conexão física entre elas.
+O servidor de impressão permitirá que todas as impressoras sejam mapeadas por setor possibilitando que mais de uma máquina possa imprimir no mesmo equipamento sem ter uma conexão física entre elas.
 
-O servidor de arquivos permite a centralização e compartilhamento de arquivos através da rede, além de aumentar a confiabilidade do armazenamento desses arquivos, possibilitanto o fácil backup dos dados, e permitindo controle de acesso das informações. Da mesma forma, é possivel criar perfis móveis, onde os dados e arquivos dos usuários ficam armazenados no servidor, possibilitanto o acesso desses perfis em qualquer computador ligado na rede.
+O servidor de arquivos permitirá a centralização e compartilhamento de arquivos através da rede, além de aumentar a confiabilidade do armazenamento desses arquivos, possibilitanto o fácil \textit{backup} dos dados, e permitindo controle de acesso das informações. Da mesma forma, é possivel criar perfis móveis, onde os dados e arquivos dos usuários ficam armazenados no servidor, possibilitanto o acesso desses perfis em qualquer computador ligado na rede.Será possível também, embora não seja o foco deste trabalho, a utilização de programas de cotas de impressão, possibilitando definir a quantidade de páginas que um determinado usuário/setor poderá imprimir em um determinado espaço de tempo (diário, semanal, mensal, etc), ou simplesmente fazer o monitoramento das impressões realizadas nas impressoras compartilhadas pelo servidor.
+
+Cabe ressaltar que a escolha do Samba para o campus foi motivada não só visando atender aos aspectos legais\footnote[1]{} e econômicos, mas também pela história do projeto, pelo desempenho e estabilidade do software, por ser um software livre, garantindo assim as liberdades do usuário, no caso do campus e da equipe de TI em questão, além da grande comunidade entorno do projeto, que se mostra bastante ativa, disponibilizando bom suporte e grande quantidade de informações através de fóruns e sites especializados.
 
 \section{Estrutura do trabalho}
 
-Este trabalho está dividido em seis capítulos, dispostos da seguinte forma:
-
-O primeiro capítulo contém a introdução do trabalho descrevendo o problema identificado, o objetivo da implantação da proposta aqui abordada e a justificativa para a mesma.
+Este trabalho está dividido em seis capítulos, incluindo a presente introdução. Os demais capítulos estão dispostos da seguinte forma:
 
 O segundo capítulo apresenta uma breve explicação sobre as ferramentas e os termos técnicos utilizados para a implementação que é objetivo deste trabalho. 
 

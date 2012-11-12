@@ -78,7 +78,7 @@ A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta q
 	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[3]{Sistema de arquivos que armazena os atributos do NTFS};
 	\item \textbf{realm} - Domínio do servidor Kerberos;
 	\item \textbf{domain} - Domínio do Samba;
-	\item \textbf{adminpass} - Senha do Administrator, essa senha tem algumas regras de segurança como no mínimo 7 letras uma letra;
+	\item \textbf{adminpass} - Senha do Administrator, por questões de segurança o samba-tool não permite a inserção de senhas consideradas fracas como senhas com menos de 7 dígitos e somente com números em sequência;
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
 

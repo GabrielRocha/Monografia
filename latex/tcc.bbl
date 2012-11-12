@@ -34,6 +34,11 @@ Disponível em http://www.guiafoca.org/guia/avancado/ch-s-samba.htm. Acesso em
 \abntrefinfo{Grassato}{GRASSATO}{2009}
 {GRASSATO, D.~P. \emph{Instalação Samba4}. 2009.}
 
+\bibitem[Internet Systems Consortium 2012]{BIND}
+\abntrefinfo{Internet Systems Consortium}{INTERNET SYSTEMS CONSORTIUM}{2012}
+{INTERNET SYSTEMS CONSORTIUM. \emph{BIND}. 2012.
+Disponível em https://www.isc.org/software/bind. Acesso em Novembro de 2012.}
+
 \bibitem[Losano 2009]{LOSANO}
 \abntrefinfo{Losano}{LOSANO}{2009}
 {LOSANO, M. \emph{Introdução ao Active Directory - Parte 1}. 2009.}
@@ -107,10 +112,5 @@ Disponível em http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em
 Dispon{\'\i}vel em:
   \htmladdnormallink{$<$http:\-/\-/wiki\-.ubuntu-br\-.org\-/AutenticandoAD$>$}{http://wiki.ubuntu-br.org/AutenticandoAD}.
   Acesso em: 10/08/2012.}
-
-\bibitem[Wikipédia 2012]{BIND}
-\abntrefinfo{Wikipédia}{WIKIPéDIA}{2012}
-{WIKIPéDIA. \emph{Bind}. 2012.
-Disponível em http://pt.wikipedia.org/wiki/BIND. Acesso em Outubro de 2012.}
 
 \end{thebibliography}

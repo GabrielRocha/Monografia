@@ -5,20 +5,20 @@ Este capítulo descreve como são feitas a instalação e a configuração de um
 
 O pacote Samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do Samba 3.
  
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
     \item \textbf{\# apt-get install samba} - Realiza a instalação do pacote Samba 3.
     \item \textbf{\# apt-get install smbclient} - Pacote que mostra as informações do servidor Samba 3 e permite acesso de compartilhamentos no windows ou linux a partir de uma máquina linux.
-\end{itemize}
+\end{enumerate}
 
 \section{SWAT - Gerenciando o Samba 3 pelo browser}
 
 O SWAT é uma ferramenta para a edição do /etc/smb.conf, porém por meio de uma interface gráfica. Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir ou restringir acessos.
 
-\begin{itemize}
+\begin{enumerate}
  \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do Samba 3.
     \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
-\end{itemize}
+\end{enumerate}
 
 Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua senha. Após o login no sistema, pode-se observar na barra de ferramentas as opções de configuração do SWAT, conforme figura \ref{swat}. A função de cada opção é detalhada a seguir:
 
@@ -121,11 +121,11 @@ Ao longo deste trabalho diversas variáveis de substituição serão utilizadas,
 
 O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no linux.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
 	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
 	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
-\end{itemize}
+\end{enumerate}
 
 Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC.\\
 
@@ -198,11 +198,11 @@ Explicação das variáveis utilizadas:
 
 Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser reiniciado para que todas as modificações entrem em vigor.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# testparm} - Verifica se existe algum erro de sintaxe no arquivos de configuração no smb.conf
 	\item \textbf{\# /etc/init.d/smbd restart} - Reinicia o Samba 3.
 	\item \textbf{\# /etc/init.d/nmbd restart} - Reinicia o servidor de nomes do Samba 3.
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[ht]
    	\centering
@@ -215,43 +215,43 @@ Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser r
 
 Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o Samba 3. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no Samba 3.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
-\end{itemize}
+\end{enumerate}
 
 Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". Essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
-\end{itemize}
+\end{enumerate}
 
 Antes de cadastrá-los no Samba 3 eles precisam ser criados no sistema.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
-\end{itemize}
+\end{enumerate}
 
 Após o usuário ser criado no sistema, ele necessita ser cadastrado no Samba 3.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# smbpasswd -a usuario} - Informe a mesma senha cadastrada no linux.
-\end{itemize}
+\end{enumerate}
 
 \section{Cadastro de Máquinas}
 
 Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas que poderão entrar no domínio também devem ser cadastradas. As máquinas são cadastradas como usuários normais no linux antes de serem cadastradas no Samba 3, porém sem pasta home e sem bash para login.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas para melhor organização dos usuários no linux.
 	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--disabled-login "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o Samba 3 irá identificar que o usuário na verdade é uma maquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/máquina.
-\end{itemize}
+\end{enumerate}
 
 Após a criação do usuário/máquina no sistema agora ele tem que ser cadastrado no Samba 3.
 
-\begin{itemize}	
+\begin{enumerate}	
 	\item \textbf{\# smbpasswd -a -m computador1\$} -Cadastra o usuário como uma máquina no Samba 3.
-\end{itemize}
+\end{enumerate}
 
 
 \section{Script de Cadastro de Usuários e Máquinas}
@@ -260,10 +260,10 @@ Para facilitar a criação e exclusão dos usuários no sistema e no Samba 3, fo
 
 O script tem que ter a permissão de root para que possa ser iniciado.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# chmod +x smbmanger.sh} - Adiciona a permissão de execução ao script.
 	\item \textbf{\# cp smbmanager.sh /usr/sbin/} - Transferindo o script para a pasta /usr/sbin/ o script poderá ser iniciado em qualquer caminho que o usuário esteja.
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[ht]
    	\centering
@@ -305,9 +305,9 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 		Builtin users & 545 & Alias & No \\
 		Builtin Guests & 546 & Alias & No \\
 		Builtin Power Users & 547 & Alias & No \\
-		Builtin Account Operators & 548 & Alias & No \\
-		Builtin System Operators & 549 & Alias & No \\
-		Builtin Print Operators	& 550 & Alias & No \\
+		%Builtin Account Operators & 548 & Alias & No \\
+		%Builtin System Operators & 549 & Alias & No \\
+		%Builtin Print Operators	& 550 & Alias & No \\
 		%Builtin Backup Operators & 551 & Alias & No \\
 		%Builtin Replicator & 552 & Alias & No \\
 		%Builtin RAS Servers & 553 & Alias & No \\
@@ -325,14 +325,14 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 	\item \textbf{\# net groupmap add ntgroup='Domain Users' rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
 \end{enumerate}
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# net groupmap delete ntgroup='Domain Admins'} - Caso queira remover um mapeamento de grupo.
 	\item \textbf{\# net groupmap modify ntgroup='Domain Admins' rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
-\end{itemize}
+\end{enumerate}
 
 Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em algum terminal windows no domínio, ele terá permissões de administrador.
 
-\section{Perfis Moveis}
+\section{Perfis Móveis}
 
 Para que as configurações e personalizações do perfil do usuário no windows sejam salvas é necessário a criação de um perfil móvel no servidor Samba 3. 
 A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade de se realizar backup na máquina do usuário, pois os arquivos são salvos no servidor, sendo assim é só o usuário fazer o login em outra máquina windows que o seu perfil e os seus dados serão migrados para o novo computador. Porém o perfil móvel tem um problema que é a quantidade de dados armazenados. Se o número de usuários e dados de cada um for muito grande, cria-se a necessidade de ter um servidor com muito espaço de armazenamento e uma rede muito bem estruturada. 
@@ -348,13 +348,15 @@ logon drive = H:
 \end{lstlisting}
 
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{logon path} - Serve para indicar o caminho onde vão ficar os perfis no Windows XP/Vista/7 
 	\item \textbf{logon home} - Indica o caminho para os perfis em versões mais antigas do Windows, como 95/98.
-	\item \textbf{logon drive} - Unidade que será mapeada com o caminho $\backslash$$\backslash$servidor$\backslash$profiles$\backslash$"nome do usuário" no Windows.
-\end{itemize}
+	\item \textbf{logon drive} -  Unidade que será mapeada com o caminho $\backslash$$\backslash$servidor$\backslash$profiles$\backslash$"nome do usuário" no Windows.
+\end{enumerate}
 
-O diretório profile criados fica compartilhado para que seja mapeado na unidade H do usuário no windows.\\
+No exemplo apresentado, o diretório profile criado fica compartilhado para que seja mapeado na unidade H do usuário no windows.\\
+
+Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir.
 
 \begin{lstlisting}	
 [profiles] 
@@ -477,14 +479,15 @@ path = /var/samba/scripts
 read only = yes 
 
 browseable = no	
+
 \end{lstlisting}
 
 O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/scripts), tem que ter a permissão 1775. 
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# mkdir -p /var/samba/scripts} - Cria a pasta onde estarão os scripts.
 	\item \textbf{\# chmod 1775 /var/samba/scripts} - Permissão de execução dos scripts.
-\end{itemize}
+\end{enumerate}
 
 Exemplo de um script diretoria.bat 
 
@@ -496,6 +499,8 @@ Exemplo de um script diretoria.bat
    	\caption{Tela de um mapeamento}
     \label{mapeamento}
 \end{figure} 
+
+\pagebreak
 
 \section{Compartilhamento de Impressoras}
 
@@ -518,17 +523,17 @@ load printers = yes
 
 O Samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o linux.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote Samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
-\end{itemize}
+\end{enumerate}
 
 Caso o cups não esteja instalado.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\#apt-get install cups} - Instala todos os pacotes necessários para o funcionamento do cups.
 	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras \ref{cups}.
 	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[ht]
    	\centering
@@ -594,16 +599,16 @@ inherit permissions = yes
 
 Se o caminho apontado pelo path não existir ele terá que ser criado com as permissões necessárias.
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\# mkdir -p /var/lib/samba/printers}
 	
 	\item \textbf{\# cd /var/lib/samba/printers}
 	\item \textbf{\# mkdir WIN40 W32X86} - Essas pastas são os locais onde ficarão os drivers das impressoras, o WIN40 para sistemas Windows 95/98/ME e o W32X86 Windows NT/2000/XP.
 	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
 	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$root" SePrintOperatorPrivilege} - Irá definir que o usuário root terá todas os privilégios necessários para gerenciar as impressoras.
-\end{itemize}
+\end{enumerate}
 
-Com as permissões, usuários e impressoras configuradas, os drivers tem que ser passados para o servidor. A sequência de figuras a seguir ilustra o passo-a-passo para a adição dos desses drivers.
+Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
 
 \begin{enumerate}
 	\item \textbf{Acessar a maquina com um usuário local} - \ref{login_windows_local}
@@ -665,7 +670,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	\end{figure}
 	
 	
-	\item \textbf{Selecionar os SO dos drivers} - \ref{selecionar_so}
+	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - \ref{selecionar_so}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_so}}
@@ -675,7 +680,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	
 	\pagebreak
 	
-	\item \textbf{Botão direito na impressora Propriedades} - \ref{propriedade_impressora}
+	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - \ref{propriedade_impressora}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/propriedade_impressora}}
@@ -684,7 +689,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	\end{figure}
 
 	
-	\item \textbf{Selecione a opção ``Não"', se selecionar o SIM o driver será instalado somente na maquina local} - \ref{opcao_nao}
+	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO"', pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - \ref{opcao_nao}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/opcao_nao}}
@@ -692,7 +697,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	    \label{opcao_nao}
 	\end{figure}
 	
-	\item \textbf{Selecione o drive que será vinculado a impressora} - \ref{aba_avancado}
+	\item \textbf{Na guia avançado, selecione o \textit{drive} que será vinculado a impressora e clique em OK.} - \ref{aba_avancado}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/aba_avancado}}
@@ -702,7 +707,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	
 		\pagebreak
 		
-	\item \textbf{Logar com o usuário do domínio no qual será mapeada a impressora} - \ref{login_dominio}
+	\item \textbf{Após esses passos, o \textit{driver} da impressora já estará instalado no servidor de impressão. A partir desse momento, para instalar essa impressora, basta logar com o usuário do domínio no qual a impressora está compartilhada.} - \ref{login_dominio}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/login_dominio}}
@@ -712,7 +717,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	
 	% \pagebreak
 	
-	\item \textbf{Selecione a impressora no servidor} - \ref{selecionar_impressora_servidor}
+	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - \ref{selecionar_impressora_servidor}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_impressora_servidor}}
@@ -722,7 +727,7 @@ Com as permissões, usuários e impressoras configuradas, os drivers tem que ser
 	
 %	\pagebreak
 	
-	\item \textbf{Impressora instalada no usuário} - \ref{impressora_compartilhada}
+	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - \ref{impressora_compartilhada}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/impressora_compartilhada}}
@@ -740,7 +745,6 @@ Para ingressar um computador Windows no domínio através do Samba 3 é necessá
 Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 \begin{enumerate}
-	\pagebreak
 	\item {Realizar logon no windows com uma conta que possua privilégios administrativos. \ref{logon_local_adm}}
 	\begin{figure}[ht]
    			\centering
@@ -794,10 +798,10 @@ Para ingressar um computador linux no domínio é necessário que primeiramente 
 
 A instalação desses pacotes na distribuição Ubuntu pode ser realizada através dos comando:
 
-\begin{itemize}
+\begin{enumerate}
 	\item \textbf{\#apt-get update} - Atualiza a base de dados do repositório.
 	\item \textbf{\#apt-get install samba winbind libpam-modules} - Realiza a instalação dos pacotes Samba, Winbind e módulos do PAM.
-\end{itemize}
+\end{enumerate}
 
 Após a instalação é necessário realizar a configuração do micro para que possa fazer login no domínio. Começando pela configuração do Samba através do arquivo de configuração \textbf{/etc/samba/smb.conf}, que deve ser editado para que a seção [global] fique conforme o exemplo. Pode-se optar por adicionar essa configuração à configuração existente, ou pode manter apenas essa configuração básica:\\
 

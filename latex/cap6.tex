@@ -1,15 +1,19 @@
 \chapter{CONCLUSÕES}
 
-\section{Objetivos alcançados}
-
 Neste trabalho foi apresentada uma proposta de implementação de um servidor de modo a otimizar o acesso dos usuários da instituição de ensino aos recursos disponíveis na rede e ainda assegurar a disponibilidade destes recursos, independente do equipamento utilizado.
 
 Além disso, foi possível mostrar que, ao realizar esta implementação, o administrador de rede terá um maior controle dos acessos dos usuários, podendo permitir ou negar recursos, por exemplo.
 
-Foi possível ainda apresentar ferramentas disponíveis para a realização da implementação da proposta, de forma simples e objetiva, focada na estrutura abordada para receber o servidor, além de configurações e scripts criados para otimizar o processo.
+Foi possível ainda apresentar ferramentas disponíveis para a realização da implementação da proposta, de forma simples e objetiva, focada na estrutura abordada para receber o servidor, além de configurações e \textit{scripts} criados para otimizar o processo.
 
-\section{Trabalhos futuros}
+O Samba 3 é mais estável, e portanto é mais recomendado em redes de médio porte, porém não se comporta como \textit{Active Directory} e não permite \textit{polices}, mas realiza a autenticação dos usuários, compartilhamento de arquivos e impressoras.
+O Samba 3 e Samba 4 não podem ser instalados e configurados no mesmo servidor por trabalharem com os mesmos daemons de inicialização, um serviço quando iniciado anula o outro.	
+Por ainda terem funções distintas a melhor forma de se trabalhar com os dois na mesma rede é trabalhando em servidores distintos porém interligados.
+
+O Samba 4 funcionou perfeitamente no que se propõe a fazer, mesmo sendo uma versão Release Candidate e com o lançamento de uma versão estável o Samba 4 irá tornar o Samba 3 desnecessário.
 
 Como em qualquer trabalho que envolve ferramentas em evolução, neste trabalho serão necessárias melhorias e novas pesquisas, não permitindo que o mesmo fique ultrapassado e não seja compatível com as ferramentas em constante atualização.
 
-Neste trabalho foi utilizada uma versão ainda em desenvolvimento do Samba 4, portanto uma proposta de trabalho futuro seria realizar maiores testes em ambiente de produção com a versão estável do mesmo.
+
+
+

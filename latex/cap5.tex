@@ -42,7 +42,7 @@ Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os s
 \begin{lstlisting}
 # cd /usr/local/samba/
 
-# sbin/provision --use-ntvfs --realm=instituto.ensino --domain=instituto --adminpass='Senha12' --server-role='domain controller'
+# bin/samba-tool domain provision --use-ntvfs --realm=instituto.ensino --domain=instituto --adminpass='Senha12' --server-role='domain controller'
 \end{lstlisting}
 
 Com o samba 4 as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de dns \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh, que se encontram na rede.
