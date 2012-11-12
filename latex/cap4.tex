@@ -9,48 +9,45 @@ O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases d
 
 Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
 
-A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.\\
+A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
 
-\begin{lstlisting}
-# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev
- python-dev git-core autoconf python-dnspython ntpdate acl libacl1-dev
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev git-core autoconf python-dnspython ntpdate acl libacl1-dev}
+\end{itemize}
 
-Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[2]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.\\
+Antes de começar a instalação o relógio do servidor tem que estar atualizado. O comando ntpdate atualiza a hora através do  ntp\footnote[2]{Os servidores NTP permitem aos seus clientes a sincronização dos relógios de seus computadores e outros equipamentos de rede a partir de uma referência padrão de tempo aceita mundialmente, conhecida como UTC (\textit{Universal Time Coordinated}).\cite{RNP}} , onde um dos principais servidores é o pool.ntp.br.
 
-\begin{lstlisting}
-# ntpdate pool.ntp.br
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# ntpdate pool.ntp.br}
+\end{itemize}
 
 O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.\\
 
-\begin{lstlisting}
-# git clone git://git.samba.org/samba.git samba-master; cd samba-master
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master}
+\end{itemize}
 
-O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.\\
+O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
 
-\begin{lstlisting}
-# ./configure.developer
-
-# make 
-
-# make install
-\end{lstlisting}
+\begin{itemize}
+		\item \textbf{\# ./configure.developer}
+		\item \textbf{\# make}
+		\item \textbf{\# make install}
+\end{itemize}
 
 Para verificar a versão instalada é só executar o seguinte comando:\\
 
-\begin{lstlisting}
-# /usr/local/samba/bin/smbclient --version
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# /usr/local/samba/bin/smbclient "--version}
+\end{itemize}
 
 \section{Criação de Domínio com o Samba 4}
 
 O Samba 4 trabalha com regras ACL e para que ele possa ser instalado tem que habilitar o modo acl nas unidades de disco.\\
 
-\begin{lstlisting}
-# vim /etc/fstab
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# vim /etc/fstab}
+\end{itemize}
 
 Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl na coluna options da montagem desta unidade, conforme figura \ref{fstab}.
 
