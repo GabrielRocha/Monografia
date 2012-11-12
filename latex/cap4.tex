@@ -21,7 +21,7 @@ Antes de começar a instalação o relógio do servidor tem que estar atualizado
 	\item \textbf{\# ntpdate pool.ntp.br}
 \end{itemize}
 
-O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.\\
+O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do Samba, e o mesmo deve ser clonado para a maquina de destino.
 
 \begin{itemize}
 	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master}
@@ -212,7 +212,7 @@ Descrição das variáveis que serão utilizadas na configuração e seus valore
 	\item \textbf{\# aptitude install krb5-user libpam-krb5 winbind samba smbfs smbclient krb5-config libkrb53 libkadm55 vim}
 \end{itemize}
 
-	\item \textbf{Sincronizando a hora}\\
+	\item \textbf{Sincronizando a hora}
 
 \begin{itemize}
 	\item \textbf{\# ntpdate 10.2.0.1} 
@@ -353,11 +353,11 @@ os level = 0
 \end{lstlisting}
 
 	\item \textbf{Reinicie os serviços.}
-		\begin{itemize}
+		\begin{enumerate}
 			\item \# /etc/init.d/winbind stop
 			\item \# /etc/init.d/samba restart
 			\item \# /etc/init.d/winbind start
-		\end{itemize}
+		\end{enumerate}
 
 	\item \textbf{Adicione a conta ao domínio.}\\
 		\begin{itemize}
