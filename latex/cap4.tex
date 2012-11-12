@@ -35,7 +35,7 @@ O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux
 		\item \textbf{\# make install}
 \end{itemize}
 
-Para verificar a versão instalada é só executar o seguinte comando:\\
+Para verificar a versão instalada é só executar o seguinte comando:
 
 \begin{itemize}
 	\item \textbf{\# /usr/local/samba/bin/smbclient "--version}
@@ -43,7 +43,7 @@ Para verificar a versão instalada é só executar o seguinte comando:\\
 
 \section{Criação de Domínio com o Samba 4}
 
-O Samba 4 trabalha com regras ACL e para que ele possa ser instalado tem que habilitar o modo acl nas unidades de disco.\\
+O Samba 4 trabalha com regras ACL e para que ele possa ser instalado tem que habilitar o modo acl nas unidades de disco.
 
 \begin{itemize}
 	\item \textbf{\# vim /etc/fstab}
@@ -60,18 +60,17 @@ Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl 
 
 \pagebreak
 
-Por padrão o Samba 4 é instalado no /usr/local/samba.\\
+Por padrão o Samba 4 é instalado no /usr/local/samba.
 
-\begin{lstlisting}
-# cd /usr/local/samba
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# cd /usr/local/samba}
+\end{itemize}
 
-A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.\\
+A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.
 
-\begin{lstlisting}
-# bin/samba-tool domain provision --use-ntvfs --realm=NOME SERVIDOR
---domain=NOME DOMINIO  --adminpass='Senha12' --server-role=dc
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME SERVIDOR "--domain=NOME DOMINIO  "--adminpass='Senha12' "--server-role=dc}
+\end{itemize}
 
 \begin{enumerate}
 	\item \textbf{use-ntvfs} - Habilita o NTVFS\footnote[3]{Sistema de arquivos que armazena os atributos do NTFS};
@@ -81,41 +80,38 @@ A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta q
 	\item \textbf{server-role} - Regra do servidor.
 \end{enumerate}
 
-Depois de instalado e configurado o Samba 4 pode ser iniciado.\\
+Depois de instalado e configurado o Samba 4 pode ser iniciado.
 
-\begin{lstlisting}
-# /usr/local/samba/sbin/samba -i -M single
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single}
+\end{itemize}
 
 Para facilitar a forma de ativar o Samba 4 podem ser feito dois procedimentos.
 
-Criar um link do executável do Samba no /etc/init.d/\\
+Criar um link do executável do Samba no /etc/init.d/
 
-\begin{lstlisting}
-# ln /usr/local/samba/sbin/samba /etc/init.d/samba
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# ln /usr/local/samba/sbin/samba /etc/init.d/samba}
+\end{itemize}
 
-Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.\\
+Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
 
-\begin{lstlisting}
-# echo "export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:$PATH" >> 
-/root/.bashrc
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# echo ``export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH" $>$$>$ /root/.bashrc}
+\end{itemize}
 
-Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário. Cabe resaltar que os micros clientes do domínio devem ser configurados para usar o servidor do Samba 4 como DNS primário.\\
+Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário. Cabe resaltar que os micros clientes do domínio devem ser configurados para usar o servidor do Samba 4 como DNS primário.
 
-\begin{lstlisting}
-# echo "domain NOME DOMINIO nameserver IP DO SERVIDOR" > /etc/resolv.conf
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# echo ``domain NOME DOMINIO nameserver IP DO SERVIDOR" $>$ /etc/resolv.conf}
+\end{itemize}
 
-Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.\\
+Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.
 
-\begin{lstlisting}
-# echo 'include "/usr/local/samba/private/named.conf"' > 
-/etc/bind/named.conf.local
-
-# vim /etc/bind/named.options
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# echo include '/usr/local/samba/private/named.conf' $>$ /etc/bind/named.conf.local}
+	\item \textbf{\# vim /etc/bind/named.options}
+\end{itemize}
 
 Adicione as seguintes linhas:\\
 
@@ -211,18 +207,16 @@ Descrição das variáveis que serão utilizadas na configuração e seus valore
 \end{itemize}
 
 \begin{enumerate}
-	\item \textbf{Instalando os pacotes necessários}\\
-\begin{lstlisting}
-# aptitude install krb5-user libpam-krb5 winbind samba smbfs smbclient
-krb5-config libkrb53 libkadm55 vim
-\end{lstlisting}
+	\item \textbf{Instalando os pacotes necessários}
+\begin{itemize}
+	\item \textbf{\# aptitude install krb5-user libpam-krb5 winbind samba smbfs smbclient krb5-config libkrb53 libkadm55 vim}
+\end{itemize}
 
 	\item \textbf{Sincronizando a hora}\\
 
-\begin{lstlisting}
-# ntpdate 10.2.0.1
-\end{lstlisting}
-
+\begin{itemize}
+	\item \textbf{\# ntpdate 10.2.0.1} 
+\end{itemize}
 
 	\item \textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede.}
 	\begin{itemize}
@@ -358,19 +352,17 @@ preferred master = no
 os level = 0
 \end{lstlisting}
 
-	\item \textbf{Reinicie os serviços.}\\
-		\begin{lstlisting}
-# /etc/init.d/winbind stop
-
-# /etc/init.d/samba restart
-
-# /etc/init.d/winbind start
-\end{lstlisting}
+	\item \textbf{Reinicie os serviços.}
+		\begin{itemize}
+			\item \# /etc/init.d/winbind stop
+			\item \# /etc/init.d/samba restart
+			\item \# /etc/init.d/winbind start
+		\end{itemize}
 
 	\item \textbf{Adicione a conta ao domínio.}\\
-		\begin{lstlisting}
-# net ads join
-		\end{lstlisting}
+		\begin{itemize}
+			\item \# net ads join
+		\end{itemize}
 		\begin{itemize}
 			\item \textbf{Resultado} - Using short domain name – GERT Joined ``GERT" to realm ``FJA.BR"
 		\end{itemize}
@@ -448,14 +440,12 @@ auth required   pam_deny.so
 @include common-account
 		\end{lstlisting}
 
-	\item \textbf{Reinicie os serviços}\\
-		\begin{lstlisting}
-# /etc/init.d/winbind stop
-
-# /etc/init.d/samba restart
-			
-# /etc/init.d/winbind start
-		\end{lstlisting}
+	\item \textbf{Reinicie os serviços}
+		\begin{itemize}
+			\item \# /etc/init.d/winbind stop
+			\item \# /etc/init.d/samba restart		
+			\item \# /etc/init.d/winbind start
+		\end{itemize}
 
 	\item \textbf{Logando no domínio.}
 		Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do domínio.
