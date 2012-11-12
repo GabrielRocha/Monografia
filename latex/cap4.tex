@@ -353,16 +353,17 @@ os level = 0
 \end{lstlisting}
 
 	\item \textbf{Reinicie os serviços.}
-		\begin{enumerate}
-			\item \# /etc/init.d/winbind stop
-			\item \# /etc/init.d/samba restart
-			\item \# /etc/init.d/winbind start
-		\end{enumerate}
+	
+			1. \# /etc/init.d/winbind stop
+			
+			2. \# /etc/init.d/samba restart
+			
+			3. \# /etc/init.d/winbind start
 
 	\item \textbf{Adicione a conta ao domínio.}\\
 		\begin{itemize}
 			\item \# net ads join
-		\end{itemize}
+		\end{itemize} 
 		\begin{itemize}
 			\item \textbf{Resultado} - Using short domain name – GERT Joined ``GERT" to realm ``FJA.BR"
 		\end{itemize}
