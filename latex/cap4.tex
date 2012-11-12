@@ -188,12 +188,14 @@ Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} \ref{dsa}.
 
 Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do linux, conforme figura \ref{samba-tool}.
 
-\begin{figure}[h!]
+\begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/samba-tool}}
    	\caption{samba-tool no terminal.}
     \label{samba-tool}
 \end{figure}
+
+\pagebreak
 
 \section{Maquinas linux interagindo com o \textit{Active Directory} do  Samba4}
 
@@ -497,30 +499,29 @@ SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Acti
 
 \section{Windows no domínio Samba 4}
 
-O procedimento para ingressar um computador Windows no domínio através do Samba 4 é o mesmo executado no caso do Samba 3, porém, no caso do Samba 4 o computador a ser ingressado no domínio não necessita estar cadastrado no servidor pois no momento em que o micro for ingressado no domínio, será automaticamente criada uma conta de máquina com o nome do computador pelo Samba 4.
-Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede.
-
-Para configurar o IP de DNS deve-se:
-
+%O procedimento para ingressar um computador Windows no domínio através do Samba 4 é o mesmo executado no caso do Samba 3, porém, no caso do Samba 4 o computador a ser ingressado no domínio não necessita estar cadastrado no servidor pois no momento em que o micro for ingressado no domínio, será automaticamente criada uma conta de máquina com o nome do computador pelo Samba 4.
+%Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
+O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo executado no Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente no Samba 4 através do Kerberos.
+Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
 \begin{itemize}
-	
-	\item Acessar as conexões de rede através do Painel de Controle.
+	\item Acessar as conexões de rede através do Painel de Controle.\ref{conexoes_rede}
 	\begin{figure}[ht]
 			\centering
 	 		\scalebox{1}{\includegraphics{figuras/conexoes_rede}}
 			\caption{Acessando as Conexões de Rede}
 			\label{conexoes_rede}
-	\end{figure}
-	
-	\item Acessar as propriedades da conexão de rede ativa.
-	\begin{figure}[ht]
+	\end{figure}	
+	\item Acessar as propriedades da conexão de rede ativa.\ref{propriedades_conexao}
+	\begin{figure}[h!]
 			\centering
 	 		\scalebox{1}{\includegraphics{figuras/propriedades_conexao}}
 			\caption{Acessando as propriedades da conexão ativa}
 			\label{propriedades_conexao}
 	\end{figure}
 	
-	\item Incluir o IP do servidor no campo de DNS.
+	\pagebreak
+	
+	\item Incluir o IP do servidor no campo de DNS.\ref{propriedades_tcpip}
 	\begin{figure}[ht]
 			\centering
 	 		\scalebox{1}{\includegraphics{figuras/propriedades_tcpip}}
