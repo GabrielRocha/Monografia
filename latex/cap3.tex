@@ -53,9 +53,9 @@ Existem varias formas de iniciar e parar os processos do Samba 3, que como:
 	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3. 
 	\item \textbf{\# service smbd start} - Inicia o Samba 3.
 	\item \textbf{\# service smbd stop} - Para o processo do Samba 3.
-	\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+%	\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
 	\item \textbf{\# /etc/init.d/samba start} - Para iniciar o Samba 3 em computadores com Debian 6.
-	\item \textbf{\# /etc/init.d/samba restart} - Reiniciar no Debian 6.
+	%\item \textbf{\# /etc/init.d/samba stop} - Para o Samba 3 no Debian 6.
 \end{itemize}
 
 \section{Seções}
@@ -214,27 +214,27 @@ Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser r
 
 Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o Samba 3. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no Samba 3.
 
-\begin{enumerate}
+\begin{itemize}
 	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
-\end{enumerate}
+\end{itemize}
 
 Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". Essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
 
-\begin{enumerate}
+\begin{itemize}
 	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
-\end{enumerate}
+\end{itemize}
 
 Antes de cadastrá-los no Samba 3 eles precisam ser criados no sistema.
 
-\begin{enumerate}
+\begin{itemize}
 	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
-\end{enumerate}
+\end{itemize}
 
 Após o usuário ser criado no sistema, ele necessita ser cadastrado no Samba 3.
 
-\begin{enumerate}
+\begin{itemize}
 	\item \textbf{\# smbpasswd -a usuario} - Informe a mesma senha cadastrada no linux.
-\end{enumerate}
+\end{itemize}
 
 \section{Cadastro de Máquinas}
 
@@ -248,9 +248,9 @@ Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas
 
 Após a criação do usuário/máquina no sistema agora ele tem que ser cadastrado no Samba 3.
 
-\begin{enumerate}	
-	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra o usuário como uma máquina no Samba 3.
-\end{enumerate}
+\begin{itemize}	
+	\item \textbf{\# smbpasswd -a -m computador1\$} - Cadastra a máquina no Samba 3.
+\end{itemize}
 
 
 \section{Script de Cadastro de Usuários e Máquinas}
@@ -304,11 +304,11 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 		Builtin users & 545 & Alias & No \\
 		Builtin Guests & 546 & Alias & No \\
 		Builtin Power Users & 547 & Alias & No \\
-		%Builtin Account Operators & 548 & Alias & No \\
-		%Builtin System Operators & 549 & Alias & No \\
-		%Builtin Print Operators	& 550 & Alias & No \\
-		%Builtin Backup Operators & 551 & Alias & No \\
-		%Builtin Replicator & 552 & Alias & No \\
+		Builtin Account Operators & 548 & Alias & No \\
+		Builtin System Operators & 549 & Alias & No \\
+		Builtin Print Operators	& 550 & Alias & No \\
+		Builtin Backup Operators & 551 & Alias & No \\
+		Builtin Replicator & 552 & Alias & No \\
 		%Builtin RAS Servers & 553 & Alias & No \\
 		 	
 		\hline
@@ -318,8 +318,10 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 
 \clearpage
 
+\begin{itemize}
+	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga os passos a seguir.
+\end{itemize}
 \begin{enumerate}
-	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga o passo 2.		
 	\item \textbf{\# net groupmap add ntgroup='Domain Admins' rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
 	\item \textbf{\# net groupmap add ntgroup='Domain Users' rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
 \end{enumerate}
@@ -355,7 +357,7 @@ logon drive = H:
 
 No exemplo apresentado, o diretório profile criado fica compartilhado para que seja mapeado na unidade H do usuário no windows.\\
 
-Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir.
+Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir.\\
 
 \begin{lstlisting}	
 [profiles] 
@@ -610,7 +612,7 @@ Se o caminho apontado pelo path não existir ele terá que ser criado com as per
 Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
 
 \begin{enumerate}
-	\item \textbf{Acessar a maquina com um usuário local} - \ref{login_windows_local}
+	\item \textbf{Acesse a maquina com um usuário local} - \ref{login_windows_local}
 		\begin{figure}[ht]
 		   	\centering
 		    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
@@ -618,7 +620,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 		    \label{login_windows_local}
 		\end{figure}
 		
-	\item \textbf{Informar o endereço do servidor} - \ref{server_ip}	
+	\item \textbf{Informe o endereço do servidor} - \ref{server_ip}	
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/server_ip}}
@@ -628,9 +630,9 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 		
 \pagebreak
 	
-	\item \textbf{Informar o usuario root e sua senha.}	
+	\item \textbf{Informe o usuario root e sua senha.}	
 	
-	\item \textbf{Acessar a pasta ``Impressoras e aparelhos de fax"} -\ref{impressora_aparelho_fax}
+	\item \textbf{Acesse a pasta ``Impressoras e aparelhos de fax"} -\ref{impressora_aparelho_fax}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/impressora_aparelho_fax}}
@@ -660,7 +662,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 	\pagebreak
 	
-	\item \textbf{Selecionar o driver da impressora que deve ser copiado para o servidor} - \ref{selecionar_driver}
+	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - \ref{selecionar_driver}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_driver}}
@@ -917,4 +919,4 @@ account required /lib/security/pam_winbind.so
 session required /lib/security/pam_mkhomedir.so skel=/etc/skel umask=0022
 \end{lstlisting}
 
-As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador. 
+As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador.
