@@ -69,7 +69,7 @@ Por padrão o Samba 4 é instalado no /usr/local/samba.
 A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.
 
 \begin{itemize}
-	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME SERVIDOR "--domain=NOME DOMINIO  "--adminpass='Senha12' "--server-role=dc}
+	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME\_DO\_SERVIDOR  \\"--domain=NOME\_DOMINIO  "--adminpass=`Senha12' "--server-role=dc}
 \end{itemize}
 
 \begin{enumerate}
@@ -109,7 +109,7 @@ Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criaç�
 Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.
 
 \begin{itemize}
-	\item \textbf{\# echo include '/usr/local/samba/private/named.conf' $>$ /etc/bind/named.conf.local}
+	\item \textbf{\#echo ``include `/usr/local/samba/private/named.conf'" $>$ /etc/bind/named.conf.local}
 	\item \textbf{\# vim /etc/bind/named.options}
 \end{itemize}
 

@@ -37,13 +37,12 @@ Com a proposta de implementação abordada neste trabalho, cada setor e usuário
 \end{itemize}
 
 Antes da instalação do Samba 4 seus pré requisitos foram instalados e o Kerberos Heimdal com suas variáveis de ambiente.
-Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.\\
+Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.
 
-\begin{lstlisting}
-# cd /usr/local/samba/
-
-# bin/samba-tool domain provision --use-ntvfs --realm=instituto.ensino --domain=instituto --adminpass='Senha12' --server-role='domain controller'
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# cd /usr/local/samba/}
+	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=instituto.ensino\\"--domain=ensino  "--adminpass=`Senha12' "--server-role=dc}
+\end{itemize}
 
 Com o samba 4 as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de dns \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh, que se encontram na rede.
 
@@ -135,15 +134,13 @@ browseable = no
 veto files = *.wmv / *.avi / *.wma / *.mp? / *.flv
 \end{lstlisting}
 
-Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:\\
+Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:
 
-\begin{lstlisting}
-mkdir /srv/samba/ddgp
-
-chmod 770 -R /srv/samba/ddgp
-
-chown root.3000020 -R /srv/samba/ddgp
-\end{lstlisting}
+\begin{itemize}
+	\item \textbf{\# mkdir /srv/samba/ddgp}
+	\item \textbf{\# chmod 770 -R /srv/samba/ddgp}
+	\item \textbf{\# chown root.3000020 -R /srv/samba/ddgp}
+\end{itemize}
 
 Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.\\
 

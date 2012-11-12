@@ -322,13 +322,13 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do lin
 	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga os passos a seguir.
 \end{itemize}
 \begin{enumerate}
-	\item \textbf{\# net groupmap add ntgroup='Domain Admins' rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
-	\item \textbf{\# net groupmap add ntgroup='Domain Users' rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
+	\item \textbf{\# net groupmap add ntgroup=`Domain Admins' rid=512 unixgroup=admin} - Irá mapear o grupo admin para o grupo Domain Admins do windows.
+	\item \textbf{\# net groupmap add ntgroup=`Domain Users' rid=513 unixgroup=users} - Mapea o grupo users com o Domain Users do windows.
 \end{enumerate}
 
 \begin{enumerate}
-	\item \textbf{\# net groupmap delete ntgroup='Domain Admins'} - Caso queira remover um mapeamento de grupo.
-	\item \textbf{\# net groupmap modify ntgroup='Domain Admins' rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
+	\item \textbf{\# net groupmap delete ntgroup=`Domain Admins'} - Caso queira remover um mapeamento de grupo.
+	\item \textbf{\# net groupmap modify ntgroup=`Domain Admins' rid=512 unixgroup=admin} - Caso tenha necessidade de modificar um mapeamento.
 \end{enumerate}
 
 Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em algum terminal windows no domínio, ele terá permissões de administrador.
@@ -690,7 +690,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	\end{figure}
 
 	
-	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO"', pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - \ref{opcao_nao}
+	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - \ref{opcao_nao}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/opcao_nao}}
@@ -858,20 +858,22 @@ shadow: compat winbind
 
 Foi incluído o \textbf{winbind} nas variáveis de busca \textbf{passwd}, \textbf{group} e \textbf{shadow} para que esses valores sejam buscados no servidor Samba 3.
 
-Depois de concluídas as configurações, é necessário reiniciar o Samba e o Winbind.\\
+Depois de concluídas as configurações, é necessário reiniciar o Samba e o Winbind.
 
-\begin{lstlisting}
-#service winbind restart
-#service smbd restart
-#service nmbd restart	
-\end{lstlisting}
+\begin{itemize}
+	\item \#service winbind restart
+	\item \#service smbd restart
+	\item \#service nmbd restart	
+\end{itemize}
 
 
 Para testar a configuração realizada deve-se fazer o ingresso no domínio conforme abaixo. Será retornada uma mensagem de sucesso.\\
 
-\begin{lstlisting}	
-#net rpc join member -U root
+\begin{itemize}
+	\item \#net rpc join member -U root
+\end{itemize}
 
+\begin{lstlisting}	
 Password:
 
 Joined domain DOMINIO.
