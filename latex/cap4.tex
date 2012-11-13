@@ -442,12 +442,13 @@ auth required   pam_deny.so
 		\end{lstlisting}
 
 	\item \textbf{Reinicie os serviços}
-		\begin{itemize}
-			\item \# /etc/init.d/winbind stop
-			\item \# /etc/init.d/samba restart		
-			\item \# /etc/init.d/winbind start
-		\end{itemize}
 
+			1. \# /etc/init.d/winbind stop
+			
+			2. \# /etc/init.d/samba restart		
+			
+			3. \# /etc/init.d/winbind start
+			
 	\item \textbf{Logando no domínio.}
 		Vá para a console usando o comando CTRL+ALT+F1 e logue no sistema com o login e senha do domínio.
 
