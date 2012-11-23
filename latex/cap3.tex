@@ -66,7 +66,7 @@ No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são 
 
 Existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário \cite{FOCA}. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf,label={global}]	
 [home]
 	
 comment = Diretorio home do usuario
@@ -273,7 +273,7 @@ O script tem que ter a permissão de root para que possa ser iniciado.
 
 \section{Migração dos Usuários Administradores e Users do Linux para o Windows}
 
-Para que o Windows possa reconhecer um grupo de usuários administradores do linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos. A tabela \ref{tab} apresenta alguns dos grupos e seus respectivos RID (Relative Identifier). Os comandos a seguir devem ser utilizados para mapear esses grupos no Samba 3.
+Para que o Windows possa reconhecer um grupo de usuários administradores do linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos. A Tabela \ref{tab} apresenta alguns dos grupos e seus respectivos RID (\textit{Relative Identifier}). Os comandos a seguir devem ser utilizados para mapear esses grupos no Samba 3.
 
 \begin{table}[h!]
 	\centering
@@ -340,7 +340,7 @@ A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade 
 
 Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [global]\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 logon path = \\%L\Profiles\%U
 
 logon home = \\%L\Profiles\%U
@@ -359,7 +359,7 @@ No exemplo apresentado, o diretório profile criado fica compartilhado para que 
 
 Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir.\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [profiles] 
 
 path = /var/samba/%U 
@@ -389,7 +389,7 @@ available = yes
 
 O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf.\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [Diretoria]
 
 path = /media/diretoria
@@ -442,7 +442,7 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 
 \textbf{Exemplo da aplicação de algumas das variáveis citadas acima }\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [Backup]
 
 write list = usuario1 # Somente o usuario1 tera permissao de escrita no compartilhamento.
@@ -472,7 +472,7 @@ Exemplo:
 
 Esse script precisa estar compartilhado no smb.conf para que possa ser executado.\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [netlogon] 
 
 path = /var/samba/scripts 
@@ -492,7 +492,7 @@ O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/s
 
 Exemplo de um script diretoria.bat e seu resultado na Figura \ref{mapeamento}\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=FAZER,label={global}]
 net use x: \\servidor\diretoria
 \end{lstlisting}
 
@@ -511,7 +511,7 @@ O compartilhamento de impressora é a publicação das impressoras instaladas no
 
 Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global]\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [global]
 
 printing = cups
@@ -547,7 +547,7 @@ Caso o cups não esteja instalado.
 
 Habilitando o compartilhamento de impressora.\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [printers]
 
 print ok = yes
@@ -582,7 +582,7 @@ Adiciona no [global]
 
 Criar um compartilhamento não visível onde ficará os drivers das impressoras.\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [print$]
 
 path = /var/lib/samba/printers
@@ -808,7 +808,7 @@ A instalação desses pacotes na distribuição Ubuntu pode ser realizada atrav�
 
 Após a instalação é necessário realizar a configuração do micro para que possa fazer login no domínio. Começando pela configuração do Samba através do arquivo de configuração \textbf{/etc/samba/smb.conf}, que deve ser editado para que a seção [global] fique conforme o exemplo. Pode-se optar por adicionar essa configuração à configuração existente, ou pode manter apenas essa configuração básica:\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 [global]
 
 workgroup = Dominio
@@ -844,7 +844,7 @@ Explicação de algumas variáveis importantes:
 Editado o arquivo \textbf{/etc/samba/smb.conf}, deve-se testar o arquivo de configuração para verificação de erros através do comando \textbf{\#testparm}.
 Após a configuração do Samba, deve-se configurar o arquivo \textit{Network Services Switch} (\textbf{/etc/nsswitch.conf}), que determina a ordem das buscas quando uma informação é solicitada. Esse arquivo deve ter as seguintes linhas alteradas:\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 passwd: compat winbind
 
 group: compat winbind
@@ -869,7 +869,7 @@ Para testar a configuração realizada deve-se fazer o ingresso no domínio conf
 	\item \#net rpc join member -U root
 \end{itemize}
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 Password:
 
 Joined domain DOMINIO.
@@ -880,7 +880,7 @@ A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
 Os arquivos a serem alterados em seguida serão as os arquivos de políticas de funcionamento do PAM. Essas políticas se encontram no diretório \textbf{/etc/pam.d}, onde está contido os arquivos de configuração pra cada serviço que utilize os módulos de autenticação do PAM. O nome de um arquivo nesse diretório indica a qual serviço o arquivo de configuração se refere (portanto o arquivo \textbf{/etc/pam.d/login} fará referência ao serviço de \textit{LOGIN} do Linux).
 Para definir políticas de autenticação a um serviço, deve-se acessar o arquivo do serviço desejado acrescentar as configurações desejadas seguindo a seguinte sintaxe:\\
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 auth	required	pam_nologin.so	no_warn
 \end{lstlisting}
 
@@ -889,7 +889,7 @@ Cada linha de configuração é formada por 4 campos. No exemplo temos os 4 camp
 Após o teste de ingresso no domínio é necessário configurar o sistema de autenticação PAM para busca os logins no servidor. Para isso é necessário modificar os arquivos \textbf{/etc/pam.d/login} e \textbf{/etc/pam.d/gdm}. O arquivo \textbf{/etc/pam.d/login} é responsável pelas configurações de autenticação de usuários no sistema, enquanto o arquivo \textbf{/etc/pam.d/gdm} é responsável pelas configurações de autenticação na interface de login do gnome.
 No arquivo \textbf{/etc/pam.d/login}, deve-se adicionar as linhas abaixo ao inicio do arquivo:\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=FAZER,label={global}]
 session required pam_mkhomedir.so skel=/etc/skel umask=0022
 
 session optional pam_mount.so
@@ -905,7 +905,7 @@ No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adici
 
 \pagebreak
 
-\begin{lstlisting}	
+\begin{lstlisting}[caption=FAZER,label={global}]	
 auth required /lib/security/pam_securetty.so
 
 auth required /lib/security/pam_nologin.so
