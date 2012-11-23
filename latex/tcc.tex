@@ -1,16 +1,23 @@
 \documentclass[12pt, a4paper, tocpage=plain]{abnt} % Fonte tamanho 12, papel A4, páginas do sumário sem o p.<número da página>
 
-\usepackage[utf8]{inputenc} % Dá suporte para caracteres especiais como acentos e cedilha
-\usepackage[brazil]{babel} % Gera datas e nomes em português com estilo brasileiro
+\usepackage[brazilian]{babel} % Gera datas e nomes em português com estilo brasileiro
 \usepackage{hyperref} % Permite a criação de hyperlink no documento, como os links usados na referência
+\usepackage[utf8]{inputenc} % Dá suporte para caracteres especiais como acentos e cedilha
+\usepackage[T1]{fontenc}
 \usepackage[alf]{abntcite} % Define o estilo de referência bibliográfica
 \usepackage{graphicx} % Permite a utilização de imagens no documento
 \usepackage[small]{caption} % Define as legendas das figuras com fontes menores do que o texto
 \usepackage{pslatex} % Define que o formato da letra será Times New Roman
-\usepackage{epigraph} % Permite a criação de epígrafes 
+\usepackage{epigraph} % Permite a criação de epígrafes
 \usepackage{setspace} % Permite a definição de espaçamento entre linhas
 \usepackage[top=3cm, left=3cm, right=2cm, bottom=2cm]{geometry} % Define as margens da folha
 \usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{red}{rgb}{0.99,0.14,0.0}
+
 \lstset{language=C++,
 		stepnumber=1,
 		firstnumber=1,
@@ -23,10 +30,37 @@
 		showstringspaces=false,
 		literate={--}{--}1
 }
+
+\lstset{
+  language=Ruby,                % the language of the code
+  stepnumber=1,
+  firstnumber=1,
+  numberstyle=\tiny,
+  extendedchars=true,
+  basicstyle=\footnotesize,
+  stringstyle=\ttfamily,
+  showstringspaces=false,
+  captionpos=b,
+  frame = shadowbox,
+  basicstyle=\footnotesize,
+  stringstyle=\ttfamily,
+  showstringspaces=false,
+  %language=Java, %deve ser definida na inclusão de cada trecho de código, pois podem existir linguagens diferentes em exemplos diferentes
+  breaklines=true,
+  breakautoindent=true,
+  %estilos de comentário de uma e várias linhas
+  keywordstyle=\color{gray},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{red},         % string literal style
+  extendedchars=\true,
+  inputencoding=utf8,
+}
+
 \hyphenpenalty=5000
 \tolerance=1000
 \sloppy
  
+
 \setcounter{secnumdepth}{3} % Até três subsubsections numeradas
 \setcounter{tocdepth}{3} % Até trẽs subsubsections numeradas
 
@@ -38,6 +72,7 @@
 \renewcommand{\ABNTsubsectionfontsize}{\large} % Define o tamanho da fonte do \subsection
 \renewcommand{\ABNTsubsubsectionfontsize}{\large} % Define o tamanho da fonte do \subsubsection
 \renewcommand{\ABNTbibliographyname}{REFERÊNCIAS BIBLIOGRÁFICAS} % Modifica o título gerado pelo \bibliographys
+\renewcommand{\lstlistingname}{Código} % Codigo
 
 \begin{document} % Começo do TCC
 \include{capa} % Cria a capa
@@ -51,6 +86,8 @@
 \renewcommand{\listfigurename}{LISTA DE FIGURAS} % Modifica o nome da lista de figuras
 \listoffigures % Gera o índice de figuras
 \listoftables % Gera o índice de tabelas
+\renewcommand{\lstlistlistingname}{LISTA DE CÓDIGOS}
+\lstlistoflistings
 \renewcommand{\contentsname}{SUMÁRIO} % Modifica o nome do sumário
 \tableofcontents % Gera o sumário
 \onehalfspacing % Define o espaçamento de 1.5cm entre linhas
