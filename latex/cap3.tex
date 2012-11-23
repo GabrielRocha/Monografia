@@ -1,5 +1,5 @@
 \chapter{SAMBA 3}
-Este capítulo descreve como são feitas a instalação e a configuração de um servidor Samba 3 como controlador de domínio, servidor de impressão e servidor de dados, respeitando as regras de usuários e permissões.
+Este capítulo descreve como são feitas a instalação e a configuração de um servidor Samba 3 como controlador de domínio, servidor de impressão e servidor de arquivos, respeitando as regras de usuários e permissões.
 
 \section{Instalação do Samba 3}
 
@@ -16,16 +16,16 @@ O pacote Samba 3 pode ser instalado através do repositório de sistemas da dist
 O SWAT é uma ferramenta para a edição do /etc/smb.conf, porém por meio de uma interface gráfica. Com ele é possível compartilhar impressoras, arquivos, criar usuários, permitir ou restringir acessos.
 
 \begin{enumerate}
- \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica swat para o gerenciamento do Samba 3.
-    \item \textbf{\$ firefox localhost:901} - Endereço de acesso no browser (neste caso o Firefox) para acessar o swat.
+ \item \textbf{\# apt-get install swat} - Instala a ferramenta gráfica SWAT para o gerenciamento do Samba 3.
+    \item \textbf{\$ firefox localhost:901} - Endereço de acesso no \textit{browser} (neste caso o Firefox) para acessar o SWAT.
 \end{enumerate}
 
-Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua senha. Após o login no sistema, pode-se observar na barra de ferramentas as opções de configuração do SWAT, conforme figura \ref{swat}. A função de cada opção é detalhada a seguir:
+Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua senha. Após o login no sistema, pode-se observar na barra de ferramentas as opções de configuração do SWAT, conforme Figura \ref{swat}. A função de cada opção é detalhada a seguir:
 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/swat}}
-   	\caption{Tela do Swat}
+   	\caption{Tela do SWAT}
     \label{swat}
 \end{figure}
 
@@ -40,7 +40,7 @@ Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
-Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e adição de configurações no smb.conf, mas toda vez que as configurações são alteradas e salvas ele gera um novo arquivo smb.conf e com isso apaga todos os possíveis comentários existentes no arquivo. Por se tratar de um arquivo com muitas variáveis, parâmetros e seções, nesse trabalho o foco será a edição através de editores de texto padrão como o ``VIM", pois assim algumas configurações podem ser inseridas como comentários para fins de explicação ou como base para futuras modificações.
+Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e adição de configurações no smb.conf, mas toda vez que as configurações são alteradas e salvas ele gera um novo arquivo smb.conf e com isso apaga todos os possíveis comentários existentes no arquivo. Por se tratar de um arquivo com muitas variáveis, parâmetros e seções, nesse trabalho o foco será a edição através de editores de texto padrão como o ``vim", pois assim algumas configurações podem ser inseridas como comentários para fins de explicação ou como base para futuras modificações.
 
 \section{Iniciando Samba 3}
 
@@ -60,7 +60,7 @@ Existem varias formas de iniciar e parar os processos do Samba 3, que como:
 
 \section{Seções}
 
-No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o ``/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se desejamos criar um compartilhamento com o nome ``arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
+No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são realizadas através de um único arquivo de configuração, o ``/etc/samba/smb.conf". Esse arquivo para melhor organização, fica dividido em sessões, sendo a primeira sessão nomeada como [global], onde são definidas as configurações gerais do servidor. Também podem ser criadas sessões adicionais para cada compartilhamento, sendo nomeadas com o nome do mesmo. Se for necessário criar um compartilhamento com o nome ``arquivo", a sessão que deve ser criada no arquivo de configuração deve ser [arquivo].
 
 \section{Variáveis de substituição do Samba 3}
 
@@ -121,7 +121,7 @@ Ao longo deste trabalho diversas variáveis de substituição serão utilizadas,
 O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no linux.
 
 \begin{enumerate}
-	\item \textbf{\# cp /etc/samba/smb.conf $>$ /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
+	\item \textbf{\# cp /etc/samba/smb.conf /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
 	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
 	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
 \end{enumerate}
@@ -185,20 +185,20 @@ Explicação das variáveis utilizadas:
 	\item \textbf{passdb backend} - Aceita valores smbpasswd ou tdbsam . Define qual será a forma de armazenagem dos registros dos usuários.
 		\begin{enumerate}
 			\item{smbpasswd} - O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo ``/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.\cite{BACKEND}
-			\item{tdbsam} - O tdbsam, que usa uma base de dados muito mais robusta, armazenada no arquivo ``/var/lib/samba/passdb.tdb" (é justamente este arquivo que o script executado durante a instalação do pacote ``samba" no Debian pergunta se deve ser criado).\cite{BACKEND}
-			\item{Diferença entre smbpasswd e tdbsam} - O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede. Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
+			\item{tdbsam} - O tdbsam usa uma base de dados muito mais robusta, armazenada no arquivo ``/var/lib/samba/passdb.tdb".\cite{BACKEND}
+			\item{Diferença entre smbpasswd e tdbsam} - O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM (\textit{Software Asset Management}) estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede. Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
 		\end{enumerate}
-	\item \textbf{local master} - Define se o servidor será o Master Browser.
+	\item \textbf{local master} - Define se o servidor será o \textit{Master Browser}.
 	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de ``os level" o servidores windows.
 %	\item \textbf{win support} - Se nmbd será um servidor WINS.
 	\item \textbf{map to guest} - Torna usuário guest todos que não conseguirem se identificar com um login e senha valida.
-	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd pararem de funcionar.
+	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd parem de funcionar.
 \end{itemize}
 
 Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser reiniciado para que todas as modificações entrem em vigor.
 
 \begin{enumerate}
-	\item \textbf{\# testparm} - Verifica se existe algum erro de sintaxe no arquivos de configuração no smb.conf
+	\item \textbf{\# testparm} - Verifica se existe algum erro de sintaxe no arquivos de configuração no smb.conf. Exemplo de execução que pode ser visto na Figura \ref{testparm}
 	\item \textbf{\# /etc/init.d/smbd restart} - Reinicia o Samba 3.
 	\item \textbf{\# /etc/init.d/nmbd restart} - Reinicia o servidor de nomes do Samba 3.
 \end{enumerate}
@@ -212,22 +212,22 @@ Com todas as variáveis devidamente adicionadas o servidor Samba 3 precisa ser r
 
 \section{Cadastro de Usuário}
 
-Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o Samba 3. Antes da criação dos usuários normais o usuário root tem que ser cadastrado no Samba 3.
+Os usuários que terão acesso e permissões de login no domínio devem ser criados no servidor linux, onde se encontra o Samba 3. O usuário root tem que ser cadastrado no Samba 3 antes de qualquer outro usuário, pois ele é o administrador da aplicação.
 
 \begin{itemize}
 	\item \textbf {\# smbpasswd -a root} - Uma senha terá que ser informada e precisa ser a mesma do usuário no sistema.
 \end{itemize}
 
-Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". Essa pasta irá conter informações das sessões de logon que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório home dos usuários, cria-se o diretório no /etc/skel.
+Cada usuário no sistema deverá conter uma pasta com o nome de ``profile.pds". Essa pasta irá conter informações das sessões de \textit{logon} que o usuário fez no servidor de domínio. Para automatizar a criação dessa pasta no diretório \textit{home} dos usuários, cria-se o diretório no /etc/skel.
 
 \begin{itemize}
 	\item \textbf{\# mkdir /etc/skel/profile.pds} - O /etc/skel armazena todos os diretórios e arquivos que serão criados juntos com o usuário no sistema.
 \end{itemize}
 
-Antes de cadastrá-los no Samba 3 eles precisam ser criados no sistema.
+Antes de cadastrar os usuários no Samba 3 eles precisam ser criados no sistema.
 
 \begin{itemize}
-	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone , sem a permissão de login e entre outros dados.
+	\item \textbf{\# adduser "--disabled-login usuario} - Comando para a criação mais completa de usuário no linux com nome completo, telefone e outros dados, porém sem a permissão de login e entre outros dados.
 \end{itemize}
 
 Após o usuário ser criado no sistema, ele necessita ser cadastrado no Samba 3.
@@ -242,7 +242,7 @@ Da mesma forma que os usuário têm que ser cadastrados no sistema, as máquinas
 
 \begin{enumerate}
 	\item \textbf{\# groupadd machine} - Cria o grupo no qual serão adicionadas as máquinas cadastradas para melhor organização dos usuários no linux.
-	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--disabled-login "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o Samba 3 irá identificar que o usuário na verdade é uma maquina. 
+	\item \textbf{\# useradd "--home /dev/null "--shell /bin/false "--disabled-login "--group machine computador1\$} - 	Comando para a criação da máquina no sistema linux. Por padrão se adiciona o \$ no final do nome pois é dessa forma que o Samba 3 irá identificar que o usuário na verdade é uma máquina. 
 	\item \textbf{\# passwd -l computador1\$} - Desativa a mudança da senha para o usuário/máquina.
 \end{enumerate}
 
@@ -415,7 +415,7 @@ browseable = no
 
 	Cabe ressaltar que após a criação desses diretórios, é necessário o ajuste das permissões de acesso, do dono do diretório e do grupo do diretório, utilizando os programas chmod e chown, respectivamente. O ajuste varia caso a caso, e deve ser realizado com cautela, para não dar mais permissões que o necessário. Uma breve explicação sobre o chmod e chown é realizada a seguir:
 
-\# chmod - Define as permissões do arquivo. Exemplo: \# chmod 774 -R /pasta\_criada - Essas permissões definem que o usuário proprietário do diretório e todos os usuário do grupo do diretório terão controle total no diretório e em seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
+\# chmod - Define as permissões do arquivo. Exemplo: \# chmod 774 -R /pasta\_criada - essas permissões definem que o usuário proprietário do diretório e todos os usuário do grupo do diretório terão controle total no diretório e em seus arquivos e que os outro usuário poderão apenas listar os arquivos que se encontram no diretório.
 
 \# chown - Define qual será o usuário e grupo proprietário do diretório ou arquivo. Exemplo: \# chown usuario.grupo /diretorio .
 
@@ -440,7 +440,7 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 	\item \textbf{hosts allow} - Ip`s ou faixas de ips que podem conectar ao compartilhamento.
 \end{itemize}
 
-\textbf{Exemplo da aplicação de algumas delas}\\
+\textbf{Exemplo da aplicação de algumas das variáveis citadas acima }\\
 
 \begin{lstlisting}	
 [Backup]
@@ -490,9 +490,11 @@ O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/s
 	\item \textbf{\# chmod 1775 /var/samba/scripts} - Permissão de execução dos scripts.
 \end{enumerate}
 
-Exemplo de um script diretoria.bat 
+Exemplo de um script diretoria.bat e seu resultado na Figura \ref{mapeamento}\\
 
-\textbf{net use x: $\backslash$$\backslash$servidor$\backslash$diretoria}
+\begin{lstlisting}
+net use x: \\servidor\diretoria
+\end{lstlisting}
 
 \begin{figure}[ht]
    	\centering
@@ -532,7 +534,7 @@ Caso o cups não esteja instalado.
 
 \begin{enumerate}
 	\item \textbf{\#apt-get install cups} - Instala todos os pacotes necessários para o funcionamento do cups.
-	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras \ref{cups}.
+	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras. Figura \ref{cups}.
 	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
 \end{enumerate}
 
@@ -566,7 +568,7 @@ browseable = yes
 
 Dessa forma ao acessar o servidor irão aparecer todas as impressoras instaladas.
 
-\section{Instalação automática dos drive da impressora}
+\section{Instalação automática dos driver da impressora}
 
 Para conectar-se a uma impressora compartilhada é necessário a instalação dos drivers da mesma. 
 
@@ -612,7 +614,7 @@ Se o caminho apontado pelo path não existir ele terá que ser criado com as per
 Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
 
 \begin{enumerate}
-	\item \textbf{Acesse a maquina com um usuário local} - \ref{login_windows_local}
+	\item \textbf{Acesse a maquina com um usuário local} - Figura \ref{login_windows_local}
 		\begin{figure}[ht]
 		   	\centering
 		    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
@@ -620,7 +622,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 		    \label{login_windows_local}
 		\end{figure}
 		
-	\item \textbf{Informe o endereço do servidor} - \ref{server_ip}	
+	\item \textbf{Informe o endereço do servidor} - Figura \ref{server_ip}	
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/server_ip}}
@@ -632,7 +634,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 	\item \textbf{Informe o usuario root e sua senha.}	
 	
-	\item \textbf{Acesse a pasta ``Impressoras e aparelhos de fax"} -\ref{impressora_aparelho_fax}
+	\item \textbf{Acesse a pasta ``Impressoras e aparelhos de fax"} - Figura \ref{impressora_aparelho_fax}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/impressora_aparelho_fax}}
@@ -652,7 +654,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 %	\pagebreak
 	
- 	\item \textbf{Aba Driver -$>$ Adicionar} - \ref{adicionar_driver}
+ 	\item \textbf{Aba Driver -$>$ Adicionar} - Figura \ref{adicionar_driver}
 	\begin{figure}[ht]
 	   	\centering
 	    \includegraphics[width=0.5 \textwidth]{figuras/adicionar_driver}
@@ -662,7 +664,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 	\pagebreak
 	
-	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - \ref{selecionar_driver}
+	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - Figura \ref{selecionar_driver}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_driver}}
@@ -671,7 +673,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	\end{figure}
 	
 	
-	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - \ref{selecionar_so}
+	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - Figura \ref{selecionar_so}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_so}}
@@ -681,7 +683,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 	\pagebreak
 	
-	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - \ref{propriedade_impressora}
+	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - Figura \ref{propriedade_impressora}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/propriedade_impressora}}
@@ -690,7 +692,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	\end{figure}
 
 	
-	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - \ref{opcao_nao}
+	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - Figura \ref{opcao_nao}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/opcao_nao}}
@@ -698,7 +700,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	    \label{opcao_nao}
 	\end{figure}
 	
-	\item \textbf{Na guia avançado, selecione o \textit{drive} que será vinculado a impressora e clique em OK.} - \ref{aba_avancado}
+	\item \textbf{Na guia avançado, selecione o \textit{drive} que será vinculado a impressora e clique em OK.} - Figura \ref{aba_avancado}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/aba_avancado}}
@@ -708,7 +710,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 		\pagebreak
 		
-	\item \textbf{Após esses passos, o \textit{driver} da impressora já estará instalado no servidor de impressão. A partir desse momento, para instalar essa impressora, basta logar com o usuário do domínio no qual a impressora está compartilhada.} - \ref{login_dominio}
+	\item \textbf{Após esses passos, o \textit{driver} da impressora já estará instalado no servidor de impressão. A partir desse momento, para instalar essa impressora, basta logar com o usuário do domínio no qual a impressora está compartilhada.} - Figura \ref{login_dominio}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/login_dominio}}
@@ -718,7 +720,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 	% \pagebreak
 	
-	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - \ref{selecionar_impressora_servidor}
+	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - Figura \ref{selecionar_impressora_servidor}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/selecionar_impressora_servidor}}
@@ -728,7 +730,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	
 %	\pagebreak
 	
-	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - \ref{impressora_compartilhada}
+	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - Figura \ref{impressora_compartilhada}
 	\begin{figure}[ht]
 	   	\centering
 	    \scalebox{1}{\includegraphics{figuras/impressora_compartilhada}}
@@ -746,7 +748,7 @@ Para ingressar um computador Windows no domínio através do Samba 3 é necessá
 Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 \begin{enumerate}
-	\item {Realize logon no windows com uma conta que possua privilégios administrativos. \ref{logon_local_adm}}
+	\item {Realize logon no windows com uma conta que possua privilégios administrativos. - Figura \ref{logon_local_adm}}
 	\begin{figure}[ht]
    			\centering
    		 \scalebox{1}{\includegraphics{figuras/logon_local_adm}}
@@ -756,7 +758,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 
 	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando ``sysdm.cpl".}
 
-	\item {Acessar a aba ``Nome do Computador". Deve-se clicar no botão ``Alterar". \ref{alterar_nome_micro}}
+	\item {Acessar a aba ``Nome do Computador". Deve-se clicar no botão ``Alterar". - Figura \ref{alterar_nome_micro}}
 
 		\begin{figure}[ht]
 	   			\centering
@@ -767,7 +769,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 		 
 		\pagebreak 
 
-	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do Samba 3 e depois clique em OK. \ref{incluir_dominio}} 
+	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do Samba 3 e depois clique em OK. - Figura \ref{incluir_dominio}} 
 			\begin{figure}[ht]
 		   			\centering
 		   		 \scalebox{1}{\includegraphics{figuras/incluir_dominio}}
@@ -781,7 +783,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	
 	\item {Reinicie o micro quando for solicitado pelo sistema.}
 
-	\item {Após inicialização o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor. \ref{logon}}
+	\item {Após inicialização o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor. - Figura \ref{logon}}
 	\begin{figure}[ht]
 			\centering
 	 		\scalebox{1}{\includegraphics{figuras/logon}}
