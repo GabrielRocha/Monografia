@@ -64,9 +64,9 @@ No Samba 3, as configurações de compartilhamentos, impressoras e gerais, são 
 
 \section{Variáveis de substituição do Samba 3}
 
-Existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário \cite{FOCA}. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário:\\
+Existem variáveis especiais que podem ser usadas no arquivo de configuração do Samba 3 e são substituídas por parâmetros especiais no momento da conexão do usuário \cite{FOCA}. Um exemplo de utilização de variáveis de substituição seria mudar a localização do diretório home do usuário conforme no Quadro \ref{variavel_home}:\\
 
-\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf,label={global}]	
+\begin{lstlisting}[caption=Exemplo de utilização das variáveis de substituição,label={variavel_home}]	
 [home]
 	
 comment = Diretorio home do usuario
@@ -126,9 +126,9 @@ O arquivo de configuração se encontra no diretório /etc, onde está a maioria
 	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
 \end{enumerate}
 
-Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC. Conforme o Quadro \ref{global}\\
+Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC. Conforme o Quadro \ref{smb_global}\\
 
-\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf,label={global}]
+\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf,label={smb_global}]
 [global] 
 
 workgroup = 'nome do servidor de domnio'
@@ -262,6 +262,7 @@ O script tem que ter a permissão de root para que possa ser iniciado.
 \begin{enumerate}
 	\item \textbf{\# chmod +x smbmanger.sh} - Adiciona a permissão de execução ao script.
 	\item \textbf{\# cp smbmanager.sh /usr/sbin/} - Transferindo o script para a pasta /usr/sbin/ o script poderá ser iniciado em qualquer caminho que o usuário esteja.
+	\item \textbf{\# ./smbmanager.sh} - Execução do \textit{script}. Figura \ref{smbmanager}
 \end{enumerate}
 
 \begin{figure}[ht]
@@ -338,9 +339,9 @@ Dessa forma, se o usuário logar com os usuários que estejam no grupo admin em 
 Para que as configurações e personalizações do perfil do usuário no windows sejam salvas é necessário a criação de um perfil móvel no servidor Samba 3. 
 A vantagem de se utilizar um perfil móvel é que não existe a obrigatoriedade de se realizar backup na máquina do usuário, pois os arquivos são salvos no servidor, sendo assim é só o usuário fazer o login em outra máquina windows que o seu perfil e os seus dados serão migrados para o novo computador. Porém o perfil móvel tem um problema que é a quantidade de dados armazenados. Se o número de usuários e dados de cada um for muito grande, cria-se a necessidade de ter um servidor com muito espaço de armazenamento e uma rede muito bem estruturada. 
 
-Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [global]\\
+Para ativar a configuração de perfil móvel no Samba 3 deve-se adicionar no [global] as variáveis mostradas no Quadro \ref{logon_path} \\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Variáveis necessárias para o perfil móvel,label={logon_path}]	
 logon path = \\%L\Profiles\%U
 
 logon home = \\%L\Profiles\%U
@@ -355,11 +356,11 @@ logon drive = H:
 	\item \textbf{logon drive} -  Unidade que será mapeada com o caminho $\backslash$$\backslash$servidor$\backslash$profiles$\backslash$"nome do usuário" no Windows.
 \end{enumerate}
 
-No exemplo apresentado, o diretório profile criado fica compartilhado para que seja mapeado na unidade H do usuário no windows.\\
+No exemplo apresentado, o diretório profile criado fica compartilhado para que seja mapeado na unidade H do usuário no windows.
 
-Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir.\\
+Após a definição dessas três opções na seção [global], deve-se criar uma seção [profiles] contendo alguns comandos que serão detalhados a seguir no Quadro \ref{smb_profile}.\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Variáveis para criação do compartilhamento profile,label={smb_profile}]	
 [profiles] 
 
 path = /var/samba/%U 
@@ -387,9 +388,9 @@ available = yes
 
 \section{Compartilhamento de Arquivos}
 
-O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf.\\
+O compartilhamento de arquivos é dado pela adição de seções no arquivo smb.conf. Como pode ser visto no Quadro \ref{smb_diretoria}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Criação de uma seção para compartilhamento de arquivos,label={smb_diretoria}]
 [Diretoria]
 
 path = /media/diretoria
@@ -440,9 +441,9 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 	\item \textbf{hosts allow} - Ip`s ou faixas de ips que podem conectar ao compartilhamento.
 \end{itemize}
 
-\textbf{Exemplo da aplicação de algumas das variáveis citadas acima }\\
+\textbf{Aplicação de algumas das variáveis citadas acima que podem ser vista no Quadro \ref{smb_variavel}}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Aplicação de algumas variáveis no Samba 3,label={smb_variavel}]
 [Backup]
 
 write list = usuario1 # Somente o usuario1 tera permissao de escrita no compartilhamento.
@@ -470,9 +471,9 @@ Exemplo:
 
 \textbf{Script a ser procurado : grupo.bat}
 
-Esse script precisa estar compartilhado no smb.conf para que possa ser executado.\\
+Esse script precisa estar em um compartilhamento no smb.conf para que possa ser executado.Conforme descrito no Quadro \ref{smb_script} \\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Compartilhamento dos \textit{scripts} de \textit{logon},label={smb_script}]
 [netlogon] 
 
 path = /var/samba/scripts 
@@ -490,9 +491,9 @@ O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/s
 	\item \textbf{\# chmod 1775 /var/samba/scripts} - Permissão de execução dos scripts.
 \end{enumerate}
 
-Exemplo de um script diretoria.bat e seu resultado na Figura \ref{mapeamento}\\
+Exemplo de um script diretoria.bat no Quadro \ref{net_use} e seu resultado na Figura \ref{mapeamento}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]
+\begin{lstlisting}[caption=Comando para mapeamento automático de uma pasta compartilhada,label={net_use}]
 net use x: \\servidor\diretoria
 \end{lstlisting}
 
@@ -509,9 +510,9 @@ net use x: \\servidor\diretoria
 
 O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem precisar da conexão local na impressora.
 
-Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global]\\
+Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] as variáveis contidas no Quadro \ref{smb_print}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Variáveis para permitir impressão em impressoras compartilhadas,label={smb_print}]	
 [global]
 
 printing = cups
@@ -545,9 +546,9 @@ Caso o cups não esteja instalado.
     \label{cups}
 \end{figure}
 
-Habilitando o compartilhamento de impressora.\\
+Para habilitando o compartilhamento de impressora. Tem que adicionar as variáveis contidas no Quadro \ref{smb_printer}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Variáveis para compartilhar impressoras,label={smb_printer}]	
 [printers]
 
 print ok = yes
@@ -580,9 +581,9 @@ Adiciona no [global]
 	\item \textbf{enable privileges = yes} - Permite privilégios a usuários
 \end{itemize}
 
-Criar um compartilhamento não visível onde ficará os drivers das impressoras.\\
+Criar um compartilhamento não visível onde ficará os drivers das impressoras. Conforme mostrado no Quadro \ref{smb_print_driver}\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]	
+\begin{lstlisting}[caption=Variáveis para compartilhamento onde deverão ficar os \textit{drivers} das impressoras,label={smb_print_driver}]	
 [print$]
 
 path = /var/lib/samba/printers
@@ -644,13 +645,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 
 %	\pagebreak
 
-	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor.}% \ref{propriedade_servidor}
-	%\begin{figure}[ht]
-	%   	\centering
-	%    \scalebox{1}{\includegraphics{figuras/propriedade_servidor}}
-	%   	\caption{Propriedades do servidor de impressão}
-	%    \label{propriedade_servidor}
-	%\end{figure}
+	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor.}
 	
 %	\pagebreak
 	
