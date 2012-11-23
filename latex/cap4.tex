@@ -137,13 +137,13 @@ As variáveis adicionadas no arquivos são para:
 
 \section{Instalação do Kerberos}
 
-Segundo \cite{HEIMDAL} a autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.Em nosso caso utilizaremos o Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
+Segundo \citeonline{HEIMDAL} a autenticação Kerberos é um protocolo de rede. Foi concebido para fornecer autenticação forte para o cliente/servidores de aplicativos usando criptografia de chaves secretas, então um cliente pode provar a sua identidade para um servidor (e vice-versa) em uma conexão de rede insegura.Em nosso caso utilizaremos o Heimdal Kerberos por causa do GSS-TSIG algoritmo de serviço de segurança genérico para autenticação de transação com chave secreta de DNS (GSS-TSIG) este mecanismo é utilizado para estabelecer relações TSIG para autenticação do tipo Kerberos, com essas credenciais o DNS aceita atualizações GSS-TSIG assinadas e verifica as credenciais de correspondentes com as credencias cadastradas no Samba 4, isso permite aos usuários descarregar o DNS dos usuários do Microsoft Windows sem ter a segurança comprometida.
 
 \begin{itemize}
 	\item \textbf{\# apt-get install krb5-user krb5-kdc krb5-config kstart} - Instala todos os pacotes necessários e faz as referências necessárias.
 \end{itemize}
 
-Após instalar os pacotes, substitua o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo Samba que esta localizado em /usr/local/samba/private/krb5.conf .
+Após instalar os pacotes, substitua-se o /etc/krb5.conf pelo arquivo criado e pré-configurado pelo Samba que esta localizado em /usr/local/samba/private/krb5.conf .
 
 \begin{itemize}
 	\item \textbf{\# cp /usr/local/samba/private/krb5.conf  /etc/}

@@ -9,18 +9,16 @@ O samba permite a interoperabilidade entre servidores Linux/Unix e clientes base
 plataforma Windows.
 O samba permite que um servidor linux seja apto a fornecer serviços como:
   \begin{itemize}
-    \item \textbf{Servidor de arquivos e impressão} - Utilizando o protocolo \textit{Server Message Block} para possibilitar o compartilhamento de arquivos, pastas volumes e impressoras na rede.
+    \item \textbf{Servidor de arquivos e impressão} - Utilizando o protocolo \textit{Server Message Block} para possibilitar o compartilhamento de arquivos, pastas volumes e impressoras na rede, com um controle de permissões de acessos a usuários e grupos juntamente com as permissões locais atribuídas as pastas compartilhadas. Algumas permissões de acesso local serão explicadas no tópico sobre permissões especiais no linux.
 
     \item \textbf{Autenticação e autorização} - Identifica um computador ou um usuário da rede e determina os direitos de acesso a arquivos que cada usuário possui, através de tecnologias como permissões de arquivos, diretivas de grupo e o serviço de autenticação Kerberos.
 
     \item \textbf{Resolução e busca de nomes e diretórios} - Compartilha as principais informações sobre computadores e usuários da rede através do \textit{LightWeight Directory Access Protocol} (LDAP).% e o Microsoft Active Directory.
 
-    \item \textbf{Servidor de domínio como PDC} - Funcionando como controlador de domínio ativo dentro de um domínio Windows.
+    \item \textbf{Servidor de domínio como PDC} - Funcionando como controlador de domínio ativo dentro de um domínio Windows. Para melhor entendimento ele será explicado no tópico sobre PDC.
   \end{itemize}
 
 Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite o compartilhamento de arquivos e impressoras em sistemas Windows e Linux. Outra característica do Samba é poder atuar como um Controlador Primário de Domínio (PDC), armazenando perfis de usuários, realizar controle de acesso. \cite{FOCA}.
-
-%\section{Permissões no Linux}
 
 \section{Permissões especiais no Linux}
 
@@ -53,18 +51,6 @@ O NetBIOS trabalha na camada sessão do modelo OSI, e utiliza as portas de comun
     \label{netbios}
 \end{figure}
 
-% \section{Domain Master}
-% 
-% ***VERIFICAR REFERENCIA***
-% 
-% DOMAIN MASTER BROWSER Uma vez que o Local Master Browser é eleito no segmento de rede, uma consulta é feita ao servidor WINS para saber quem é o Domain Master Browser da rede para enviar a lista de compartilhamentos. A máquina escolhida como Local Master Browser envia pacotes para a porta UDP 138 do Domain Master e este responde pedindo a lista de todos os nomes de máquinas que o Local Master conhece e também o registra como Local Master para aquele segmento de rede.
-
-% \section{WINS}
-
-%\textit{Windows Internet Name Service} (WINS) ou \textit{NetBIOS Name Services} (NBNS) é um serviço do protocolo TCP/IP. Este serviço faz a resolução nomes e números IP e os armazena, disponibilizando esta informação para quem necessite usar. Cada cliente envia seu nome NetBIOS e número IP para o servidor WINS, que armazena estas informações em um banco de dados. Quando um cliente desejar se comunicar com um outro, ele envia o nome desejado ao servidor WINS. Se o nome constar na base de dados, o servidor WINS retorna ao solicitante o número IP.
-
-%O WINS não é mais necessário, pois hoje tem os servidores DNS e o WINS só se faz necessário para manter a compatibilidade com Windows Antigos.
-
 \section{\textit{Active Directory}}
 
 O \textit{Active Directory} (AD) é um serviço de diretório nas redes Windows 2000 e 2003.
@@ -72,6 +58,19 @@ O \textit{Active Directory} (AD) é um serviço de diretório nas redes Windows 
 Serviço de diretório é um conjunto de Atributos sobre recursos e serviços existentes na rede, isso significa que é uma maneira de organizar e simplificar o acesso aos recursos de sua rede centralizando-os; Bem como, reforçar a segurança e dar proteção aos objetos da base de dados contra intrusos, ou controlar acessos dos usuários internos da rede.
 
 O \textit{Active Directory} mantém dados como contas de usuários, impressoras, grupos, computadores, servidores, recursos de rede, etc. Ele pode ser totalmente escalonável, aumentando conforme a nossa necessidade.\cite{LOSANO}
+
+\section{LDAP}
+
+O LDAP (\textit{Lightweight Directory Access Protocol}) é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao \textit{Active Directory} da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos.
+
+LDAP é um protocolo para acessar informações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permite navegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em um serviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura,navegação e pesquisas \cite{TRIGO}.
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/ldap}}
+   	\caption{Estrutura do protocolo LDAP \cite{LDAP}}
+    \label{ldap}
+\end{figure}
 
 \section{DNS}
 
@@ -86,21 +85,7 @@ DNS (\textit{Domain Name System}) é uma base de dados hierárquica e distribuí
 
 \section{BIND}
 
-
 BIND é um software de código livre que implementa o Sistema de Nomes de Domínio (DNS) de protocolos para a internet. É uma referência em implementação desses protocolos, mas também possui uma produção em série de software, adequado para uso em aplicações de alto volume e de alta confiança. BND está disponível para \textit{download} gratuito sob os termos da Licença ISC, um estilo de licença BSD. \cite{BIND}.
-
-\section{LDAP}
-
-O LDAP (\textit{Lightweight Directory Access Protocol}) é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao \textit{Active Directory} da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos.
-
-LDAP é um protocolo para acessar informações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permite navegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em um serviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura,navegação e pesquisas \cite{TRIGO}.
-
-\begin{figure}[ht]
-   	\centering
-    \scalebox{1}{\includegraphics{figuras/ldap}}
-   	\caption{Estrutura do protocolo LDAP \cite{LDAP}}
-    \label{ldap}
-\end{figure}
 
 \section{Kerberos}
 

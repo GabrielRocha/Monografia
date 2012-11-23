@@ -830,12 +830,6 @@ winbind gid = 10000-20000
 template shell = /bin/bash
 
 template homedir = /home/\%U
-
-winbind separator = +
-
-printing = cups
-
-invalid users = root	
 \end{lstlisting}
 
 Explicação de algumas variáveis importantes:
@@ -906,6 +900,8 @@ session required pam_winbind.so
 \end{lstlisting}
 
 No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas abaixo ao inicio do arquivo:\\
+
+\pagebreak
 
 \begin{lstlisting}	
 auth required /lib/security/pam_securetty.so
