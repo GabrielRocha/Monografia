@@ -1,14 +1,14 @@
-\contentsline {lstlisting}{\numberline {3.1}Exemplo do que deve ser inserido no smb.conf}{27}{lstlisting.listoftables.3.1}
+\contentsline {lstlisting}{\numberline {3.1}Exemplo de utiliza\IeC {\c c}\IeC {\~a}o das vari\IeC {\'a}veis de substitui\IeC {\c c}\IeC {\~a}o}{27}{lstlisting.listoftables.3.1}
 \contentsline {lstlisting}{\numberline {3.2}Exemplo do que deve ser inserido no smb.conf}{28}{lstlisting.listoftables.3.2}
-\contentsline {lstlisting}{\numberline {3.3}FAZER}{35}{lstlisting.listoftables.3.3}
-\contentsline {lstlisting}{\numberline {3.4}FAZER}{36}{lstlisting.listoftables.3.4}
-\contentsline {lstlisting}{\numberline {3.5}FAZER}{37}{lstlisting.listoftables.3.5}
-\contentsline {lstlisting}{\numberline {3.6}FAZER}{38}{lstlisting.listoftables.3.6}
-\contentsline {lstlisting}{\numberline {3.7}FAZER}{39}{lstlisting.listoftables.3.7}
-\contentsline {lstlisting}{\numberline {3.8}FAZER}{40}{lstlisting.listoftables.3.8}
-\contentsline {lstlisting}{\numberline {3.9}FAZER}{41}{lstlisting.listoftables.3.9}
-\contentsline {lstlisting}{\numberline {3.10}FAZER}{41}{lstlisting.listoftables.3.10}
-\contentsline {lstlisting}{\numberline {3.11}FAZER}{43}{lstlisting.listoftables.3.11}
+\contentsline {lstlisting}{\numberline {3.3}Vari\IeC {\'a}veis necess\IeC {\'a}rias para o perfil m\IeC {\'o}vel}{35}{lstlisting.listoftables.3.3}
+\contentsline {lstlisting}{\numberline {3.4}Vari\IeC {\'a}veis para cria\IeC {\c c}\IeC {\~a}o do compartilhamento profile}{36}{lstlisting.listoftables.3.4}
+\contentsline {lstlisting}{\numberline {3.5}Cria\IeC {\c c}\IeC {\~a}o de uma se\IeC {\c c}\IeC {\~a}o para compartilhamento de arquivos}{37}{lstlisting.listoftables.3.5}
+\contentsline {lstlisting}{\numberline {3.6}Aplica\IeC {\c c}\IeC {\~a}o de algumas vari\IeC {\'a}veis no Samba 3}{38}{lstlisting.listoftables.3.6}
+\contentsline {lstlisting}{\numberline {3.7}Compartilhamento dos \textit {scripts} de \textit {logon}}{39}{lstlisting.listoftables.3.7}
+\contentsline {lstlisting}{\numberline {3.8}Comando para mapeamento autom\IeC {\'a}tico de uma pasta compartilhada}{40}{lstlisting.listoftables.3.8}
+\contentsline {lstlisting}{\numberline {3.9}Vari\IeC {\'a}veis para permitir impress\IeC {\~a}o em impressoras compartilhadas}{41}{lstlisting.listoftables.3.9}
+\contentsline {lstlisting}{\numberline {3.10}Vari\IeC {\'a}veis para compartilhar impressoras}{41}{lstlisting.listoftables.3.10}
+\contentsline {lstlisting}{\numberline {3.11}Vari\IeC {\'a}veis para compartilhamento onde dever\IeC {\~a}o ficar os \textit {drivers} das impressoras}{43}{lstlisting.listoftables.3.11}
 \contentsline {lstlisting}{\numberline {3.12}FAZER}{51}{lstlisting.listoftables.3.12}
 \contentsline {lstlisting}{\numberline {3.13}FAZER}{52}{lstlisting.listoftables.3.13}
 \contentsline {lstlisting}{\numberline {3.14}FAZER}{53}{lstlisting.listoftables.3.14}
