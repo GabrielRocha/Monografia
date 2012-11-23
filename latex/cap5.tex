@@ -61,7 +61,7 @@ Foram criados compartilhamentos com os nomes dos setores mais importantes da ins
 
 A seguir é apresentada uma parte do smb.conf do Samba 4, que corresponde as seções de compartilhamento de arquivos. As seções foram inseridas com a sigla dos setores. Foi decidido vetar arquivos de vídeo e áudio para não sobrecarregar o servidor.\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=FAZER,label={global}]
 [Chefia_de_Gabinete]
 
 comment = Chefia de gabinete
@@ -144,7 +144,7 @@ Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas 
 
 Todas as impressoras foram colocadas na rede, mapeadas no servidor do Samba 4 e compartilhadas para os demais computadores com a instalação dos drives automática.\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=FAZER,label={global}]
 [printers] 
 
 print ok = yes 
