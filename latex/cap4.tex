@@ -115,7 +115,7 @@ Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servido
 
 Adicione as seguintes linhas:\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=FAZER,label={global}]
 options{ 
 	
 directory '/usr/local/bind/var/run/named'; 
@@ -222,7 +222,7 @@ Descrição das variáveis que serão utilizadas na configuração e seus valore
 	\begin{itemize}
 			\item \# vim /etc/hosts\\
 	\end{itemize}
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 127.0.0.1       gert.fja.br localhost gert
 
 127.0.1.1       gert
@@ -251,7 +251,7 @@ ff02::3 ip6-allhosts
 		\begin{itemize}
 			\item {\# vim /etc/krb5.conf}\\
 		\end{itemize}
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 [libdefaults]
 
 default_realm = FJA.BR
@@ -286,7 +286,7 @@ admin_server = fjadc01.fja.br
 
 	\item \textbf {Se o resultado for este o Kerberos está funcionando corretamente.}\\
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 Valid starting Expires Service principal 07/16/07 15:48:35  
 07/17/07 01:49:08  
 
@@ -302,7 +302,7 @@ klist: You have no tickets cached
 			\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas.\\
 		\end{itemize}
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 [global]
 
 security = ads
@@ -372,7 +372,7 @@ os level = 0
 		\begin{itemize}
 				\item \# vim /etc/nsswitch.conf\\
 		\end{itemize}
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 passwd:   compat winbind
 
 group:    compat winbind
@@ -399,7 +399,7 @@ shadow:   compat
 			\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 account sufficient   pam_winbind.so
 
 account required     pam_unix.so
@@ -409,7 +409,7 @@ account required     pam_unix.so
 			\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 auth sufficient pam_winbind.so
 
 auth sufficient pam_unix.so nullok_secure use_first_pass
@@ -421,7 +421,7 @@ auth required   pam_deny.so
 			\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas.\\
 		\end{itemize}
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 session required pam_unix.so
 
 session required pam_mkhomedir.so umask=0022 skel=/etc/skel
@@ -431,7 +431,7 @@ session required pam_mkhomedir.so umask=0022 skel=/etc/skel
 			\item {/etc/pam.d/sudo} - Adicione as seguintes linhas.\\
 		\end{itemize}
 
-		\begin{lstlisting}
+		\begin{lstlisting}[caption=FAZER,label={global}]
 auth sufficient pam_winbind.so
 
 auth sufficient pam_unix.so use_first_pass
