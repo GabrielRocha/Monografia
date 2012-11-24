@@ -113,9 +113,9 @@ Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servido
 	\item \textbf{\# vim /etc/bind/named.options}
 \end{itemize}
 
-Adicione as seguintes linhas:\\
+Adicione as seguintes linhas contidas no Quadro \ref{named_options}:\\
 
-\begin{lstlisting}[caption=FAZER,label={global}]
+\begin{lstlisting}[caption=Arquivo named.options,label={named_options}]
 options{ 
 	
 directory '/usr/local/bind/var/run/named'; 
@@ -161,9 +161,9 @@ Teste para verificar se todos as configurações foram realizadas corretamente.
 
 É possível gerenciar o servidor Samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack\footnote[4]{O AdminPack está disponível no site da Microsoft:
 
-http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en} presente no Windows Server. Essa ferramenta permite gerenciar todos os usuários, grupos e maquinas presentes no \textit{Active Directory}
+http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en} presente no Windows Server. Essa ferramenta permite gerenciar todos os usuários, grupos e máquinas presentes no \textit{Active Directory}
 
-Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} \ref{dsa}.
+Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o programa já executado como pode ser visto na Figura \ref{tela_dsa}.
 
 \begin{figure}[ht]
    	\centering
@@ -176,12 +176,12 @@ Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} \ref{dsa}.
 
 \begin{figure}[h!]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/addsa}}
+    \includegraphics[width=0.7 \textwidth]{figuras/addsa}
    	\caption{Tela do DSA.}
     \label{tela_dsa}
 \end{figure}
 
-Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do linux, conforme figura \ref{samba-tool}.
+Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do linux, conforme Figura \ref{samba-tool}.
 
 \begin{figure}[ht]
    	\centering
@@ -190,9 +190,9 @@ Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma fer
     \label{samba-tool}
 \end{figure}
 
-\section{Maquinas linux interagindo com o \textit{Active Directory} do  Samba4}
+\section{Máquinas linux interagindo com o \textit{Active Directory} do  Samba4}
 
-Segundo \cite{UBUNTU-WIKI} a forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração. A seguir será apresentado um passo-a-passo para inclusão do Ubuntu no domínio. Para tal, foi utilizado como exemplo de configuração do domínio as seguintes informações:
+A forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração. A seguir será apresentado um passo-a-passo para inclusão do Ubuntu no domínio \cite{UBUNTU-WIKI}. Para tal, foi utilizado como exemplo de configuração do domínio as seguintes informações:
 
 Descrição das variáveis que serão utilizadas na configuração e seus valores.
 
@@ -218,11 +218,11 @@ Descrição das variáveis que serão utilizadas na configuração e seus valore
 	\item \textbf{\# ntpdate 10.2.0.1} 
 \end{itemize}
 
-	\item \textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede.}
+	\item \textbf{Edite o arquivo /etc/hosts adicionando o ip e o nome do DC de sua rede. Exemplo no Quadro \ref{hosts}.}
 	\begin{itemize}
 			\item \# vim /etc/hosts\\
 	\end{itemize}
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Valores que devem ser adicionados no /etc/hosts,label={hosts}]
 127.0.0.1       gert.fja.br localhost gert
 
 127.0.1.1       gert
@@ -249,9 +249,9 @@ ff02::3 ip6-allhosts
 
 	\item \textbf{Configurando o Kerberos}
 		\begin{itemize}
-			\item {\# vim /etc/krb5.conf}\\
+			\item {\# vim /etc/krb5.conf} - Edite o arquivo conforme o exemplo do Quadro \ref{krb5}.\\
 		\end{itemize}
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Valores que devem ser adicionados no /etc/krb5.conf,label={krb5}]
 [libdefaults]
 
 default_realm = FJA.BR
@@ -284,9 +284,9 @@ admin_server = fjadc01.fja.br
 			\item {Default principal: alex$@$FJA.BR}
 		\end{itemize}
 
-	\item \textbf {Se o resultado for este o Kerberos está funcionando corretamente.}\\
+	\item \textbf {Se o resultado for igual a do Quadro \ref{kerberos_ok} o Kerberos está funcionando corretamente.}\\
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Resultado se o Kerberos esta funcionando perfeitamente.,label={kerberos_ok}]
 Valid starting Expires Service principal 07/16/07 15:48:35  
 07/17/07 01:49:08  
 
@@ -299,10 +299,10 @@ klist: You have no tickets cached
 
 	\item \textbf{Acessando o Domínio.}
 		\begin{itemize}
-			\item {\# vim /etc/samba/smb.conf} -  Adicione as seguintes linhas.\\
+			\item {\# vim /etc/samba/smb.conf} -  Adicione as linhas contidas no Quadro \ref{smb_conf}.\\
 		\end{itemize}
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo smb.conf para fazer \textit{login} em um domínio.,label={smb_conf}]
 [global]
 
 security = ads
@@ -370,9 +370,9 @@ os level = 0
 
 	\item \textbf{Configure a Autenticação.}
 		\begin{itemize}
-				\item \# vim /etc/nsswitch.conf\\
+				\item {\# vim /etc/nsswitch.conf} - Adicione as linhas contidas no Quadro \ref{nsswitch_conf}.\\
 		\end{itemize}
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo /etc/nsswitch.conf,label={nsswitch_conf}]
 passwd:   compat winbind
 
 group:    compat winbind
@@ -396,20 +396,20 @@ shadow:   compat
 
 	\item \textbf{Configure o PAM.}
 		\begin{itemize}
-			\item {\# vi /etc/pam.d/common-account} - Adicione as seguintes linhas.\\
+			\item {\# vim /etc/pam.d/common-account} - Adicione as linhas contidas no Quadro \ref{common_account}.\\
 		\end{itemize}
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo /etc/pam.d/common-account,label={common_account}]
 account sufficient   pam_winbind.so
 
 account required     pam_unix.so
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {\# vim /etc/pam.d/common-auth} - Adicione as seguintes linhas.\\
+			\item {\# vim /etc/pam.d/common-auth} - Adicione as linhas contidas no Quadro \ref{common_auth}.\\
 		\end{itemize}
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo /etc/pam.d/common-auth,label={common_auth}]
 auth sufficient pam_winbind.so
 
 auth sufficient pam_unix.so nullok_secure use_first_pass
@@ -418,20 +418,20 @@ auth required   pam_deny.so
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {\# vim /etc/pam.d/common-session} Adicione as seguintes linhas.\\
+			\item {\# vim /etc/pam.d/common-session} Adicione as linhas contidas no Quadro \ref{common_session}.\\
 		\end{itemize}
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo /etc/pam.d/common-session,label={common_session}]
 session required pam_unix.so
 
 session required pam_mkhomedir.so umask=0022 skel=/etc/skel
 		\end{lstlisting}
 
 		\begin{itemize}
-			\item {/etc/pam.d/sudo} - Adicione as seguintes linhas.\\
+			\item {\# vim /etc/pam.d/sudo} - Adicione as linhas contidas no Quadro \ref{sudo}.\\
 		\end{itemize}
 
-		\begin{lstlisting}[caption=FAZER,label={global}]
+		\begin{lstlisting}[caption=Arquivo /etc/pam.d/sudo,label={sudo}]
 auth sufficient pam_winbind.so
 
 auth sufficient pam_unix.so use_first_pass
@@ -493,27 +493,27 @@ SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Acti
 O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo executado no Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente no Samba 4 através do Kerberos.
 Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
 \begin{itemize}
-	\item Acessar as conexões de rede através do Painel de Controle.\ref{conexoes_rede}
+	\item Acessar as conexões de rede através do Painel de Controle. Figura \ref{conexoes_rede}
 	\begin{figure}[ht]
 			\centering
-	 		\scalebox{1}{\includegraphics{figuras/conexoes_rede}}
+	 		\includegraphics[width=0.7 \textwidth]{figuras/conexoes_rede}
 			\caption{Acessando as Conexões de Rede}
 			\label{conexoes_rede}
 	\end{figure}	
-	\item Acessar as propriedades da conexão de rede ativa.\ref{propriedades_conexao}
+	\item Acessar as propriedades da conexão de rede ativa. Figura \ref{propriedades_conexao}
 	\begin{figure}[h!]
 			\centering
-	 		\scalebox{1}{\includegraphics{figuras/propriedades_conexao}}
+	 		\includegraphics[width=0.7 \textwidth]{figuras/propriedades_conexao}
 			\caption{Acessando as propriedades da conexão ativa}
 			\label{propriedades_conexao}
 	\end{figure}
 	
 	\pagebreak
 	
-	\item Incluir o IP do servidor no campo de DNS.\ref{propriedades_tcpip}
+	\item Incluir o IP do servidor Samba 4 no campo de DNS. Figura \ref{propriedades_tcpip}
 	\begin{figure}[ht]
 			\centering
-	 		\scalebox{1}{\includegraphics{figuras/propriedades_tcpip}}
+	 		\includegraphics[width=0.7 \textwidth]{figuras/propriedades_tcpip}
 			\caption{Incluindo o IP do servidor Samba 4 no campo de DNS}
 			\label{propriedades_tcpip}
 	\end{figure}

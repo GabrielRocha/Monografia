@@ -15,15 +15,15 @@
 \contentsline {lstlisting}{\numberline {3.15}Exemplo de configura\IeC {\c c}\IeC {\~a}o do /etc/pam.d/login}{53}{lstlisting.listoftables.3.15}
 \contentsline {lstlisting}{\numberline {3.16}Linhas do arquivo /etc/pam.d/login}{54}{lstlisting.listoftables.3.16}
 \contentsline {lstlisting}{\numberline {3.17}Arquivo /etc/pam.d/gdm}{55}{lstlisting.listoftables.3.17}
-\contentsline {lstlisting}{\numberline {4.1}FAZER}{60}{lstlisting.listoftables.4.1}
-\contentsline {lstlisting}{\numberline {4.2}FAZER}{64}{lstlisting.listoftables.4.2}
-\contentsline {lstlisting}{\numberline {4.3}FAZER}{64}{lstlisting.listoftables.4.3}
-\contentsline {lstlisting}{\numberline {4.4}FAZER}{65}{lstlisting.listoftables.4.4}
-\contentsline {lstlisting}{\numberline {4.5}FAZER}{66}{lstlisting.listoftables.4.5}
-\contentsline {lstlisting}{\numberline {4.6}FAZER}{67}{lstlisting.listoftables.4.6}
-\contentsline {lstlisting}{\numberline {4.7}FAZER}{68}{lstlisting.listoftables.4.7}
-\contentsline {lstlisting}{\numberline {4.8}FAZER}{68}{lstlisting.listoftables.4.8}
-\contentsline {lstlisting}{\numberline {4.9}FAZER}{68}{lstlisting.listoftables.4.9}
-\contentsline {lstlisting}{\numberline {4.10}FAZER}{68}{lstlisting.listoftables.4.10}
-\contentsline {lstlisting}{\numberline {5.1}FAZER}{74}{lstlisting.listoftables.5.1}
-\contentsline {lstlisting}{\numberline {5.2}FAZER}{76}{lstlisting.listoftables.5.2}
+\contentsline {lstlisting}{\numberline {4.1}Arquivo named.options}{60}{lstlisting.listoftables.4.1}
+\contentsline {lstlisting}{\numberline {4.2}Valores que devem ser adicionados no /etc/hosts}{64}{lstlisting.listoftables.4.2}
+\contentsline {lstlisting}{\numberline {4.3}Valores que devem ser adicionados no /etc/krb5.conf}{64}{lstlisting.listoftables.4.3}
+\contentsline {lstlisting}{\numberline {4.4}Resultado se o Kerberos esta funcionando perfeitamente.}{65}{lstlisting.listoftables.4.4}
+\contentsline {lstlisting}{\numberline {4.5}Arquivo smb.conf para fazer \textit {login} em um dom\IeC {\'\i }nio.}{66}{lstlisting.listoftables.4.5}
+\contentsline {lstlisting}{\numberline {4.6}Arquivo /etc/nsswitch.conf}{67}{lstlisting.listoftables.4.6}
+\contentsline {lstlisting}{\numberline {4.7}Arquivo /etc/pam.d/common-account}{68}{lstlisting.listoftables.4.7}
+\contentsline {lstlisting}{\numberline {4.8}Arquivo /etc/pam.d/common-auth}{68}{lstlisting.listoftables.4.8}
+\contentsline {lstlisting}{\numberline {4.9}Arquivo /etc/pam.d/common-session}{68}{lstlisting.listoftables.4.9}
+\contentsline {lstlisting}{\numberline {4.10}Arquivo /etc/pam.d/sudo}{68}{lstlisting.listoftables.4.10}
+\contentsline {lstlisting}{\numberline {5.1}FAZER}{75}{lstlisting.listoftables.5.1}
+\contentsline {lstlisting}{\numberline {5.2}FAZER}{77}{lstlisting.listoftables.5.2}
