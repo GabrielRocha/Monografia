@@ -25,5 +25,5 @@
 \contentsline {lstlisting}{\numberline {4.8}Arquivo /etc/pam.d/common-auth}{68}{lstlisting.listoftables.4.8}
 \contentsline {lstlisting}{\numberline {4.9}Arquivo /etc/pam.d/common-session}{68}{lstlisting.listoftables.4.9}
 \contentsline {lstlisting}{\numberline {4.10}Arquivo /etc/pam.d/sudo}{68}{lstlisting.listoftables.4.10}
-\contentsline {lstlisting}{\numberline {5.1}FAZER}{75}{lstlisting.listoftables.5.1}
-\contentsline {lstlisting}{\numberline {5.2}FAZER}{77}{lstlisting.listoftables.5.2}
+\contentsline {lstlisting}{\numberline {5.1}Arquivo /etc/smb.conf com as vari\IeC {\'a}veis aplicadas no estudo de caso.}{75}{lstlisting.listoftables.5.1}
+\contentsline {lstlisting}{\numberline {5.2}Arquivo /etc/smb.conf com as vari\IeC {\'a}veis aplicadas no estudo de caso para compartilhar impressoras.}{77}{lstlisting.listoftables.5.2}
