@@ -1,6 +1,6 @@
 \chapter{ESTUDO DE CASO}
 
-Esta proposta de implementação foi motivada pelo cenário do IFF - Campus Bom Jesus do Itabapoana, que necessitava de uma otimização na segurança e compartilhamento de seus recursos de TI, para melhor gerenciamento e manutenção dos arquivos compartilhados e usuários na rede, seria necessário a implantação de um servidor que centralizasse todas essas tarefas.
+Esta proposta de implantação foi motivada pelo cenário do IFF - Campus Bom Jesus do Itabapoana, que necessitava de uma otimização na segurança e compartilhamento de seus recursos de TI. Para melhor gerenciamento e manutenção dos arquivos compartilhados e usuários na rede, seria necessária a implantação de um servidor que centralizasse todas essas tarefas.
 
 %Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa, atualmente, em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
 Foi iniciada uma pesquisa para encontrar um \textit{software} que atendesse a todos requisitos. O Windows Server é uma solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização em instituições de ensino e em pequenas empresas. 
@@ -27,7 +27,7 @@ Os setores são divididos conforme suas funções no organograma da instituiçã
 
 * Chefia de Gabinete
 
-Com a proposta de implementação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Um servidor foi inserido na rede com o sistema operacional Debian 6.0.5 e com as seguintes configurações:
+Com a proposta de implantação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Um servidor foi inserido na rede com o sistema operacional Debian 6.0.5 e com as seguintes configurações:
 
 \begin{itemize}
 	\item{Processador Intel Core I7\textregistered}
@@ -44,7 +44,7 @@ Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os s
 	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=instituto.ensino\\"--domain=ensino  "--adminpass=`Senha12' "--server-role=dc}
 \end{enumerate}
 
-Com o samba 4 as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de dns \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
+Com o Samba 4 instalado e as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de DNS \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
 
 Por não ter uma ferramenta mais completa para o gerenciamento do Samba 4 pelo Linux, um computador com Windows XP foi designado para tal tarefa. Nele foram instalados o adminpack e o gerenciador de gpo do Windows. Por trabalharem com o mesmo protocolo como já foi dito anteriormente não houve incompatibilidades na utilização das ferramentas.
 
