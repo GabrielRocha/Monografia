@@ -1,6 +1,6 @@
 \chapter{SAMBA 4}
 
-O Samba 4 vem com a proposta de criar um \textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind (ou um DNS interno que o próprio Samba 4 possui) e Kerberos. Ele vem com a intenção de ser uma evolução do Samba 3. Com ele o administrador de rede é capaz de fornecer na rede serviços como, controle de usuários, maquinas, compartilhamento de arquivos, compartilhamento de impressoras, controle de acesso ao compartilhamento e entre outros.
+O software Samba 4 vem com a proposta de criar um substituto livre para o \textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind (ou um DNS interno que o próprio Samba 4 possui) e Kerberos. Esta versão vem com a intenção de ser uma evolução do Samba 3. Com o Samba 4 o administrador de rede é capaz de fornecer na rede serviços como, controle de usuários, máquinas, compartilhamento de arquivos, compartilhamento de impressoras, controle de acesso ao compartilhamento e entre outros.
 Com a adoção de um \textit{Active Directory} no mesmo sistema que fornece o compartilhamento de arquivos e impressoras, o Samba 4 permite uma ligação nas configurações de permissões a usuários inseridas no compartilhamento com os usuários cadastrados no domínio, assim eliminando a divisão entre o servidor de domínio e o de compartilhamento.
 
 O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases de testes iniciais alpha e beta, atualmente esta na 4º Release Candidate, mas sem data para o lançamento da versão estável.
@@ -9,7 +9,7 @@ O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases d
 
 Todos os comandos foram testados no Ubuntu 11.04 e Debian 6, por isso algumas adaptações podem ser necessárias em outras distribuições Linux.
 
-A instalação é realizada a partir do terminal, mas antes é necessário a instalação de algumas bibliotecas.
+A instalação é realizada a partir do terminal, mas antes é necessária a instalação de algumas bibliotecas.
 
 \begin{itemize}
 	\item \textbf{\# apt-get install build-essential libattr1-dev libblkid-dev libgnutls-dev python-dev git-core autoconf python-dnspython ntpdate acl libacl1-dev}
@@ -27,7 +27,7 @@ O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do
 	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master}
 \end{itemize}
 
-O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux através do terminal, que segundo \cite{INSTALL} se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
+O Samba 4 segue os procedimento padrões de instalação de aplicativos no Linux através do terminal que, segundo \cite{INSTALL}, se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
 
 \begin{itemize}
 		\item \textbf{\# ./configure.developer}
@@ -38,7 +38,7 @@ O Samba 4 segue os procedimento padrões de instalação de aplicativos no linux
 Para verificar a versão instalada é só executar o seguinte comando:
 
 \begin{itemize}
-	\item \textbf{\# /usr/local/samba/bin/smbclient "--version}
+	\item \textbf{\# /usr/share/local/samba/bin/smbclient "--version}
 \end{itemize}
 
 \section{Criação de Domínio com o Samba 4}
@@ -460,11 +460,11 @@ auth required   pam_deny.so
 
 \end{enumerate}
 
-\section{Script para adicionar maquina linux no \textit{Active Directory}.}
+\section{Script para adicionar máquina Linux no \textit{Active Directory}.}
 
-O cadastro de maquinas no samba 4 se difere do samba 3 por não ser necessário o cadastramento do computador como usuário, com o \$ no final do nome, no servidor e depois cadastra-lo no Samba 4.
+O cadastro de maquinas no Samba 4 se difere do Samba 3 por não ser necessário o cadastramento do computador como usuário, com o \$ no final do nome, no servidor e depois cadastra-lo no Samba 4.
 
-Para facilitar a inserção das maquinas linux no \textit{Active Directory} do Samba 4 foi modificado um script e ele foi chamado de smbad.sh\footnote[4]{Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh}. 
+Para facilitar a inserção das máquinas Linux no \textit{Active Directory} do Samba 4 foi modificado um script e ele foi chamado de smbad.sh\footnote[4]{Pode ser baixado em https://github.com/GabrielRocha/Monografia/blob/master/latex/Scripts/smbad.sh}. 
 
 \begin{figure}[ht]
    	\centering
@@ -475,7 +475,7 @@ Para facilitar a inserção das maquinas linux no \textit{Active Directory} do S
 
 \section{Compartilhamento de arquivos}
 
-SAMBA4 tem um problema com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios. Uma solução para tal problema é identificar o código do usuário ou grupo no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
+Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios. Uma solução para tal problema é identificar o código do usuário ou grupo no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
 %\begin{itemize}
 \noindent \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no Samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER.
