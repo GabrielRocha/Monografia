@@ -1,5 +1,6 @@
 \chapter{SAMBA 3}
-Este capítulo descreve como são feitas a instalação e a configuração de um servidor Samba 3 como controlador de domínio, servidor de impressão e servidor de arquivos, respeitando as regras de usuários e permissões.
+Este capítulo descreve os procedimentos necessários para a instalação e a configuração do Samba 3 para trabalhar como controlador de domínio, servidor de impressão e servidor de arquivos, respeitando as regras de usuários e permissões.
+Primeiramente explicará todo o processo de instalação do Samba 3, algumas formas de alterar o arquivo de configuração e como iniciar os serviços do mesmo. Posteriormente mostrará o passo-a-passo de como se deve configurar o Samba 3 para trabalhar como um domínio, criação dos que irão logar usuários no domínio, explicação das variáveis que podem ser usadas na criação de um compartilhamento de arquivos, para definirem segurança de acesso aos arquivos, compartilhar impressoras na rede, e por fim a explicação do procedimento para a inserção de máquinas Windows e Linux no domínio.
 
 \section{Instalação do Samba 3}
 
@@ -48,14 +49,31 @@ Com todos os componentes instalados a aplicação pode ser iniciada. O Samba 3 t
 
 O SMBD permite compartilhamento de arquivos e impressoras em uma rede SMB e provê autorização e autenticação a usuários SMB. O NMBD cuida do \textit{Windows Internet Name Service} (WINS) e auxilia com a navegação e resolução de nomes.\cite{SAMBA}
 
-Existem varias formas de iniciar e parar os processos do Samba 3, que como:
+Para iniciar os processos do Samba 3, utiliza-se o seguinte comando:
 \begin{itemize}
-	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3. 
+	\item \textbf{\# /etc/init.d/smbd start} - Inicia o Samba 3.	
+\end{itemize}
+
+Por ter sido instalado em um sistema Linux o Samba 3 pode conter varias formas de iniciar e de parar, dependendo da distribuição na qual ele foi instalado.
+
+Ubuntu:
+\begin{itemize}
 	\item \textbf{\# service smbd start} - Inicia o Samba 3.
 	\item \textbf{\# service smbd stop} - Para o processo do Samba 3.
-%	\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+	\item \textbf{\# service smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+	\item \textbf{\# /etc/init.d/smbd start} - Para iniciar o Samba 3 em computadores com Debian 6.
+	\item \textbf{\# /etc/init.d/smbd stop} - Para o Samba 3 no Debian 6.
+	\item \textbf{\# /etc/init.d/smbd restart} - Finaliza o processo existente e cria outro para o Samba 3.
+\end{itemize}
+
+Debian:
+\begin{itemize}
+	\item \textbf{\# service samba start} - Inicia o Samba 3.
+	\item \textbf{\# service samba stop} - Para o processo do Samba 3.
+	\item \textbf{\# service samba restart} - Finaliza o processo existente e cria outro para o Samba 3.
 	\item \textbf{\# /etc/init.d/samba start} - Para iniciar o Samba 3 em computadores com Debian 6.
-	%\item \textbf{\# /etc/init.d/samba stop} - Para o Samba 3 no Debian 6.
+	\item \textbf{\# /etc/init.d/samba stop} - Para o Samba 3 no Debian 6.
+	\item \textbf{\# /etc/init.d/samba restart} - Finaliza o processo existente e cria outro para o Samba 3.
 \end{itemize}
 
 \section{Seções}
@@ -120,24 +138,36 @@ Ao longo deste trabalho diversas variáveis de substituição serão utilizadas,
 
 O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no Linux.
 
+Por se tratar de um arquivo de configuração mutável uma boa prática é a utilização de backups dos arquivos originais, pois caso o sistema pare de funcionar devido a uma má configuração ou seja necessário para leitura posterior, o administrador de rede terá uma copia de segurança.
+
 \begin{enumerate}
 	\item \textbf{\# cp /etc/samba/smb.conf /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
-	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.  
-	\item \textbf{\# gedit /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
+\end{enumerate}
+
+O arquivo original do Samba 3 vem repleto de comentários de possíveis variáveis que podem ser utilizadas ou contém algum tipo explicação. Para a leitura do administrador os comentários complicam pois muitas informações não são necessárias dependendo da configuração e uma maneira de melhorar é a remoção dos comentários.
+
+\begin{enumerate}
+	\item \textbf{\# testparm -s /etc/samba/smb.conf.bkp $>$ /etc/samba/smb.conf} - Removerá os comentário para melhor leitura do arquivo. Observação: o arquivo de origem não pode ser o smb.conf pois ele irá se rescrever e o arquivo só conterá a seção [global] vazia.
+\end{enumerate}
+
+Para editar as configurações e definir as funções que serão providas pelo Samba 3, pode-se utilizar qualquer comando ou aplicativo para edição de texto. 
+
+\begin{enumerate}
+	\item \textbf{\# vim /etc/samba/smb.conf} - Para editar o arquivo e adicionar as seções, parâmetros e variáveis.
 \end{enumerate}
 
 Agora é necessário inserir, modificar e remover alguns parâmetros na seção [global] para que o Samba 3 se comporte como um PDC. Conforme o Quadro \ref{smb_global}\\
 
-\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf,label={smb_global}]
+\begin{lstlisting}[caption=Exemplo do que deve ser inserido no smb.conf para o Samba 3 como controlador de domínio,label={smb_global}]
 [global] 
 
-workgroup = 'nome do servidor de domnio'
+workgroup = IFF.BOMJESUS
 
-server string = 'Titulo'       
+server string = Compartilhamento de Arquivos do IFF - Campus Bom Jesus do Itabapoana
 
 security = user
 
-netbios name = 'nome que sera da netbios do servidor'
+netbios name = battousai
 
 domain master = yes
 
