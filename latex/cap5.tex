@@ -13,7 +13,12 @@ Esta proposta de implantação foi motivada pelo cenário do IFF - Campus Bom Je
 %Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa, atualmente, em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
 Foi iniciada uma pesquisa para encontrar um \textit{software} que atendesse a todos requisitos. O Windows Server é uma solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização em instituições de ensino e em pequenas empresas. 
 Para solucionar esse problema da compra de licenças foi criada uma versão livre, o Samba 4, que faz as mesmas tarefas de um Windows Server, trabalhando com o mesmo protocolo, o LDAP. Pelo custo benefício, o Samba 4 foi utilizada neste trabalho.
+
+O Samba 3 é mais estável, e portanto é mais recomendado em redes de médio porte, porém não se comporta como \textit{Active Directory} e não permite \textit{polices}, mas realiza a autenticação dos usuários, compartilhamento de arquivos e impressoras.
+O Samba 3 e Samba 4 não podem ser instalados e configurados no mesmo servidor por trabalharem com os mesmos daemons de inicialização, um serviço quando iniciado anula o outro.
+
 %A instituição abordada neste trabalho contém 110 computadores nos setores administrativos e 90 nos laboratórios de informática. Abaixo uma pequena demonstração da estrutura da rede \ref{rede}:
+
 A instituição contém 110 computadores nos setores administrativos e 90 nos laboratórios de informática. Uma demonstração da estrutura da rede é apresentada na Figura \ref{rede}:
 
 \begin{figure}[h!]
