@@ -40,7 +40,7 @@ Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua
     \item \textbf{Password} - Cadastrar o usuário, máquinas e mudar senha dos usuários no servidor
 \end{itemize}
 
-Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e adição de configurações no smb.conf, mas toda vez que as configurações são alteradas e salvas ele gera um novo arquivo smb.conf e com isso apaga todos os possíveis comentários existentes no arquivo. Por se tratar de um arquivo com muitas variáveis, parâmetros e seções, nesse trabalho o foco será a edição através de editores de texto padrão como o ``vim", pois assim algumas configurações podem ser inseridas como comentários para fins de explicação ou como base para futuras modificações.
+Por se tratar de uma ferramenta gráfica o SWAT torna mais fácil a edição e adição de configurações no smb.conf, mas toda vez que as configurações são alteradas e salvas ele gera um novo arquivo smb.conf e com isso apaga todos os possíveis comentários existentes no arquivo. Por se tratar de um arquivo com muitas variáveis, parâmetros e seções, nesse trabalho o foco será a edição através de editores de texto padrão como o Vim, pois assim algumas configurações podem ser inseridas como comentários para fins de explicação ou como base para futuras modificações.
 
 \section{Iniciando Samba 3}
 
@@ -118,7 +118,7 @@ Ao longo deste trabalho diversas variáveis de substituição serão utilizadas,
 
 \section{Configuração do Samba para ser um PDC}
 
-O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no linux.
+O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no Linux.
 
 \begin{enumerate}
 	\item \textbf{\# cp /etc/samba/smb.conf /etc/samba/smb.conf.bkp} - Por motivo de segurança é recomendado fazer um backup do arquivo. Ele contém exemplos comentados das possíveis configurações do Samba 3, auxiliando o profissional de TI no momento de sua configuração.
@@ -912,4 +912,4 @@ account required /lib/security/pam_winbind.so
 session required /lib/security/pam_mkhomedir.so skel=/etc/skel umask=0022
 \end{lstlisting}
 
-As configurações acima fazem o GDM exibir uma os usuários disponíveis no servidor para login diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador.
+As configurações acima fazem com que a tela de login exiba os usuários disponíveis no servidor para ingresso diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador.
