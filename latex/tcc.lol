@@ -1,5 +1,5 @@
 \contentsline {lstlisting}{\numberline {3.1}Exemplo de utiliza\IeC {\c c}\IeC {\~a}o das vari\IeC {\'a}veis de substitui\IeC {\c c}\IeC {\~a}o}{26}{lstlisting.listoftables.3.1}
-\contentsline {lstlisting}{\numberline {3.2}Exemplo do que deve ser inserido no smb.conf para o Samba 3 como controlador de dom\IeC {\'\i }nio}{28}{lstlisting.listoftables.3.2}
+\contentsline {lstlisting}{\numberline {3.2}Vari\IeC {\'a}veis para que o Samba 3 funcione como PDC}{28}{lstlisting.listoftables.3.2}
 \contentsline {lstlisting}{\numberline {3.3}Vari\IeC {\'a}veis necess\IeC {\'a}rias para o perfil m\IeC {\'o}vel}{35}{lstlisting.listoftables.3.3}
 \contentsline {lstlisting}{\numberline {3.4}Vari\IeC {\'a}veis para cria\IeC {\c c}\IeC {\~a}o do compartilhamento profile}{36}{lstlisting.listoftables.3.4}
 \contentsline {lstlisting}{\numberline {3.5}Cria\IeC {\c c}\IeC {\~a}o de uma se\IeC {\c c}\IeC {\~a}o para compartilhamento de arquivos}{37}{lstlisting.listoftables.3.5}
