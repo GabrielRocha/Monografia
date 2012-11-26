@@ -1,6 +1,14 @@
 \chapter{ESTUDO DE CASO}
 
-Esta proposta de implantação foi motivada pelo cenário do IFF - Campus Bom Jesus do Itabapoana, que necessitava de uma otimização na segurança e compartilhamento de seus recursos de TI. Para melhor gerenciamento e manutenção dos arquivos compartilhados e usuários na rede, seria necessária a implantação de um servidor que centralizasse todas essas tarefas.
+Esta proposta de implantação foi motivada pelo cenário do IFF - Campus Bom Jesus do Itabapoana, que necessitava de uma melhora na segurança e compartilhamento de seus recursos de TI. O cenário antes da implantação dos servidores era:
+
+\begin{itemize}
+ 	\item {Usuários cadastrados localmente em cada máquina instalada no instituto} - Por estarem cadastrados localmente os usuários ficavam presos a uma única maquina e isso complicava a questão da substituição e manutenção dos computadores, já que era necessária a realização do backup e restauração do mesmo no novo computador.
+	\item {As impressoras erão instaladas localmente nos computadores} - As impressoras eram instaladas em computadores de usuário e eram mapeadas nas  máquinas que necessitavam utiliza-las, mas isso gerava uma dependência na maquina que provia a impressora para o funcionamento do compartilhamento e a mesma tinha que ficar sempre ligada.
+	\item {Arquivos compartilhados sem nenhuma segurança} - O arquivos dos setores ficavam nos computadores dos usuários e eram compartilhados para os demais mas sem nenhuma restrição para o acesso das informações contidas neles;
+\end{itemize}
+
+ Para sanar esse problemas apresentados e melhorar na utilização de alguns recursos de rede, seria necessária a implantação de um servidor que centralizasse todas essas tarefas, facilitasse a manutenção dos recursos e desse um maior controle para o administrador de rede.
 
 %Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa, atualmente, em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
 Foi iniciada uma pesquisa para encontrar um \textit{software} que atendesse a todos requisitos. O Windows Server é uma solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização em instituições de ensino e em pequenas empresas. 
@@ -134,7 +142,7 @@ browseable = no
 veto files = *.wmv / *.avi / *.wma / *.mp? / *.flv
 \end{lstlisting}
 
-Com as sessões criadas no samba, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:
+Com as sessões criadas no Samba 4, as pastas foram criadas no /srv e atribuídas as permissões 770 com o proprietário root e o GID do grupo criado no \textit{Active Directory} com o nome do setor que foi designada a pasta:
 
 \begin{enumerate}
 	\item \textbf{\# mkdir /srv/samba/ddgp}
@@ -166,4 +174,4 @@ write list = root
 inherit permissions = yes
 \end{lstlisting}
 
-Tendo realizado todo este estudo com base na rede já existente da instituição de ensino foi constatado que a implementação sugerida neste trabalho é a mais adequada para atender os objetivos já explicitados anteriormente sobre otimização e segurança.
+Tendo realizado todo este estudo com base na rede já existente da instituição  foi constatado que a implantação sugerida neste trabalho é a mais adequada para atender os objetivos. Com os novos recursos o administrador de rede foi capaz de ter um maior controle do que é provido na sua rede, melhor gerenciamento dos usuários logados na rede e bloqueio dos que não pertencem mais a instituição e podendo gerar relatórios do uso das impressoras e de quais ações foram realizadas por determinado usuário no compartilhamento de arquivo.
