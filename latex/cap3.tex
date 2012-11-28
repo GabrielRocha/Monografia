@@ -167,7 +167,7 @@ server string = Compartilhamento de Arquivos do IFF - Campus Bom Jesus do Itabap
 
 security = user
 
-netbios name = battousai
+netbios name = battousai-share	
 
 domain master = yes
 
@@ -636,8 +636,10 @@ Se o caminho apontado pelo path não existir ele terá que ser criado com as per
 	
 	\item \textbf{\# cd /var/lib/samba/printers}
 	\item \textbf{\# mkdir WIN40 W32X86} - Essas pastas são os locais onde ficarão os drivers das impressoras, o WIN40 para sistemas Windows 95/98/ME e o W32X86 Windows NT/2000/XP.
+	\item \textbf{\# chown dtic WIN40 W32X86} - Muda o proprietário da pasta para que o usuário dtic tenha permissão para escrever no diretório.
+	\item \textbf{\# smbpasswd -a dtic} - Cadastra o usuário no Samba 3. O usuário dtic já estava devidamente criado localmente no Linux.
 	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
-	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$root" SePrintOperatorPrivilege} - Irá definir que o usuário root terá todas os privilégios necessários para gerenciar as impressoras.
+	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$dtic" SePrintOperatorPrivilege} - Irá definir que o usuário dtic terá todas os privilégios necessários para gerenciar as impressoras.
 \end{enumerate}
 
 Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
