@@ -5,6 +5,11 @@ Este capitulo faz uma introdução das tecnologias utilizadas, tais como o Samba
 \section{Samba}
 
 Samba é um \textit{software} \textit{open source} que provê serviços a clientes utilizando os protocolos SMB e CIFS.
+
+SMB, que significa Server Message Block, é um protocolo de compartilhamento de arquivos, impressoras, portas seriais, e abstrações de comunicação, tais como pipes nomeados e slots de correio entre computadores.\cite{SMB}
+
+O protocolo CIFS foi um renomeamento da Microsoft de futuras versões do SMB que foram usados nos produtos Window - os dois termos podem ser usados indistintamente. \cite{SAMBA}
+
 O samba permite a interoperabilidade entre servidores Linux/Unix e clientes baseados na
 plataforma Windows.
 O samba permite que um servidor Linux seja apto a fornecer serviços como:
@@ -20,7 +25,7 @@ O samba permite que um servidor Linux seja apto a fornecer serviços como:
 
 Basicamente, o Samba é um servidor e um conjunto de ferramentas que permite o compartilhamento de arquivos e impressoras em sistemas Windows e Linux. Outra característica do Samba é poder atuar como um Controlador Primário de Domínio (PDC), armazenando perfis de usuários e realizar controle de acesso. \cite{FOCA}.
 
-\section{PDC}
+\section{PDC (Primary Domain Controller)}
 
 O Controlador de Domínio é responsável por fornecer autenticação para os clientes, sejam sistemas Linux ou Windows. Ou seja, apenas centraliza contas de usuários e fornece recursos voltados para a administração de usuários, como a gestão de perfis móveis, que são as configurações de usuários que são lidas, independente de qual máquina o usuário utilize. Em uma rede com mais de 10 clientes a necessidade de ter um PDC é mais aparente, pois fica cada vez mais difícil gerenciar as contas de clientes e máquinas conforme o crescimento da mesma. Com o Controlador de Domínio também é possível fornecer acesso por perfis móveis onde o usuário pode ter acesso à sua área de trabalho independente da máquina (da mesma rede) onde faz o login. Em contrapartida, bloqueando uma conta de usuário,automaticamente este estará bloqueado em todas as máquinas gerenciadas pelo Controlador de Domínio \cite{MORIMOTO}
 
@@ -36,11 +41,11 @@ Existe no Linux três permissões especiais, para dar segurança ao sistema, cha
     \item \textbf{STICKY} - O bit STICKY é aplicável a diretórios e faz com que a exclusão de arquivos pertencentes a estes diretórios seja apenas permitida ao dono do arquivo e ao administrador do sistema. Tem vantagem sobre a permissão “Somente Leitura” no diretório pois faz com que outros usuários possam criar e editar qualquer arquivo, impedindo-os apenas de apagá-lo.
   \end{itemize}
 
-É importante ressaltar que de nada adiantará se os arquivos e diretórios possuírem determinadas permissões locais se as concedidas através do Samba não forem compatíveis às permissões atribuídas. Por exemplo: de nada adiantará atribuir acesso de escrita a um arquivo no Linux se ele possui permissão ``Somente Leitura" no Samba. A atribuição mais negativa, ou seja, a que concede menos permissões (neste caso a ``Somente Leitura") prevalecerá sobre a outra.
+É importante ressaltar que de nada adiantará se os arquivos e diretórios possuírem uma determinada permissão local, e esta ser diferente da permissão configurada no Samba. Por exemplo: de nada adiantará atribuir acesso de escrita a um arquivo no Linux se ele possui permissão ``Somente Leitura" no Samba. A atribuição mais negativa, ou seja, a que concede menos permissões (neste caso a ``Somente Leitura") prevalecerá sobre a outra.
 
 \section{NETBIOS}
 
-Um nome NetBIOS é um endereço de 16 bytes usado para identificar um recurso NetBIOS na rede. Um nome NetBIOS é um nome único (exclusivo) ou de grupo (não exclusivo). Quando um processo de NetBIOS está comunicando-se com um processo específico em um computador específico, é usado um nome exclusivo. Quando um processo de NetBIOS está comunicando-se com vários processos em vários computadores, é usado um nome de grupo. A resolução de nomes NetBIOS significa o mapeamento bem-sucedido de um nome NetBIOS para um endereço IP.\cite{NETBIOS}
+Um nome NetBIOS é um endereço de 16 bytes usado para identificar um recurso NetBIOS na rede. Um nome NetBIOS é um nome único (exclusivo) ou de grupo (não exclusivo). Quando um processo de NetBIOS está comunicando-se com um processo específico em um computador, é usado um nome exclusivo. Quando um processo de NetBIOS está comunicando-se com vários processos em vários computadores, é usado um nome de grupo. A resolução de nomes NetBIOS significa o mapeamento bem-sucedido de um nome NetBIOS para um endereço IP.\cite{NETBIOS}
 
 O NetBIOS trabalha na camada sessão do modelo OSI (\textit{Open Systems Interconnection}), e utiliza as portas de comunicação UDP (\textit{User Datagram Protocol}) 137 e 138 para a resolução dos NetBios \textit{names} e \textit{datagrams} e 139 de comunicação TCP (\textit{Transmission Control Protocol}) para NetBios \textit{sessions}, conforme a Figura \ref{netbios}
 
@@ -85,7 +90,7 @@ DNS (\textit{Domain Name System}) é uma base de dados hierárquica e distribuí
 
 \section{BIND}
 
-BIND é um \textit{software} de código livre que implementa o Sistema de Nomes de Domínio (DNS) de protocolos para a internet. É uma referência em implementação desses protocolos, mas também possui uma produção em série de \textit{software}, adequado para uso em aplicações de alto volume e de alta confiança. BND está disponível para \textit{download} gratuito sob os termos da Licença ISC, um estilo de licença BSD. \cite{BIND}.
+BIND é um \textit{software} de código livre que implementa o Sistema de Nomes de Domínio (DNS) de protocolos para a internet. É uma referência em implementação desses protocolos, mas também possui uma produção em série de \textit{software}, adequado para uso em aplicações de alto volume e de alta confiança. O BIND está disponível para \textit{download} gratuito sob os termos da Licença ISC, um estilo de licença BSD. \cite{BIND}.
 
 \section{Kerberos}
 
