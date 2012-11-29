@@ -5,6 +5,8 @@ Primeiramente explicará todo o processo de instalação do Samba 3, algumas for
 \section{Instalação do Samba 3}
 
 O pacote Samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do Samba 3.
+
+Duas observações devem ser feitas. Na primeira, todos os comandos precedidos do síbolo ``#'' necessítam de permissões de root para serem executados, e na segunda, que todos os comandos de instalação que não informarem repositório específico, possuem suporte nas distribuições Ubuntu e Debian.
  
 \begin{enumerate}
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
@@ -21,7 +23,7 @@ O SWAT é uma ferramenta para a edição do /etc/smb.conf, porém por meio de um
     \item \textbf{\$ firefox localhost:901} - Endereço de acesso no \textit{browser} (neste caso o Firefox) para acessar o SWAT.
 \end{enumerate}
 
-Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua senha. Após o login no sistema, pode-se observar na barra de ferramentas as opções de configuração do SWAT, conforme Figura \ref{swat}. A função de cada opção é detalhada a seguir:
+Ao acessar o SWAT pelo navegador, o usuário deve informar o usuário root e sua senha para ter acesso total aos controles do SWAT. Se for realizado acesso com um usuário diferente, a visão dos controles do SWAT mudará de acordo com as permissões desse usuário no sistema. Após o login no sistema, pode-se observar na barra de ferramentas as opções de configuração do SWAT, conforme Figura \ref{swat}. A função de cada opção é detalhada a seguir:
 
 \begin{figure}[ht]
    	\centering
@@ -136,7 +138,7 @@ Ao longo deste trabalho diversas variáveis de substituição serão utilizadas,
 
 \section{Configuração do Samba para ser um PDC}
 
-O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no Linux.
+O arquivo de configuração se encontra no diretório /etc, onde está a maioria dos arquivos de configuração dos programas no Linux. Para realizar as configurações, siga as etapas que serão explicadas.
 
 Por se tratar de um arquivo de configuração mutável uma boa prática é a utilização de backups dos arquivos originais, pois caso o sistema pare de funcionar devido a uma má configuração ou seja necessário para leitura posterior, o administrador de rede terá uma copia de segurança.
 
@@ -213,10 +215,10 @@ Explicação das variáveis utilizadas:
 			\item {SePrintOperatorPrivilege} - Gerencia as impressoras
 		\end{enumerate}
 	\item \textbf{passdb backend} - Aceita valores smbpasswd ou tdbsam . Define qual será a forma de armazenagem dos registros dos usuários.
+	O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM (\textit{Software Asset Management}) estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede. Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
 		\begin{enumerate}
 			\item{smbpasswd} - O smbpasswd é o backend mais simples. Nele, as senhas são salvas no arquivo ``/etc/samba/smbpasswd" e são transmitidas de forma encriptada através da rede, com suporte ao sistema NTLM, usado pelas versões contemporâneas do Windows. A vantagem do smbpasswd é que ele é um sistema bastante simples. Embora encriptadas, as senhas são armazenadas em um arquivo de texto, com uma conta por linha.\cite{BACKEND}
 			\item{tdbsam} - O tdbsam usa uma base de dados muito mais robusta, armazenada no arquivo ``/var/lib/samba/passdb.tdb".\cite{BACKEND}
-			\item{Diferença entre smbpasswd e tdbsam} - O tdbsam oferece duas vantagens sobre o smbpasswd: oferece um melhor desempenho em servidores com um grande número de usuários cadastrados e oferece suporte ao armazenamento dos controles SAM (\textit{Software Asset Management}) estendidos usados pelas versões server do Windows. O uso do tdbsam é fortemente recomendável caso seu servidor tenha mais do que algumas dezenas de usuários cadastrados ou caso você pretenda usar seu servidor Samba como PDC da rede. Ele é também um pré-requisito caso você precise migrar um domínio NT já existente para o servidor Samba. \cite{BACKEND}
 		\end{enumerate}
 	\item \textbf{local master} - Define se o servidor será o \textit{Master Browser}.
 	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de ``os level" o servidores windows.
@@ -485,7 +487,7 @@ host allow = 192.168.1.2-192.168.1.20 # Somente os ip's que estiverem entre 192.
 veto files = *.tmp/*.doc # Nao sera permitido inserir esses tipos de arquivos no compartilhamento. Essa variavel aceita expressoes regulares
 \end{lstlisting}
 
-\section{Script Logon}
+\section{Execução de automática de comandos após o logon}
 
 Para que os mapeamentos de unidades e alguns códigos sejam executados de forma automática nos usuários logados o Samba 3 fornece a opção na seção [global]. 
 
@@ -900,7 +902,7 @@ Password:
 Joined domain DOMINIO.
 \end{lstlisting}
 
-A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
+Observação: A senha solicitada é a senha de root do servidor PDC, cadastrada no Samba.
 
 Os arquivos a serem alterados em seguida serão as os arquivos de políticas de funcionamento do PAM. Essas políticas se encontram no diretório \textbf{/etc/pam.d}, onde está contido os arquivos de configuração pra cada serviço que utilize os módulos de autenticação do PAM. O nome de um arquivo nesse diretório indica a qual serviço o arquivo de configuração se refere (portanto o arquivo \textbf{/etc/pam.d/login} fará referência ao serviço de \textit{LOGIN} do Linux).
 Para definir políticas de autenticação a um serviço, deve-se acessar o arquivo do serviço desejado acrescentar as configurações desejadas seguindo a seguinte sintaxe do Quadro \ref{pam.d}:\\
