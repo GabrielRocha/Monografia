@@ -1,6 +1,6 @@
 \chapter{SAMBA 4}
 
-O software Samba 4 vem com a proposta de criar um substituto livre para o \textit{Active Directory} livre, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind (ou um DNS interno que o próprio Samba 4 possui) e Kerberos. Esta versão vem com a intenção de ser uma evolução do Samba 3. Com o Samba 4 o administrador de rede é capaz de fornecer na rede serviços como, controle de usuários, máquinas, compartilhamento de arquivos, compartilhamento de impressoras, controle de acesso ao compartilhamento e entre outros.
+O software Samba 4 vem com a proposta de criar um substituto livre para o \textit{Active Directory}, combatendo as versões pagas da Microsoft, utilizando o LDAP, Bind (ou um DNS interno que o próprio Samba 4 possui) e Kerberos. Esta versão vem com a intenção de ser uma evolução do Samba 3. Com o Samba 4 o administrador de rede é capaz de fornecer na rede serviços como, controle de usuários, máquinas, compartilhamento de arquivos, compartilhamento de impressoras, controle de acesso ao compartilhamento e entre outros.
 Com a adoção de um \textit{Active Directory} no mesmo sistema que fornece o compartilhamento de arquivos e impressoras, o Samba 4 permite uma ligação nas configurações de permissões a usuários inseridas no compartilhamento com os usuários cadastrados no domínio, assim eliminando a divisão entre o servidor de domínio e o de compartilhamento.
 
 O sistema ainda esta em desenvolvimento mas já passou por todas as suas fases de testes iniciais alpha e beta, atualmente esta na 4º Release Candidate, mas sem data para o lançamento da versão estável.
@@ -181,7 +181,7 @@ Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o p
     \label{tela_dsa}
 \end{figure}
 
-Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do linux, conforme Figura \ref{samba-tool}.
+Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do Linux, conforme Figura \ref{samba-tool}.
 
 \begin{figure}[ht]
    	\centering
@@ -190,7 +190,7 @@ Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma fer
     \label{samba-tool}
 \end{figure}
 
-\section{Máquinas linux interagindo com o \textit{Active Directory} do  Samba4}
+\section{Máquinas Linux interagindo com o \textit{Active Directory} do  Samba4}
 
 A forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração. A seguir será apresentado um passo-a-passo para inclusão do Ubuntu no domínio \cite{UBUNTU-WIKI}. Para tal, foi utilizado como exemplo de configuração do domínio as seguintes informações:
 
@@ -469,7 +469,7 @@ Para facilitar a inserção das máquinas Linux no \textit{Active Directory} do 
 \begin{figure}[ht]
    	\centering
     \scalebox{1}{\includegraphics{figuras/smbad}}
-   	\caption{Tela do script para inserir maquinas linux no AD.}
+   	\caption{Tela do script para inserir maquinas Linux no AD.}
     \label{smbad}
 \end{figure}
 
