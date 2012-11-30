@@ -57,7 +57,7 @@ Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os s
 	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=instituto.ensino\\"--domain=ensino  "--adminpass=`Senha12' "--server-role=dc}
 \end{enumerate}
 
-Com o Samba 4 instalado e as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de DNS \textit{default} do samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
+Com o Samba 4 instalado e as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de DNS \textit{default} do Samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
 
 Por não ter uma ferramenta mais completa para o gerenciamento do Samba 4 pelo Linux, um computador com Windows XP foi designado para tal tarefa. Nele foram instalados o adminpack e o gerenciador de gpo do Windows. Por trabalharem com o mesmo protocolo como já foi dito anteriormente não houve incompatibilidades na utilização das ferramentas.
 
@@ -65,7 +65,7 @@ Os usuários foram criados a partir da interface gráfica do adminpack no Window
 
 Com os usuários cadastrados e inseridos em seus grupos, foram criadas as GPO`s com os scripts de inicialização e nelas foram definidos os mapeamentos automáticos dos compartilhamentos
 
-Foram criados compartilhamentos com os nomes dos setores mais importantes da instituição afim de melhorar e garantir o melhor trabalho das pessoas no setor. Com a intenção de melhorar o controle dos recursos de armazenamento foram impostas regras de QUOTA com o EDQUOTA que consiste em um dos principais programas gerenciadores de cota de disco no linux.
+Foram criados compartilhamentos com os nomes dos setores mais importantes da instituição afim de melhorar e garantir o melhor trabalho das pessoas no setor. Com a intenção de melhorar o controle dos recursos de armazenamento foram impostas regras de QUOTA com o EDQUOTA que consiste em um dos principais programas gerenciadores de cota de disco no Linux.
 
 \begin{itemize}
 		\item {Pasta do usuário: 20Gb}
