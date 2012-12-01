@@ -66,11 +66,15 @@ Serviço de diretório é um conjunto de atributos sobre recursos e serviços ex
 
 O \textit{Active Directory} mantém dados como contas de usuários, impressoras, grupos, computadores, servidores, recursos de rede, etc. Ele pode ser totalmente escalonável, aumentando conforme a necessidade.\cite{LOSANO}
 
+Os controladores de domínio armazenam dados de diretório e gerenciam a comunicação entre usuários e domínios, inclusive processos de logon do usuário, autenticação e pesquisas de diretório. Os controladores de domínio sincronizam dados de diretório usando a replicação com vários mestres, o que garante a consistência das informações no decorrer do tempo.\cite{AD}
+
 \section{LDAP}
 
 O LDAP (\textit{Lightweight Directory Access Protocol}) é o protocolo responsável por fornecer Serviço de Diretórios a computadores Windows de forma similar ao \textit{Active Directory} da Microsoft, que é baseado no LDAP. Tais serviços incluem conexões de computadores, grupos de computadores, usuários, administração de identidades, além de possibilitar uma maneira eficiente de descrever, localizar e administrar esses recursos. Essa estrutura do LDAP pode ser vista na Figura \ref{ldap}
 
 LDAP é um protocolo para acessar informações contidas em um diretório. Por ser um protocolo cliente/servidor o LDAP permite navegar, ler, armazenar e pesquisar informações e realizar tarefas de gerenciamento em um serviço de diretórios. O serviço de diretório é um banco de dados otimizado para leitura, navegação e pesquisas \cite{TRIGO}.
+
+\pagebreak
 
 \begin{figure}[ht]
    	\centering
