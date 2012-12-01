@@ -27,10 +27,6 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: abnt-options.bib
 Database file #2: referencia.bib
-Repeated entry---line 138 of file referencia.bib
- : @misc{NETBIOS
- :              ,
-I'm skipping whatever remains of this entry
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
@@ -42,45 +38,44 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 | Em caso de duvidas ou problemas com este estilo procure |
 | http://abntex.codigolivre.org.br                        |
 +---------------------------------------------------------+
-You've used 22 entries,
+You've used 24 entries,
             6523 wiz_defined-function locations,
-            1287 strings with 11896 characters,
-and the built_in function-call counts, 11702 in all, are:
-= -- 973
-> -- 165
+            1296 strings with 12191 characters,
+and the built_in function-call counts, 12715 in all, are:
+= -- 1043
+> -- 180
 < -- 0
-+ -- 100
-- -- 55
-* -- 640
-:= -- 1482
-add.period$ -- 71
-call.type$ -- 23
-change.case$ -- 127
-chr.to.int$ -- 20
-cite$ -- 20
-duplicate$ -- 610
-empty$ -- 1297
-format.name$ -- 253
-if$ -- 2997
++ -- 105
+- -- 60
+* -- 697
+:= -- 1599
+add.period$ -- 78
+call.type$ -- 25
+change.case$ -- 140
+chr.to.int$ -- 22
+cite$ -- 22
+duplicate$ -- 663
+empty$ -- 1418
+format.name$ -- 276
+if$ -- 3258
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 356
-newline$ -- 99
-num.names$ -- 55
-pop$ -- 458
+missing$ -- 388
+newline$ -- 108
+num.names$ -- 60
+pop$ -- 502
 preamble$ -- 1
-purify$ -- 66
+purify$ -- 72
 quote$ -- 0
-skip$ -- 833
+skip$ -- 907
 stack$ -- 1
-substring$ -- 411
-swap$ -- 224
+substring$ -- 449
+swap$ -- 242
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 77
+while$ -- 84
 width$ -- 0
-write$ -- 286
-(There was 1 error message)
+write$ -- 313

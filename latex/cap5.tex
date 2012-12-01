@@ -27,8 +27,6 @@ A instituição contém 110 computadores nos setores administrativos e 90 nos la
    	\caption{Estrutura da rede do instituto}
     \label{rede}
 \end{figure}
-
-\pagebreak
           				
 Os setores são divididos conforme suas funções no organograma da instituição. Os principais são:
 
@@ -54,7 +52,7 @@ Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os s
 
 \begin{enumerate}
 	\item \textbf{\# cd /usr/local/samba/}
-	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=instituto.ensino\\"--domain=ensino  "--adminpass=`Senha12' "--server-role=dc}
+	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=iff.bomjesus\\"--domain=iff  "--adminpass=`Senha12' "--server-role=dc}
 \end{enumerate}
 
 Com o Samba 4 instalado e as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de DNS \textit{default} do Samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
@@ -81,7 +79,7 @@ comment = Chefia de gabinete
 
 path = /srv/samba/chefia
 
-valid users = usuario1, usuario2 # Usuarios do setor
+valid users = joao, mauricio # Usuarios do setor
 
 read only = no
 
@@ -95,7 +93,7 @@ comment = Diretoria do Departamento de Administracao e Financas
 
 path = /srv/samba/ddaf
 
-valid users = usuario3, usuario4 # Usuarios do setor
+valid users = sandra, fabricia # Usuarias do setor
 
 read only = no
 
@@ -109,7 +107,7 @@ comment = Diretoria do Departamento de Gestao de Pessoas
 
 path = /srv/samba/ddgp
 
-valid users = usuario5, usuario6 # Usuarios do setor
+valid users = simone # Usuaria do setor
 
 read only = no
 
@@ -123,7 +121,7 @@ comment = Coordenacao de Registros Academicos
 
 path = /srv/samba/cra
 
-valid users = usuario7, usuario8 # Usuarios do setor
+valid users = andre, rafael # Usuarios do setor
 
 read only = no
 

@@ -95,6 +95,18 @@ Disponível em
 {SCRIMGER PAUL~LASALLE, M.~P. R. \emph{TCP/IP - A Bíblia}. Rio de Janeiro:
   Campus, 2002.}
 
+\bibitem[Sharpe 2002]{SMB}
+\abntrefinfo{Sharpe}{SHARPE}{2002}
+{SHARPE, R. \emph{Just what is SMB?} 2002.
+Http://www.samba.org/cifs/docs/what-is-smb.html Acesso em Novembro de 2012.}
+
+\bibitem[Sistemas Telematicos 2010]{NETBIOS_}
+\abntrefinfo{Sistemas Telematicos}{SISTEMAS TELEMATICOS}{2010}
+{SISTEMAS TELEMATICOS. \emph{Sistema NetBios}. 2010.
+Disponível em
+  http://sistemastelematicosraf.blogspot.com.br/2010/12/sistema-netbios.html.
+  Acesso em Outubro de 2012.}
+
 \bibitem[THE OPENLDAP FOUNDATION 2003]{LDAP}
 \abntrefinfo{THE OPENLDAP FOUNDATION}{THE OPENLDAP FOUNDATION}{2003}
 {THE OPENLDAP FOUNDATION. \emph{OpenLdap 2.1 Administrator's Guide.} 2003.
@@ -109,7 +121,6 @@ Disponível em http://www.bind9.net/manual/openldap/2.1/intro.html. Acesso em
 \bibitem[Ubuntu Br 2011]{UBUNTU-WIKI}
 \abntrefinfo{Ubuntu Br}{UBUNTU BR}{2011}
 {UBUNTU BR. \emph{Autenticando AD}. 2011.
-Http://wiki.ubuntu-br.org/AutenticandoAD.
-Acesso em: 10/08/2012.}
+Http://wiki.ubuntu-br.org/AutenticandoAD Acesso em Outubro de 2012.}
 
 \end{thebibliography}

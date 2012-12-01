@@ -6,7 +6,7 @@ Primeiramente explicará todo o processo de instalação do Samba 3, algumas for
 
 O pacote Samba 3 pode ser instalado através do repositório de sistemas da distribuição Linux na qual será configurado (neste trabalho foram utilizadas as distribuições Ubuntu 11.04 e Debian 6.0.5). Antes da instalação é necessário atualizar a base de dados do repositório para que possa instalar a versão mais atual do Samba 3.
 
-Duas observações devem ser feitas. Na primeira, todos os comandos precedidos do síbolo ``#'' necessítam de permissões de root para serem executados, e na segunda, que todos os comandos de instalação que não informarem repositório específico, possuem suporte nas distribuições Ubuntu e Debian.
+Duas observações devem ser feitas. Na primeira, todos os comandos precedidos do síbolo ``\#'' simboliza a execução como root, e na segunda, que todos os comandos de instalação que não informarem repositório específico, possuem suporte nas distribuições Ubuntu e Debian.
  
 \begin{enumerate}
     \item \textbf{\# apt-get update} - Atualiza a base de dados do repositório no Ubuntu.
@@ -308,6 +308,8 @@ O script tem que ter a permissão de root para que possa ser iniciado.
 
 Para que o Windows possa reconhecer um grupo de usuários administradores do Linux como Power Users e Domain Users deve se mapear os grupos pelo RID dos mesmos. A Tabela \ref{tab} apresenta alguns dos grupos e seus respectivos RID (\textit{Relative Identifier}). Os comandos a seguir devem ser utilizados para mapear esses grupos no Samba 3.
 
+\pagebreak
+
 \begin{table}[h!]
 	\centering
 	\caption{Tabela do RID (\textit{Relative Identifier}) Windows \cite{RID}}
@@ -348,8 +350,6 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do Lin
 	\end{tabular}
 	\label{tab}
 \end{table}
-
-\clearpage
 
 \begin{itemize}
 	\item \textbf{\# net groupmap list} - Liste os grupos existentes mapeados, caso não tenha o grupo siga os passos a seguir.
@@ -454,7 +454,7 @@ browseable = no
 
 \begin{itemize}
 	\item \textbf{read only} - Define se o compartilhamento estará com permissão de somente leitura ou não.
-	\item \textbf{Valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuários.
+	\item \textbf{valid users} - Define quais usuários e grupos poderão acessar o compartilhamento. O símbolo de + define que o nome inserido esta se referindo a um grupo de usuários.
 	\item \textbf{force group} - Força qual será o grupo proprietário dos arquivos criados no compartilhamento.
 	\item \textbf{create mask} - Permissão dos arquivos que forem criados ou inseridos no compartilhamento
 	\item \textbf{directory mask} - Permissão dos diretórios criados dentro do diretório compartilhados.
@@ -478,9 +478,9 @@ Existem outras variáveis que podem ser adicionadas em um compartilhamento de ar
 \begin{lstlisting}[caption=Aplicação de algumas variáveis no Samba 3,label={smb_variavel}]
 [Backup]
 
-write list = usuario1 # Somente o usuario1 tera permissao de escrita no compartilhamento.
+write list = gabriel # Somente o usuario gabriel tera permissao de escrita no compartilhamento.
 
-read list = usuario2 # O usuario2 so podera ler e listas os arquivos e diretorios desse compartilhamento.
+read list = felipe # O usuario felipe so podera ler e listas os arquivos e diretorios desse compartilhamento.
 
 host allow = 192.168.1.2-192.168.1.20 # Somente os ip's que estiverem entre 192.168.1.2 e 192.168.1.20 poderao acessar esse compartilhamento.
 
@@ -523,11 +523,15 @@ O local onde foi definido que irá conter os scripts e os arquivos (/var/samba/s
 	\item \textbf{\# chmod 1775 /var/samba/scripts} - Permissão de execução dos scripts.
 \end{enumerate}
 
-Exemplo de um script diretoria.bat no Quadro \ref{net_use} e seu resultado na Figura \ref{mapeamento}\\
+Exemplo de um script diretoria.bat no Quadro \ref{net_use}.\\
 
 \begin{lstlisting}[caption=Comando para mapeamento automático de uma pasta compartilhada,label={net_use}]
 net use x: \\servidor\diretoria
 \end{lstlisting}
+
+O resultado da execução do \textit{script} após o \textit{login} pode ser visto na Figura \ref{mapeamento}
+
+\pagebreak
 
 \begin{figure}[h!]
    	\centering
@@ -682,47 +686,50 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 %	\pagebreak
 	
  	\item \textbf{Aba Driver -$>$ Adicionar} - Figura \ref{adicionar_driver}
+
+	\pagebreak
+
 	\begin{figure}[ht]
 	   	\centering
-	    \includegraphics[width=0.7 \textwidth]{figuras/adicionar_driver}
+	    \includegraphics[width=0.5 \textwidth]{figuras/adicionar_driver}
 	   	\caption{Adicionar driver ao servidor de impressão}
 	    \label{adicionar_driver}
 	\end{figure}
 	
-	\pagebreak
-	
 	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - Figura \ref{selecionar_driver}
-	\begin{figure}[ht]
+	\begin{figure}[h!]
 	   	\centering
 	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_driver}
 	   	\caption{Selecionar o driver que será copiado para o servidor de impressão}
 	    \label{selecionar_driver}
 	\end{figure}
 	
+	\pagebreak
 	
 	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - Figura \ref{selecionar_so}
 	\begin{figure}[ht]
 	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_so}
+	     \includegraphics[width=0.6 \textwidth]{figuras/selecionar_so}
 	   	\caption{Selecionar os Sistemas Operacional que o driver será compatível}
 	    \label{selecionar_so}
 	\end{figure}
 	
-	\pagebreak
+%	\pagebreak
 	
 	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - Figura \ref{propriedade_impressora}
 	\begin{figure}[ht]
 	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/propriedade_impressora}
+	     \includegraphics[width=0.5 \textwidth]{figuras/propriedade_impressora}
 	   	\caption{Propriedade da impressora do compartilhamento}
 	    \label{propriedade_impressora}
 	\end{figure}
 
+\pagebreak
 	
 	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - Figura \ref{opcao_nao}
 	\begin{figure}[ht]
 	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/opcao_nao}
+	     \includegraphics[width=1 \textwidth]{figuras/opcao_nao}
 	   	\caption{Opção para não instalar o driver naquele momento}
 	    \label{opcao_nao}
 	\end{figure}
@@ -778,33 +785,35 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	\item {Realize logon no Windows com uma conta que possua privilégios administrativos. - Figura \ref{logon_local_adm}}
 	\begin{figure}[ht]
    			\centering
-   			\includegraphics[width=0.7 \textwidth]{figuras/logon_local_adm}
+   			\includegraphics[width=0.5 \textwidth]{figuras/logon_local_adm}
    			\caption{Tela de logon local}
     		\label{logon_local_adm}
 	\end{figure}
 
 	\item {Após o logon, deve-se abrir o programa Executar no menu Iniciar e acessar as Propriedades do Sistema através do comando ``sysdm.cpl".}
 
+\pagebreak 
+
 	\item {Acessar a aba ``Nome do Computador". Deve-se clicar no botão ``Alterar". - Figura \ref{alterar_nome_micro}}
 
 		\begin{figure}[ht]
 	   			\centering
-	   		 	\includegraphics[width=0.7 \textwidth]{figuras/alterar_nome_micro}
+	   		 	\includegraphics[width=0.4 \textwidth]{figuras/alterar_nome_micro}
 	   			\caption{Alterando nome do micro}
 	    		\label{alterar_nome_micro}
 		\end{figure}
 		 
-		\pagebreak 
+%		\pagebreak 
 
-	\item {No menu de ``Alterações de nome do computador", certifique-se de que o nome definido para o computador é o mesmo que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do domínio definido na sessão [global] do Samba 3 e depois clique em OK. - Figura \ref{incluir_dominio}} 
+	\item {No menu de ``Alterações de nome do computador", informe o nome do computador que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do definido no \textit{WORKGROUP} no Samba 3 e depois clique em OK. - Figura \ref{incluir_dominio}} 
 			\begin{figure}[ht]
 		   			\centering
-		   		 	\includegraphics[width=0.7 \textwidth]{figuras/incluir_dominio}
+		   		 	\includegraphics[width=0.4 \textwidth]{figuras/incluir_dominio}
 		   			\caption{Incluir micro no domínio}
 		    		\label{incluir_dominio}
 			\end{figure}
 	 
-	%\pagebreak
+\pagebreak
 	
 	\item {Insira a senha de administrador do servidor para o micro ingressar no domínio. E aguarde a mensagem de confirmação.} 
 	
@@ -813,7 +822,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	\item {Após inicialização o micro, selecione o domínio para realizar o logon e entre com um usuário e senha que esteja cadastrados previamente no servidor. - Figura \ref{logon}}
 	\begin{figure}[ht]
 			\centering
-	 		\includegraphics[width=0.7 \textwidth]{figuras/logon}
+	 		\includegraphics[width=0.6 \textwidth]{figuras/logon}
 			\caption{Efetuando logon no domínio}
 			\label{logon}
 	\end{figure}
@@ -838,7 +847,7 @@ Após a instalação é necessário realizar a configuração do micro para que 
 \begin{lstlisting}[caption=Arquivo smb.conf com as variáveis necessárias para fazer login em um domínio,label={login_global_smb}]	
 [global]
 
-workgroup = Dominio
+workgroup = IFF.BOMJESUS
 
 netbios name = cliente1
 
@@ -890,10 +899,10 @@ Depois de concluídas as configurações, é necessário reiniciar o Samba e o W
 \end{enumerate}
 
 
-Para testar a configuração realizada deve-se fazer o ingresso no domínio conforme abaixo. Será retornada uma mensagem de sucesso como a do Quadro \ref{result_join}.\\
+Para testar a configuração realizada deve-se fazer o ingresso no domínio conforme abaixo. Será retornada uma mensagem de sucesso como a do Quadro \ref{result_join}.
 
 \begin{itemize}
-	\item \#net rpc join member -U root
+	\item \#net rpc join member -U root 
 \end{itemize}
 
 \begin{lstlisting}[caption=Resultado quando a máquina é adicionada com sucesso no domínio,label={result_join}]	
@@ -929,8 +938,6 @@ session required pam_winbind.so
 \end{lstlisting}
 
 No arquivo \textbf{/etc/pam.d/gdm} deve-se comentar todo o seu conteúdo e adicionar as linhas contidas no Quadro \ref{pam_gdm} ao inicio do arquivo:\\
-
-\pagebreak
 
 \begin{lstlisting}[caption=Arquivo /etc/pam.d/gdm,label={pam_gdm}]	
 auth required /lib/security/pam_securetty.so

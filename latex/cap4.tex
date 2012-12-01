@@ -53,11 +53,11 @@ Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl 
 
 \begin{figure}[ht]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/fstab}}
+    \includegraphics[width=0.8 \textwidth]{figuras/fstab}
    	\caption{Tela do fstab.}
     \label{fstab}
 \end{figure}
-
+ 
 \pagebreak
 
 Por padrão o Samba 4 é instalado no /usr/local/samba.
@@ -69,7 +69,7 @@ Por padrão o Samba 4 é instalado no /usr/local/samba.
 A instalação do Samba 4 é realizada através do samba-tools, uma ferramenta que acompanha o Samba 4, que fica localizado na pasta bin do Samba 4. Deve-se usar as opções ``domain provision" e após inserir alguns parâmetros importantes para a configuração do domínio, conforme comando abaixo. Os parâmetros serão detalhados a seguir.
 
 \begin{itemize}
-	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=NOME\_DO\_SERVIDOR  \\"--domain=NOME\_DOMINIO  "--adminpass=`Senha12' "--server-role=dc}
+	\item \textbf{\# bin/samba-tool domain provision "--use-ntvfs "--realm=iff.bomjesus  \\"--domain=iff  "--adminpass=`Senha12' "--server-role=dc}
 \end{itemize}
 
 \begin{enumerate}
@@ -97,13 +97,13 @@ Criar um link do executável do Samba no /etc/init.d/
 Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
 
 \begin{itemize}
-	\item \textbf{\# echo ``export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH" $>$$>$ /root/.bashrc}
+	\item \textbf{\# echo ``export PATH=/usr/local/samba/sbin:/usr/local/samba/bin:\$PATH" $>$$>$ \\ /root/.bashrc}
 \end{itemize}
 
 Por padrão o Samba 4 vem com uma servidor interno de DNS, facilitando a criação das zonas e dos mapeamentos. Para a resolução dos nome deve definir o ip da própria maquina como seu dns primário. Cabe resaltar que os micros clientes do domínio devem ser configurados para usar o servidor do Samba 4 como DNS primário.
 
 \begin{itemize}
-	\item \textbf{\# echo ``domain NOME DOMINIO nameserver IP DO SERVIDOR" $>$ /etc/resolv.conf}
+	\item \textbf{\# echo ``domain iff nameserver 192.168.0.1" $>$ /etc/resolv.conf}
 \end{itemize}
 
 Mesmo contendo um servidor de dns interno o Samba 4 também trabalha com servidores externos, BIND9 versão 9.7 ou mais nova, onde alguns parâmetros de configuração são passados no named.conf.local e named.conf.options para a criação das zonas e atualização automática com o Kerberos.
@@ -122,7 +122,7 @@ directory '/usr/local/bind/var/run/named';
 
 tkey-gssapi-keytab '/usr/local/samba/private/dns.keytab'; 
 
-tkey-domain 'nome_do_realm_samba';
+tkey-domain 'iff.bomjesus';
 	
 };
 \end{lstlisting}
@@ -152,9 +152,9 @@ Após instalar os pacotes, substitua-se o /etc/krb5.conf pelo arquivo criado e p
 Teste para verificar se todos as configurações foram realizadas corretamente.
 
 \begin{itemize}
-	\item \textbf{\# host -t SRV \_ldap.\_tcp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.``nome do realm sem aspas" has SRV record 0 100 389 server.``nome do realm sem aspas".}
-	\item \textbf{\# host -t SRV \_kerberos.\_udp.``nome do realm sem aspas".} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.``nome do realm sem aspas" has SRV record 0 100 88 server.``nome do realm sem aspas".}
-	\item \textbf{\# host -t A ``nome do realm sem aspas"} - O resultado deve ser parecido : \textbf{``nome do realm sem aspas" has address ``ip do servidor".} 
+	\item \textbf{\# host -t SRV \_ldap.\_tcp.IFF.BOMJESUS.} - O resultado deve ser parecido : \textbf{\_ldap.\_tcp.IFF.BOMJESUS has SRV record 0 100 389 server.``nome do realm sem aspas".}
+	\item \textbf{\# host -t SRV \_kerberos.\_udp.IFF.BOMJESUS.} - O resultado deve ser parecido : \textbf{\_kerberos. \_udp.IFF.BOMJESUS has SRV record 0 100 88 server.IFF.BOMJESUS.}
+	\item \textbf{\# host -t A IFF.BOMJESUS} - O resultado deve ser parecido : \textbf{IFF.BOMJESUS has address 192.168.0.1.} 
 \end{itemize}
 
 \section{Gerenciando o Samba4 através do Windows e do Linux}
@@ -172,8 +172,6 @@ Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o p
     \label{dsa}
 \end{figure}
  
-%\pagebreak
-
 \begin{figure}[h!]
    	\centering
     \includegraphics[width=0.7 \textwidth]{figuras/addsa}
@@ -183,16 +181,20 @@ Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o p
 
 Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do Linux, conforme Figura \ref{samba-tool}.
 
+\pagebreak
+
 \begin{figure}[ht]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/samba-tool}}
+    \includegraphics[width=0.7 \textwidth]{figuras/samba-tool}
    	\caption{samba-tool no terminal.}
     \label{samba-tool}
 \end{figure}
 
 \section{Máquinas Linux interagindo com o \textit{Active Directory} do  Samba4}
 
-A forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração. A seguir será apresentado um passo-a-passo para inclusão do Ubuntu no domínio \cite{UBUNTU-WIKI}. Para tal, foi utilizado como exemplo de configuração do domínio as seguintes informações:
+A forma de incluir uma maquina Ubuntu no \textit{Active Directory} é modificar alguns arquivos de configuração. A seguir será apresentado um passo-a-passo para inclusão do Ubuntu no domínio \cite{UBUNTU-WIKI}. Segue abaixo os procedimentos descritos na \textit{Wiki} do Ubuntu.
+
+Para tal, foi utilizado como exemplo de configuração do domínio as seguintes informações:
 
 Descrição das variáveis que serão utilizadas na configuração e seus valores.
 
@@ -490,20 +492,20 @@ Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Act
 
 %O procedimento para ingressar um computador Windows no domínio através do Samba 4 é o mesmo executado no caso do Samba 3, porém, no caso do Samba 4 o computador a ser ingressado no domínio não necessita estar cadastrado no servidor pois no momento em que o micro for ingressado no domínio, será automaticamente criada uma conta de máquina com o nome do computador pelo Samba 4.
 %Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
-O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo executado no Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente no Samba 4 através do Kerberos.
-Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
+O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo do Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente do através do Kerberos.
+Em adição aos procedimentos do Samba 3, para ingressar o computador Windows no domínio Samba 4, o DNS do computador deve ser o IP do Samba 4. Para mudar o DNS deve-se:
 \begin{itemize}
 	\item Acessar as conexões de rede através do Painel de Controle. Figura \ref{conexoes_rede}
-	\begin{figure}[ht]
+	\begin{figure}[h!]
 			\centering
-	 		\includegraphics[width=0.7 \textwidth]{figuras/conexoes_rede}
+	 		\includegraphics[width=0.5 \textwidth]{figuras/conexoes_rede}
 			\caption{Acessando as Conexões de Rede}
 			\label{conexoes_rede}
 	\end{figure}	
 	\item Acessar as propriedades da conexão de rede ativa. Figura \ref{propriedades_conexao}
 	\begin{figure}[h!]
 			\centering
-	 		\includegraphics[width=0.7 \textwidth]{figuras/propriedades_conexao}
+	 		\includegraphics[width=0.4 \textwidth]{figuras/propriedades_conexao}
 			\caption{Acessando as propriedades da conexão ativa}
 			\label{propriedades_conexao}
 	\end{figure}
@@ -513,7 +515,7 @@ Em adição aos procedimentos realizados no Samba 3, para ingressar o computador
 	\item Incluir o IP do servidor Samba 4 no campo de DNS. Figura \ref{propriedades_tcpip}
 	\begin{figure}[ht]
 			\centering
-	 		\includegraphics[width=0.7 \textwidth]{figuras/propriedades_tcpip}
+	 		\includegraphics[width=0.5 \textwidth]{figuras/propriedades_tcpip}
 			\caption{Incluindo o IP do servidor Samba 4 no campo de DNS}
 			\label{propriedades_tcpip}
 	\end{figure}

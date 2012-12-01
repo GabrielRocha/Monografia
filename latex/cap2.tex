@@ -45,16 +45,18 @@ Existe no Linux três permissões especiais, para dar segurança ao sistema, cha
 
 \section{NETBIOS}
 
-Um nome NetBIOS é um endereço de 16 bytes usado para identificar um recurso NetBIOS na rede. Um nome NetBIOS é um nome único (exclusivo) ou de grupo (não exclusivo). Quando um processo de NetBIOS está comunicando-se com um processo específico em um computador, é usado um nome exclusivo. Quando um processo de NetBIOS está comunicando-se com vários processos em vários computadores, é usado um nome de grupo. A resolução de nomes NetBIOS significa o mapeamento bem-sucedido de um nome NetBIOS para um endereço IP.\cite{NETBIOS}
+Um nome NetBIOS é um endereço de 16 bytes usado para identificar um recurso NetBIOS na rede. Um nome NetBIOS é um nome único (exclusivo) ou de grupo (não exclusivo). Quando um processo de NetBIOS está comunicando-se com um processo específico em um computador, é usado um nome exclusivo. Quando um processo de NetBIOS está comunicando-se com vários processos em vários computadores, é usado um nome de grupo. A resolução de nomes NetBIOS significa o mapeamento bem-sucedido de um nome NetBIOS para um endereço IP.\cite{NETBIOS_}
 
 O NetBIOS trabalha na camada sessão do modelo OSI (\textit{Open Systems Interconnection}), e utiliza as portas de comunicação UDP (\textit{User Datagram Protocol}) 137 e 138 para a resolução dos NetBios \textit{names} e \textit{datagrams} e 139 de comunicação TCP (\textit{Transmission Control Protocol}) para NetBios \textit{sessions}, conforme a Figura \ref{netbios}
 
 \begin{figure}[ht]
    	\centering
-    \scalebox{1}{\includegraphics{figuras/netbios}}
+    \includegraphics[width=0.5 \textwidth]{figuras/netbios}
    	\caption{Estrutura do funcionamento da NetBios \cite{NETBIOS}}
     \label{netbios}
 \end{figure}
+
+\pagebreak
 
 \section{\textit{Active Directory}}
 
