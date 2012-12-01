@@ -11,7 +11,7 @@ Esta proposta de implantação foi motivada pelo cenário do IFF - Campus Bom Je
  Para sanar esse problemas apresentados e melhorar na utilização de alguns recursos de rede, seria necessária a implantação de um servidor que centralizasse todas essas tarefas, facilitasse a manutenção dos recursos e desse um maior controle para o administrador de rede.
 
 %Após identificada a necessidade desse novo recurso, foi iniciada uma pesquisa para encontrar um software que atendesse os requisitos. O Windows Server em todas as suas versões até hoje lançadas poderia ser a solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa, atualmente, em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização da mesma nas instituições  de ensino e em pequenas empresas. 
-Foi iniciada uma pesquisa para encontrar um \textit{software} que atendesse a todos requisitos. O Windows Server é uma solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa em torno de 10 mil reais \cite{SERVER}. O alto valor da licença acaba inviabilizando a utilização em instituições de ensino e em pequenas empresas. 
+Foi iniciada uma pesquisa para encontrar um \textit{software} que atendesse a todos requisitos. O Windows Server é uma solução, mas é proprietário e o valor de uma licença da versão 2012 \textit{Datacenter} custa em torno de 10 mil reais \cite{SERVER}. O alto valor da licença  e da capacitação de profissionais para trabalhar com os mesmos, acaba inviabilizando a utilização em instituições de ensino e em pequenas empresas. 
 Para solucionar esse problema da compra de licenças foi criada uma versão livre, o Samba 4, que faz as mesmas tarefas de um Windows Server, trabalhando com o mesmo protocolo, o LDAP. Pelo custo benefício, o Samba 4 foi utilizada neste trabalho.
 
 O Samba 3 é mais estável, e portanto é mais recomendado em redes de médio porte, porém não se comporta como \textit{Active Directory} e não permite \textit{polices}, mas realiza a autenticação dos usuários, compartilhamento de arquivos e impressoras.
@@ -19,7 +19,7 @@ O Samba 3 e Samba 4 não podem ser instalados e configurados no mesmo servidor p
 
 %A instituição abordada neste trabalho contém 110 computadores nos setores administrativos e 90 nos laboratórios de informática. Abaixo uma pequena demonstração da estrutura da rede \ref{rede}:
 
-A instituição contém 110 computadores nos setores administrativos e 90 nos laboratórios de informática. Uma demonstração da estrutura da rede é apresentada na Figura \ref{rede}:
+A instituição contém 150 computadores nos setores administrativos com 1 usuário por computador. A Estrutura vislumbra apenas o setor administrativo, visto que nesse setor, a necessidade de organização e de atendimento de incidentes é mais urgente. Uma demonstração da estrutura da rede é apresentada na Figura \ref{rede}:
 
 \begin{figure}[h!]
    	\centering
@@ -28,15 +28,14 @@ A instituição contém 110 computadores nos setores administrativos e 90 nos la
     \label{rede}
 \end{figure}
           				
-Os setores são divididos conforme suas funções no organograma da instituição. Os principais são:
+Os setores são divididos conforme suas funções no organograma da instituição. Através de reunião com o administrativo da intituição, foram definidos em comum acordo que os principais setores são:
 
-* Diretoria do Departamento de Administração e Finanças
-
-* Diretoria do Departamento de Gestão de Pessoas
-
-* Coordenação de Registros Acadêmicos
-
-* Chefia de Gabinete
+\begin{enumerate}
+	\item{Diretoria do Departamento de Administração e Finanças}
+	\item{Diretoria do Departamento de Gestão de Pessoas}
+	\item{Coordenação de Registros Acadêmicos}
+	\item{Chefia de Gabinete}
+\end{enumerate}
 
 Com a proposta de implantação abordada neste trabalho, cada setor e usuário terá na rede um compartilhamento próprio, com suas permissões definidas. Um servidor foi inserido na rede com o sistema operacional Debian 6.0.5 e com as seguintes configurações:
 
@@ -47,7 +46,7 @@ Com a proposta de implantação abordada neste trabalho, cada setor e usuário t
 	\item{Placas de vídeo, áudio e rede Onboard}
 \end{itemize}
 
-Antes da instalação do Samba 4 seus pré requisitos foram instalados e o Kerberos Heimdal com suas variáveis de ambiente.
+Antes da instalação do Samba 4 como pré requisitos foram instalados e o Kerberos Heimdal com suas variáveis de ambiente.
 Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os seguintes parâmetros.
 
 \begin{enumerate}
@@ -57,7 +56,7 @@ Após a configuração dos sistemas básicos, o Samba 4 foi configurado com os s
 
 Com o Samba 4 instalado e as configurações básicas realizadas, foram feitas as modificações necessárias para que fosse utilizado o servidor de DNS \textit{default} do Samba 4. Foi inserido no domínio do \textit{Active Directory} todas as máquinas que se encontram na rede. Windows XP, através do processo manual e as máquinas Linux, através do script smbad.sh.
 
-Por não ter uma ferramenta mais completa para o gerenciamento do Samba 4 pelo Linux, um computador com Windows XP foi designado para tal tarefa. Nele foram instalados o adminpack e o gerenciador de gpo do Windows. Por trabalharem com o mesmo protocolo como já foi dito anteriormente não houve incompatibilidades na utilização das ferramentas.
+Por não ter uma ferramenta mais completa para o gerenciamento do Samba 4 pelo Linux, um computador com Windows XP foi designado para tal tarefa. Nele foram instalados o adminpack e o gerenciador de GPO do Windows. Por trabalharem com o mesmo protocolo como já foi dito anteriormente não houve incompatibilidades na utilização das ferramentas.
 
 Os usuários foram criados a partir da interface gráfica do adminpack no Windows, respeitando os requisitos de nome completo, ramal da sala, sala, entre outras informações que auxiliam na identificação dos usuários no AD e inseridos nos respectivos grupos dos seus setores.
 
