@@ -479,7 +479,6 @@ Para facilitar a inserção das máquinas Linux no \textit{Active Directory} do 
 
 Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios. Uma solução para tal problema é identificar o código do usuário ou grupo no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
 
-%\begin{itemize}
 \noindent \textbf{\# /usr/local/samba/bin/wbinfo "--name-to-sid USERNAME} - O resultado deve ser o sid do usuário no Samba. Exemplo : S-1-5-21-4036476082-4153129556-3089177936-1005 SID\_USER.
 
 \noindent \textbf{\# /usr/local/samba/bin/wbinfo "--sid-to-uid S-1-5-21-4036476082-4153129556-3089177936-1005} - Mostra o id do usuário e é a referência do usuário local com o do Samba 4.
@@ -490,8 +489,6 @@ Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Act
 
 \section{Windows no domínio Samba 4}
 
-%O procedimento para ingressar um computador Windows no domínio através do Samba 4 é o mesmo executado no caso do Samba 3, porém, no caso do Samba 4 o computador a ser ingressado no domínio não necessita estar cadastrado no servidor pois no momento em que o micro for ingressado no domínio, será automaticamente criada uma conta de máquina com o nome do computador pelo Samba 4.
-%Em adição aos procedimentos realizados no Samba 3, para ingressar o computador Windows no domínio pelo Samba 4, deve ser informado o IP do servidor no campo de DNS das configurações de Rede. Para configurar o IP de DNS deve-se:
 O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo do Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente do através do Kerberos.
 Em adição aos procedimentos do Samba 3, para ingressar o computador Windows no domínio Samba 4, o DNS do computador deve ser o IP do Samba 4. Para mudar o DNS deve-se:
 \begin{itemize}

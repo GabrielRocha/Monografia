@@ -222,7 +222,6 @@ Explicação das variáveis utilizadas:
 		\end{enumerate}
 	\item \textbf{local master} - Define se o servidor será o \textit{Master Browser}.
 	\item \textbf{os level} - Valor que será passado na eleição para definir o mestre da rede. O valor máximo é 100, assim vencendo os valores padrões de ``os level" o servidores Windows.
-%	\item \textbf{win support} - Se nmbd será um servidor WINS.
 	\item \textbf{map to guest} - Torna usuário guest todos que não conseguirem se identificar com um login e senha valida.
 	\item \textbf{panic action} - Comando que será executado caso o smbd ou nmbd parem de funcionar.
 \end{itemize}
@@ -344,7 +343,7 @@ Para que o Windows possa reconhecer um grupo de usuários administradores do Lin
 		Builtin Print Operators	& 550 & Alias & No \\
 		Builtin Backup Operators & 551 & Alias & No \\
 		Builtin Replicator & 552 & Alias & No \\
-		%Builtin RAS Servers & 553 & Alias & No \\
+		Builtin RAS Servers & 553 & Alias & No \\
 		 	
 		\hline
 	\end{tabular}
@@ -624,7 +623,9 @@ path = /var/lib/samba/printers
 
 read only = yes
 
-write list = root
+guest ok = yes
+
+write list = dtic
 
 inherit permissions = yes	
 \end{lstlisting}
@@ -679,11 +680,7 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	    \label{impressora_aparelho_fax}
 	\end{figure}
 
-%	\pagebreak
-
 	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor.}
-	
-%	\pagebreak
 	
  	\item \textbf{Aba Driver -$>$ Adicionar} - Figura \ref{adicionar_driver}
 
@@ -713,8 +710,6 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	   	\caption{Selecionar os Sistemas Operacional que o driver será compatível}
 	    \label{selecionar_so}
 	\end{figure}
-	
-%	\pagebreak
 	
 	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - Figura \ref{propriedade_impressora}
 	\begin{figure}[ht]
@@ -752,8 +747,6 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	    \label{login_dominio}
 	\end{figure}
 	
-	% \pagebreak
-	
 	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - Figura \ref{selecionar_impressora_servidor}
 	\begin{figure}[ht]
 	   	\centering
@@ -761,8 +754,6 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	   	\caption{Selecionar a impressora que será mapeado no usuário logado}
 	    \label{selecionar_impressora_servidor}
 	\end{figure}
-	
-%	\pagebreak
 	
 	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - Figura \ref{impressora_compartilhada}
 	\begin{figure}[ht]
@@ -773,8 +764,6 @@ Com as permissões, usuários e impressoras configuradas, os \textit{drivers} te
 	\end{figure}
 	
 \end{enumerate}
-
-%\pagebreak
 
 \section{Ingressando o Windows XP no Domínio}
 
@@ -801,9 +790,7 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	   		 	\includegraphics[width=0.4 \textwidth]{figuras/alterar_nome_micro}
 	   			\caption{Alterando nome do micro}
 	    		\label{alterar_nome_micro}
-		\end{figure}
-		 
-%		\pagebreak 
+		\end{figure}		 
 
 	\item {No menu de ``Alterações de nome do computador", informe o nome do computador que foi cadastrado no servidor Samba 3. No campo ``Membro de", selecione a opção ``Domínio" e digite o nome do definido no \textit{WORKGROUP} no Samba 3 e depois clique em OK. - Figura \ref{incluir_dominio}} 
 			\begin{figure}[ht]
@@ -828,8 +815,6 @@ Para ingressar o Windows XP no domínio deve-se realizar os seguintes passos:
 	\end{figure}
 
 \end{enumerate}
-
-%\pagebreak
 
 \section{Ingressando o Linux no Domínio}
 
