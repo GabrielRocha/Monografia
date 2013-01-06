@@ -27,10 +27,28 @@ O código fonte do Samba 4 esta hospedado no servidor git dos desenvolvedores do
 	\item \textbf{\# git clone git://git.samba.org/samba.git samba-master; cd samba-master}
 \end{itemize}
 
+O Samba 4 trabalha com regras ACL e, para que ele possa ser instalado, deve-se habilitar o modo acl nas unidades de disco.  
+
+\begin{itemize}
+	\item \textbf{\# vim /etc/fstab}
+\end{itemize}
+
+Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl na coluna options da montagem desta unidade, conforme figura \ref{fstab} e após a configuração reinicie o servidor.
+
+\begin{figure}[ht]
+   	\centering
+    \includegraphics[width=0.8 \textwidth]{figuras/fstab}
+   	\caption{Tela do fstab.}
+    \label{fstab}
+\end{figure}
+ 
+Após a configuração reinicie o servidor.
+
 O Samba 4 segue os procedimento padrões de instalação de aplicativos no Linux através do terminal que, segundo \cite{INSTALL}, se segue com o ./configure, make e o make install. Nesse caso ao invés de se utilizar o ./configure como padrão é utilizado o ./configure.developer, pois o mesmo habilita alguns modos de debug.
 
 \begin{itemize}
-		\item \textbf{\# ./configure.developer}
+		\item \textbf{\# cd samba-master}
+		\item \textbf{\# ./configure}
 		\item \textbf{\# make}
 		\item \textbf{\# make install}
 \end{itemize}
@@ -42,23 +60,6 @@ Para verificar a versão instalada é só executar o seguinte comando:
 \end{itemize}
 
 \section{Criação de Domínio com o Samba 4}
-
-O Samba 4 trabalha com regras ACL e, para que ele possa ser instalado, deve-se habilitar o modo acl nas unidades de disco.
-
-\begin{itemize}
-	\item \textbf{\# vim /etc/fstab}
-\end{itemize}
-
-Deve-se localizar a linha da unidade principal (/) e adicionar o parâmetro acl na coluna options da montagem desta unidade, conforme figura \ref{fstab}.
-
-\begin{figure}[ht]
-   	\centering
-    \includegraphics[width=0.8 \textwidth]{figuras/fstab}
-   	\caption{Tela do fstab.}
-    \label{fstab}
-\end{figure}
- 
-\pagebreak
 
 Por padrão o Samba 4 é instalado no /usr/local/samba.
 
@@ -86,13 +87,13 @@ Depois de instalado e configurado o Samba 4 pode ser iniciado.
 	\item \textbf{\# /usr/local/samba/sbin/samba -i -M single}
 \end{itemize}
 
-Para facilitar a forma de ativar o Samba 4 podem ser feito dois procedimentos.
+%Para facilitar a forma de ativar o Samba 4 podem ser feito dois procedimentos.
 
-Criar um link do executável do Samba no /etc/init.d/
+%Criar um link do executável do Samba no /etc/init.d/
 
-\begin{itemize}
-	\item \textbf{\# ln /usr/local/samba/sbin/samba /etc/init.d/samba}
-\end{itemize}
+%\begin{itemize}
+%	\item \textbf{\# ln /usr/local/samba/sbin/samba /etc/init.d/samba}
+%\end{itemize}
 
 Mudar o caminho da variável de ambiente PATH para que os comandos possam ser acessados fora da sua pasta de origem.
 
@@ -157,38 +158,39 @@ Teste para verificar se todos as configurações foram realizadas corretamente.
 	\item \textbf{\# host -t A IFF.BOMJESUS} - O resultado deve ser parecido : \textbf{IFF.BOMJESUS has address 192.168.0.1.} 
 \end{itemize}
 
-\section{Gerenciando o Samba4 através do Windows e do Linux}
+\section{Windows no domínio Samba 4}
 
-É possível gerenciar o servidor Samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack\footnote[4]{O AdminPack está disponível no site da Microsoft:
-
-http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en} presente no Windows Server. Essa ferramenta permite gerenciar todos os usuários, grupos e máquinas presentes no \textit{Active Directory}
-
-Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o programa já executado como pode ser visto na Figura \ref{tela_dsa}.
-
-\begin{figure}[ht]
-   	\centering
-    \scalebox{1}{\includegraphics{figuras/dsamsc}}
-   	\caption{Tela para executar o DSA.}
-    \label{dsa}
-\end{figure}
- 
-\begin{figure}[h!]
-   	\centering
-    \includegraphics[width=0.7 \textwidth]{figuras/addsa}
-   	\caption{Tela do DSA.}
-    \label{tela_dsa}
-\end{figure}
-
-Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do Linux, conforme Figura \ref{samba-tool}.
-
-\pagebreak
-
-\begin{figure}[ht]
-   	\centering
-    \includegraphics[width=0.7 \textwidth]{figuras/samba-tool}
-   	\caption{samba-tool no terminal.}
-    \label{samba-tool}
-\end{figure}
+O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo do Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente do através do Kerberos.
+Em adição aos procedimentos do Samba 3, para ingressar o computador Windows no domínio Samba 4, o DNS do computador deve ser o IP do Samba 4. Para mudar o DNS deve-se:
+\begin{itemize}
+	\item Acessar as conexões de rede através do Painel de Controle. Figura \ref{conexoes_rede}
+	\begin{figure}[h!]
+			\centering
+	 		\includegraphics[width=0.5 \textwidth]{figuras/conexoes_rede}
+			\caption{Acessando as Conexões de Rede}
+			\label{conexoes_rede}
+	\end{figure}	
+	\item Acessar as propriedades da conexão de rede ativa. Figura \ref{propriedades_conexao}
+	\begin{figure}[h!]
+			\centering
+	 		\includegraphics[width=0.4 \textwidth]{figuras/propriedades_conexao}
+			\caption{Acessando as propriedades da conexão ativa}
+			\label{propriedades_conexao}
+	\end{figure}
+	
+	\pagebreak
+	
+	\item Incluir o IP do servidor Samba 4 no campo de DNS. Figura \ref{propriedades_tcpip}
+	\begin{figure}[ht]
+			\centering
+	 		\includegraphics[width=0.5 \textwidth]{figuras/propriedades_tcpip}
+			\caption{Incluindo o IP do servidor Samba 4 no campo de DNS}
+			\label{propriedades_tcpip}
+	\end{figure}
+	
+	\item Após salvo as configurações, execute os mesmos procedimentos do Samba 3 mas o usuário será ``Administrator" e a senha será a que foi definida na criação do Samba 4.
+	
+\end{itemize}
 
 \section{Máquinas Linux interagindo com o \textit{Active Directory} do  Samba4}
 
@@ -475,6 +477,40 @@ Para facilitar a inserção das máquinas Linux no \textit{Active Directory} do 
     \label{smbad}
 \end{figure}
 
+\section{Gerenciando o Samba4 através do Windows e do Linux}
+
+É possível gerenciar o servidor Samba 4 através de um Windows XP mas para a realização do mesmo é necessário a instalação do AdminPack\footnote[4]{O AdminPack está disponível no site da Microsoft:
+
+http://www.microsoft.com/downloads/details.aspx?FamilyID=c16ae515-c8f4-47ef-a1e4-a8dcbacff8e3\&displaylang=en} presente no Windows Server. Essa ferramenta permite gerenciar todos os usuários, grupos e máquinas presentes no \textit{Active Directory}
+
+Inicie a ferramenta pelo \textbf{Executar -$>$ dsa.msc} - Figura \ref{dsa} e o programa já executado como pode ser visto na Figura \ref{tela_dsa}.
+
+\begin{figure}[ht]
+   	\centering
+    \scalebox{1}{\includegraphics{figuras/dsamsc}}
+   	\caption{Tela para executar o DSA.}
+    \label{dsa}
+\end{figure}
+ 
+\begin{figure}[h!]
+   	\centering
+    \includegraphics[width=0.7 \textwidth]{figuras/addsa}
+   	\caption{Tela do DSA.}
+    \label{tela_dsa}
+\end{figure}
+
+Outra forma de gerenciar o servidor Samba 4 é utilizando o samba-tools, uma ferramenta que acompanha o Samba 4 e tem a finalidade de gerenciar as ações que podem ser feitas no no \textit{Active Directory}. Com ele se poder criar usuários, grupos, gpo's, entre outras funções, porém através do terminal do Linux, conforme Figura \ref{samba-tool}.
+
+\pagebreak
+
+\begin{figure}[ht]
+   	\centering
+    \includegraphics[width=0.7 \textwidth]{figuras/samba-tool}
+   	\caption{samba-tool no terminal.}
+    \label{samba-tool}
+\end{figure}
+
+
 \section{Compartilhamento de arquivos}
 
 Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Active Directory} com os locais, dificultando a definição das permissões a arquivos e diretórios. Uma solução para tal problema é identificar o código do usuário ou grupo no \textit{Active Directory} e dar as devidas permissões a pasta desejada.
@@ -486,37 +522,3 @@ Samba 4 tem um problema com a integração dos usuários e grupos do \textit{Act
 \noindent \textbf{\# /usr/local/samba/bin/wbinfo "--group-info Dtic} - Mostra o gid do grupo e é a referência do grupo local com o do Samba 4.
 
 \noindent \textbf{\# chown 3000011.3000020 /pasta\_que\_será\_compartilhada} - Mudando o usuário do diretório e as suas permissões, o usuário do AD irá ter o acesso aos arquivos.
-
-\section{Windows no domínio Samba 4}
-
-O procedimento para ingressar um computador Windows no domínio Samba 4 é o mesmo do Samba 3, porém o computador a ser ingressado não necessita ser cadastrado anteriormente, pois o mesmo será cadastrado automaticamente do através do Kerberos.
-Em adição aos procedimentos do Samba 3, para ingressar o computador Windows no domínio Samba 4, o DNS do computador deve ser o IP do Samba 4. Para mudar o DNS deve-se:
-\begin{itemize}
-	\item Acessar as conexões de rede através do Painel de Controle. Figura \ref{conexoes_rede}
-	\begin{figure}[h!]
-			\centering
-	 		\includegraphics[width=0.5 \textwidth]{figuras/conexoes_rede}
-			\caption{Acessando as Conexões de Rede}
-			\label{conexoes_rede}
-	\end{figure}	
-	\item Acessar as propriedades da conexão de rede ativa. Figura \ref{propriedades_conexao}
-	\begin{figure}[h!]
-			\centering
-	 		\includegraphics[width=0.4 \textwidth]{figuras/propriedades_conexao}
-			\caption{Acessando as propriedades da conexão ativa}
-			\label{propriedades_conexao}
-	\end{figure}
-	
-	\pagebreak
-	
-	\item Incluir o IP do servidor Samba 4 no campo de DNS. Figura \ref{propriedades_tcpip}
-	\begin{figure}[ht]
-			\centering
-	 		\includegraphics[width=0.5 \textwidth]{figuras/propriedades_tcpip}
-			\caption{Incluindo o IP do servidor Samba 4 no campo de DNS}
-			\label{propriedades_tcpip}
-	\end{figure}
-	
-	\item Após salvo as configurações, o computador deve ser reiniciado.
-	
-\end{itemize}

@@ -539,232 +539,6 @@ O resultado da execução do \textit{script} após o \textit{login} pode ser vis
     \label{mapeamento}
 \end{figure}
 
-\section{Compartilhamento de Impressoras}
-
-O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem precisar da conexão local na impressora.
-
-Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] as variáveis contidas no Quadro \ref{smb_print}\\
-
-\begin{lstlisting}[caption=Variáveis para permitir impressão em impressoras compartilhadas,label={smb_print}]	
-[global]
-
-printing = cups
-
-load printers = yes	
-\end{lstlisting}
-
-\begin{itemize}
-	\item \textbf{printing} - Define qual o programa será utilizado para gerenciar as impressões 
-	\item \textbf{load printers} - Carrega as impressoras
-\end{itemize}
-
-O Samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o Linux.
-
-\begin{enumerate}
-	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote Samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
-\end{enumerate}
-
-Caso o cups não esteja instalado.
-
-\begin{enumerate}
-	\item \textbf{\#apt-get install cups} - Instala todos os pacotes necessários para o funcionamento do cups.
-	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras. Figura \ref{cups}.
-	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
-\end{enumerate}
-
-\begin{figure}[ht]
-   	\centering
-    \scalebox{1}{\includegraphics{figuras/cups}}
-   	\caption{Tela do CUPS pelo Browser}
-    \label{cups}
-\end{figure}
-
-Para habilitando o compartilhamento de impressora. Tem que adicionar as variáveis contidas no Quadro \ref{smb_printer}\\
-
-\begin{lstlisting}[caption=Variáveis para compartilhar impressoras,label={smb_printer}]	
-[printers]
-
-print ok = yes
-
-guest ok = yes
-
-path = /var/spool/samba
-
-browseable = yes	
-\end{lstlisting}
-
-\begin{itemize}
-	\item \textbf{path} - Esse caminho é onde ficarão os spools de impressão. Esse diretório é criado automaticamente pelo Samba 3 e deve ter a permissão 777.
-	\begin{enumerate}
-		\item \textbf{chmod 777 -R /var/spool/samba}
-	\end{enumerate}
-\end{itemize}
-
-Dessa forma ao acessar o servidor irão aparecer todas as impressoras instaladas.
-
-\section{Instalação automática dos driver da impressora}
-
-Para conectar-se a uma impressora compartilhada é necessário a instalação dos drivers da mesma. 
-
-Um problema é como esses drivers são armazenados e instalados, já que uma das formas de instalar esses drivers é ir até o computador com o instalador em cd ou pen-drive e realizar a instalação manualmente, porém em uma grande rede se perde muito tempo com a locomoção e instalação. A solução desse problema é a instalação automática dos drivers, e com a utilização do Samba 3 os drivers serão instalados assim que o usuário tentar conectar a impressora.
-
-Adiciona no [global]
-
-\begin{itemize}
-	\item \textbf{enable privileges = yes} - Permite privilégios a usuários
-\end{itemize}
-
-Criar um compartilhamento não visível onde ficará os drivers das impressoras. Conforme mostrado no Quadro \ref{smb_print_driver}\\
-
-\begin{lstlisting}[caption=Variáveis para compartilhamento onde deverão ficar os \textit{drivers} das impressoras,label={smb_print_driver}]	
-[print$]
-
-path = /var/lib/samba/printers
-
-read only = yes
-
-guest ok = yes
-
-write list = dtic
-
-inherit permissions = yes	
-\end{lstlisting}
-
-\begin{itemize}
-	\item \textbf{path} - Local onde os drivers serão instalados
-	\item \textbf{write list} - Usuários ou grupos que terão permissão de escrita
-	\item \textbf{inherit permissions} - Se os arquivos irão herdar as permissões da pasta.
-\end{itemize}
-
-Se o caminho apontado pelo path não existir ele terá que ser criado com as permissões necessárias.
-
-\begin{enumerate}
-	\item \textbf{\# mkdir -p /var/lib/samba/printers}
-	
-	\item \textbf{\# cd /var/lib/samba/printers}
-	\item \textbf{\# mkdir WIN40 W32X86} - Essas pastas são os locais onde ficarão os drivers das impressoras, o WIN40 para sistemas Windows 95/98/ME e o W32X86 Windows NT/2000/XP.
-	\item \textbf{\# chown dtic WIN40 W32X86} - Muda o proprietário da pasta para que o usuário dtic tenha permissão para escrever no diretório.
-	\item \textbf{\# smbpasswd -a dtic} - Cadastra o usuário no Samba 3. O usuário dtic já estava devidamente criado localmente no Linux.
-	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
-	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$dtic" SePrintOperatorPrivilege} - Irá definir que o usuário dtic terá todas os privilégios necessários para gerenciar as impressoras.
-\end{enumerate}
-
-Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
-
-\begin{enumerate}
-	\item \textbf{Acesse a maquina com um usuário local} - Figura \ref{login_windows_local}
-		\begin{figure}[ht]
-		   	\centering
-		    \scalebox{1}{\includegraphics{figuras/login_windows_local}}
-		   	\caption{Tela do Login no Windows localmente}
-		    \label{login_windows_local}
-		\end{figure}
-		
-	\item \textbf{Informe o endereço do servidor} - Figura \ref{server_ip}	
-	\begin{figure}[ht]
-	   	\centering
-	    \scalebox{1}{\includegraphics{figuras/server_ip}}
-	   	\caption{IP do servidor de compartilhamento}
-	    \label{server_ip}
-	\end{figure}
-		
-\pagebreak
-	
-	\item \textbf{Informe o usuario root e sua senha.}	
-	
-	\item \textbf{Acesse a pasta ``Impressoras e aparelhos de fax"} - Figura \ref{impressora_aparelho_fax}
-	\begin{figure}[ht]
-	   	\centering
-	    \includegraphics[width=0.7 \textwidth]{figuras/impressora_aparelho_fax}
-	   	\caption{Impressoras e aparelhos de fax compartilhados}
-	    \label{impressora_aparelho_fax}
-	\end{figure}
-
-	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor.}
-	
- 	\item \textbf{Aba Driver -$>$ Adicionar} - Figura \ref{adicionar_driver}
-
-	\pagebreak
-
-	\begin{figure}[ht]
-	   	\centering
-	    \includegraphics[width=0.5 \textwidth]{figuras/adicionar_driver}
-	   	\caption{Adicionar driver ao servidor de impressão}
-	    \label{adicionar_driver}
-	\end{figure}
-	
-	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - Figura \ref{selecionar_driver}
-	\begin{figure}[h!]
-	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_driver}
-	   	\caption{Selecionar o driver que será copiado para o servidor de impressão}
-	    \label{selecionar_driver}
-	\end{figure}
-	
-	\pagebreak
-	
-	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - Figura \ref{selecionar_so}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.6 \textwidth]{figuras/selecionar_so}
-	   	\caption{Selecionar os Sistemas Operacional que o driver será compatível}
-	    \label{selecionar_so}
-	\end{figure}
-	
-	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - Figura \ref{propriedade_impressora}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.5 \textwidth]{figuras/propriedade_impressora}
-	   	\caption{Propriedade da impressora do compartilhamento}
-	    \label{propriedade_impressora}
-	\end{figure}
-
-\pagebreak
-	
-	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - Figura \ref{opcao_nao}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=1 \textwidth]{figuras/opcao_nao}
-	   	\caption{Opção para não instalar o driver naquele momento}
-	    \label{opcao_nao}
-	\end{figure}
-	
-	\item \textbf{Na guia avançado, selecione o \textit{drive} que será vinculado a impressora e clique em OK.} - Figura \ref{aba_avancado}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/aba_avancado}
-	   	\caption{Aba onde será feito o link da impressora com o driver}
-	    \label{aba_avancado}
-	\end{figure}
-	
-		\pagebreak
-		
-	\item \textbf{Após esses passos, o \textit{driver} da impressora já estará instalado no servidor de impressão. A partir desse momento, para instalar essa impressora, basta logar com o usuário do domínio no qual a impressora está compartilhada.} - Figura \ref{login_dominio}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/login_dominio}
-	   	\caption{Logar no domínio}
-	    \label{login_dominio}
-	\end{figure}
-	
-	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - Figura \ref{selecionar_impressora_servidor}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_impressora_servidor}
-	   	\caption{Selecionar a impressora que será mapeado no usuário logado}
-	    \label{selecionar_impressora_servidor}
-	\end{figure}
-	
-	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - Figura \ref{impressora_compartilhada}
-	\begin{figure}[ht]
-	   	\centering
-	     \includegraphics[width=0.7 \textwidth]{figuras/impressora_compartilhada}
-	   	\caption{Impressora instalada no usuário}
-	    \label{impressora_compartilhada}
-	\end{figure}
-	
-\end{enumerate}
-
 \section{Ingressando o Windows XP no Domínio}
 
 Para ingressar um computador Windows no domínio através do Samba 3 é necessário que primeiramente ele esteja devidamente cadastrado no servidor Samba 3. O Windows deve estar com os drivers de rede instalados e respondendo na rede.
@@ -939,3 +713,232 @@ session required /lib/security/pam_mkhomedir.so skel=/etc/skel umask=0022
 \end{lstlisting}
 
 As configurações acima fazem com que a tela de login exiba os usuários disponíveis no servidor para ingresso diretamente no domínio sem que haja autenticação local. Para as configurações acima funcionarem corretamente, a opção de Login Automático não pode estar ativada no computador.
+
+\section{Compartilhamento de Impressoras}
+
+O compartilhamento de impressora é a publicação das impressoras instaladas no servidor para que outras máquinas que estão na rede possam acessar e imprimir sem precisar da conexão local na impressora.
+
+Para compartilhar as impressoras com o Samba 3 deve-se adicionar na seção [global] as variáveis contidas no Quadro \ref{smb_print}\\
+
+\begin{lstlisting}[caption=Variáveis para permitir impressão em impressoras compartilhadas,label={smb_print}]	
+[global]
+
+printing = cups
+
+load printers = yes	
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{printing} - Define qual o programa será utilizado para gerenciar as impressões 
+	\item \textbf{load printers} - Carrega as impressoras
+\end{itemize}
+
+O Samba 3 utiliza o cups que é o gerenciador de impressoras mais comum para o Linux.
+
+\begin{enumerate}
+	\item \textbf{\#smbd -b $|$ grep CUPS} - Para saber se o pacote Samba 3 instalado é compatível com o CUPS. A saída deve ser algo como ``HAVE CUPS"
+\end{enumerate}
+
+Caso o cups não esteja instalado.
+
+\begin{enumerate}
+	\item \textbf{\#apt-get install cups} - Instala todos os pacotes necessários para o funcionamento do cups.
+	\item \textbf{\$ firefox localhost:631} - Interface gráfica para gerenciar as impressoras. Figura \ref{cups}.
+
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/cups}}
+	   	\caption{Tela do CUPS pelo Browser}
+	    \label{cups}
+	\end{figure}
+	
+\pagebreak
+	
+	\item \textbf{\# /etc/init.d/cupsys restart} - Reinicia o serviço do cups
+\end{enumerate}
+
+Para habilitando o compartilhamento de impressora. Tem que adicionar as variáveis contidas no Quadro \ref{smb_printer}\\
+
+\begin{lstlisting}[caption=Variáveis para compartilhar impressoras,label={smb_printer}]	
+[printers]
+
+print ok = yes
+
+guest ok = yes
+
+path = /var/spool/samba
+
+browseable = yes	
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{path} - Esse caminho é onde ficarão os spools de impressão. Esse diretório é criado automaticamente pelo Samba 3 e deve ter a permissão 777.
+	\begin{enumerate}
+		\item \textbf{chmod 777 -R /var/spool/samba}
+	\end{enumerate}
+\end{itemize}
+
+Dessa forma ao acessar o servidor irão aparecer todas as impressoras instaladas.
+
+\section{Instalação automática dos driver da impressora}
+
+Para conectar-se a uma impressora compartilhada é necessário a instalação dos drivers da mesma. 
+
+Um problema é como esses drivers são armazenados e instalados, já que uma das formas de instalar esses drivers é ir até o computador com o instalador em cd ou pen-drive e realizar a instalação manualmente, porém em uma grande rede se perde muito tempo com a locomoção e instalação. A solução desse problema é a instalação automática dos drivers, e com a utilização do Samba 3 os drivers serão instalados assim que o usuário tentar conectar a impressora.
+
+Adiciona no [global]
+
+\begin{itemize}
+	\item \textbf{enable privileges = yes} - Permite privilégios a usuários
+\end{itemize}
+
+Criar um compartilhamento não visível onde ficará os drivers das impressoras. Conforme mostrado no Quadro \ref{smb_print_driver}\\
+
+\begin{lstlisting}[caption=Variáveis para compartilhamento onde deverão ficar os \textit{drivers} das impressoras,label={smb_print_driver}]	
+[print$]
+
+path = /var/lib/samba/printers
+
+read only = yes
+
+guest ok = yes
+
+write list = dtic
+
+inherit permissions = yes	
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{path} - Local onde os drivers serão instalados
+	\item \textbf{write list} - Usuários ou grupos que terão permissão de escrita
+	\item \textbf{inherit permissions} - Se os arquivos irão herdar as permissões da pasta.
+\end{itemize}
+
+Se o caminho apontado pelo path não existir ele terá que ser criado com as permissões necessárias.
+
+\begin{enumerate}
+	\item \textbf{\# mkdir -p /var/lib/samba/printers}
+	
+	\item \textbf{\# cd /var/lib/samba/printers}
+	\item \textbf{\# mkdir x64 W32X86} - Essas pastas são os locais onde ficarão os drivers das impressoras, o x64 para sistemas 64 bits e o W32X86 Windows NT/2000/XP.
+	\item \textbf{\# chown dtic x64 W32X86} - Muda o proprietário da pasta para que o usuário dtic tenha permissão para escrever no diretório.
+	\item \textbf{\# smbpasswd -a dtic} - Cadastra o usuário no Samba 3. O usuário dtic já estava devidamente criado localmente no Linux.
+	\item \textbf{\# chmod 2775 WIN40 W32X86} - Permissões especiais para instalar os drivers nos usuários.
+	\item \textbf{\# net -S localhost -U root -W NOME\_DO\_SERVIDOR  rpc rights grant ``NOME DO SERVIDOR$\backslash$dtic" SePrintOperatorPrivilege} - Irá definir que o usuário dtic terá todas os privilégios necessários para gerenciar as impressoras.
+\end{enumerate}
+
+Com as permissões, usuários e impressoras configuradas, os \textit{drivers} tem que ser passados para o servidor. Para tal, é necessária a utilização de uma máquina cliente com Windows instalado. Ela se conectará ao servidor que está compartilhando as impressoras, e através da senha de root desse servidor, irá passar os \textit{drivers} através da rede. A sequência de figuras a seguir ilustra o passo-a-passo para a adição desses \textit{drivers}.
+
+\begin{enumerate}
+	\item \textbf{Acesse com o usuário com permissão para gerenciar as impressoras} - Figura \ref{login_windows_local}
+		\begin{figure}[ht]
+		   	\centering
+		    \includegraphics[width=0.5 \textwidth]{figuras/login_dominio_dtic}
+		   	\caption{Tela do Login no Windows localmente}
+		    \label{login_windows_local}
+		\end{figure}
+		
+		\pagebreak
+		
+	\item \textbf{Informe o endereço do servidor} - Figura \ref{server_ip}	
+	\begin{figure}[ht]
+	   	\centering
+	    \scalebox{1}{\includegraphics{figuras/server_ip}}
+	   	\caption{IP do servidor de compartilhamento}
+	    \label{server_ip}
+	\end{figure}
+		
+	%\item \textbf{Informe o usuario root e sua senha.}	
+	
+	\item \textbf{Acesse a pasta ``Impressoras e aparelhos de fax"} - Figura \ref{impressora_aparelho_fax}
+	\begin{figure}[ht]
+	   	\centering
+	    \includegraphics[width=0.7 \textwidth]{figuras/impressora_aparelho_fax}
+	   	\caption{Impressoras e aparelhos de fax compartilhados}
+	    \label{impressora_aparelho_fax}
+	\end{figure}
+
+	\item \textbf{Clique na opção Arquivos -$>$ Propriedade do servidor.}
+	
+	\pagebreak
+	
+ 	\item \textbf{Aba Driver -$>$ Adicionar} - Figura \ref{adicionar_driver}
+
+	\begin{figure}[ht]
+	   	\centering
+	    \includegraphics[width=0.5 \textwidth]{figuras/adicionar_driver}
+	   	\caption{Adicionar driver ao servidor de impressão}
+	    \label{adicionar_driver}
+	\end{figure}
+	
+	\item \textbf{Selecione o driver da impressora que deve ser copiado para o servidor} - Figura \ref{selecionar_driver}
+	\begin{figure}[h!]
+	   	\centering
+	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_driver}
+	   	\caption{Selecionar o driver que será copiado para o servidor de impressão}
+	    \label{selecionar_driver}
+	\end{figure}
+	
+	\pagebreak
+	
+	\item \textbf{Selecione os sistemas operacionais dos \textit{drivers} que serão instalados, e avance até concluir o assistente.} - Figura \ref{selecionar_so}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.6 \textwidth]{figuras/selecionar_so}
+	   	\caption{Selecionar os Sistemas Operacional que o driver será compatível}
+	    \label{selecionar_so}
+	\end{figure}
+	
+	\item \textbf{Ao sair do assistente, clique com o botão direito na impressora desejada, e clique em Propriedades.} - Figura \ref{propriedade_impressora}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.5 \textwidth]{figuras/propriedade_impressora}
+	   	\caption{Propriedade da impressora do compartilhamento}
+	    \label{propriedade_impressora}
+	\end{figure}
+
+\pagebreak
+	
+	\item \textbf{Na caixa de mensagem que irá aparecer, selecione a opção ``NÃO", pois caso selecione o sim o \textit{driver} será instalado somente na maquina local.} - Figura \ref{opcao_nao}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=1 \textwidth]{figuras/opcao_nao}
+	   	\caption{Opção para não instalar o driver naquele momento}
+	    \label{opcao_nao}
+	\end{figure}
+	
+	\item \textbf{Na guia avançado, selecione o \textit{drive} que será vinculado a impressora e clique em OK.} - Figura \ref{aba_avancado}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.7 \textwidth]{figuras/aba_avancado}
+	   	\caption{Aba onde será feito o link da impressora com o driver}
+	    \label{aba_avancado}
+	\end{figure}
+	
+		\pagebreak
+		
+	\item \textbf{Após esses passos, o \textit{driver} da impressora já estará instalado no servidor de impressão. A partir desse momento, para instalar essa impressora, basta logar com o usuário do domínio no qual a impressora está compartilhada.} - Figura \ref{login_dominio}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.7 \textwidth]{figuras/login_dominio}
+	   	\caption{Logar no domínio}
+	    \label{login_dominio}
+	\end{figure}
+	
+	\item \textbf{Acesse o servidor, conforme passo 2, e selecione a impressora que deseja mapear.} - Figura \ref{selecionar_impressora_servidor}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.7 \textwidth]{figuras/selecionar_impressora_servidor}
+	   	\caption{Selecionar a impressora que será mapeado no usuário logado}
+	    \label{selecionar_impressora_servidor}
+	\end{figure}
+	
+	\item \textbf{Após esses passos, a impressora será instalada automaticamente no computador cliente sem a necessidade de \textit{drivers} adicionais, pois estes foram disponibilizados automaticamente pelo servidor através da rede.} - Figura \ref{impressora_compartilhada}
+	\begin{figure}[ht]
+	   	\centering
+	     \includegraphics[width=0.7 \textwidth]{figuras/impressora_compartilhada}
+	   	\caption{Impressora instalada no usuário}
+	    \label{impressora_compartilhada}
+	\end{figure}
+	
+\end{enumerate}
